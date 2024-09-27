@@ -22,18 +22,18 @@ export default {
       sans: ['Heebo', 'sans-serif']
     },
     fontSize: {
-      '3xs': '0.624rem',
-      '2xs': '0.702rem',
-      xs: '0.790rem',
-      sm: '0.889rem',
-      reg: '1rem',
-      lg: '1.125rem',
-      xl: '1.266rem',
-      '2xl': '1.424rem',
-      '3xl': '1.602rem',
-      '4xl': '1.802rem',
-      '5xl': '2.027rem',
-      title: '2.561rem'
+      '3xs': '0.624em',
+      '2xs': '0.702em',
+      xs: '0.790em',
+      sm: '0.889em',
+      reg: '1em',
+      lg: '1.125em',
+      xl: '1.266em',
+      '2xl': '1.424em',
+      '3xl': '1.602em',
+      '4xl': '1.802em',
+      '5xl': '2.027em',
+      title: '2.561em'
     },
     extend: {
       backgroundImage: {
@@ -41,6 +41,12 @@ export default {
       },
       backgroundSize: {
         100: '100px'
+      },
+      borderWidth: {
+        1: '1px'
+      },
+      maxWidth: {
+        secondaryHeader: '48.625rem'
       },
       screens: {
         xl: '1440px',

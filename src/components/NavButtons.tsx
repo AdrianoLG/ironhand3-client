@@ -1,35 +1,56 @@
+import { useState } from 'react'
 import Button from './Button'
+import { removeDiacritics } from '../utils/removeDiacritics'
 
-const navButtons = () => (
-  <ul className='grid max-w-3xl grid-cols-3 grid-rows-3'>
-    <li>
-      <Button text='Notas' />
-    </li>
-    <li>
-      <Button text='Proyectos' />
-    </li>
-    <li>
-      <Button text='Nutrición' />
-    </li>
-    <li>
-      <Button text='Ejercicio' />
-    </li>
-    <li>
-      <Button text='Limpieza' />
-    </li>
-    <li>
-      <Button text='Ensayos' />
-    </li>
-    <li>
-      <Button text='Catálogo' />
-    </li>
-    <li>
-      <Button text='Presupuestos' />
-    </li>
-    <li>
-      <Button text='Jardín' />
-    </li>
-  </ul>
-)
+const NavButtons = () => {
+  const [showMobMenu, setShowMobMenu] = useState(false)
+  const buttons = [
+    'Notas',
+    'Proyectos',
+    'Nutrición',
+    'Ejercicio',
+    'Limpieza',
+    'Ensayos',
+    'Catálogo',
+    'Presupuestos',
+    'Jardín'
+  ]
+  const handleMenuItem = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    const buttonClicked = event.currentTarget.textContent
+    window.location.href = removeDiacritics(buttonClicked!.toLowerCase())
+  }
 
-export default navButtons
+  return (
+    <>
+      {!showMobMenu && (
+        <div className='block sm:hidden'>
+          <Button text='Ver menú' onMouseClick={() => setShowMobMenu(true)} />
+        </div>
+      )}
+      {showMobMenu && (
+        <div className='mb-3 block sm:hidden'>
+          <Button
+            text='Cerrar menú'
+            onMouseClick={() => setShowMobMenu(false)}
+          />
+        </div>
+      )}
+      <ul
+        className={
+          (showMobMenu ? 'grid' : 'hidden') +
+          ' absolute z-10 w-full grid-cols-1 gap-x-4 gap-y-3 sm:static sm:z-0 sm:grid sm:grid-cols-2 lg:grid-cols-3'
+        }
+      >
+        {buttons.map(name => (
+          <li key={name}>
+            <Button text={name} onMouseClick={event => handleMenuItem(event)} />
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+export default NavButtons
