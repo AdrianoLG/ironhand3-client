@@ -4,7 +4,7 @@ import Exercise from './pages/Exercise'
 import Cleaning from './pages/Cleaning'
 import Rehearsals from './pages/Rehearsals'
 import Garden from './pages/Garden'
-import Header from './components/header'
+import Header from './components/header/Header'
 
 function App() {
   return (
