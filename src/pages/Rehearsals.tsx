@@ -1,5 +1,3 @@
-function Rehearsals() {
-  return <h1 className='text-text text-3xl'>Ensayos</h1>
-}
+const Rehearsals = () => <h1 className='text-3xl text-text'>Ensayos</h1>
 
 export default Rehearsals

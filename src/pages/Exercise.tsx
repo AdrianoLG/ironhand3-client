@@ -1,5 +1,3 @@
-function Exercise() {
-  return <h1 className='text-text text-3xl'>Ejercicio</h1>
-}
+const Exercise = () => <h1 className='text-3xl text-text'>Ejercicio</h1>
 
 export default Exercise

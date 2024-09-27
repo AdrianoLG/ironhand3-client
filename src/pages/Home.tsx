@@ -1,20 +1,17 @@
-import IconLogo from '../components/icons/logo'
+import BigLogo from '../components/BigLogo'
+import NavButtons from '../components/NavButtons'
 
-function Home() {
-  return (
-    <main>
-      <section className='flex py-8 justify-center bg-bg-pattern bg-repeat bg-100'>
-        <div className='max-w-screen-md'>
-          <div className='flex flex-col gap-0 items-center'>
-            <IconLogo />
-            <h1 className='text-secondary text-title font-semibold'>
-              Iron Hand
-            </h1>
-          </div>
+const Home = () => (
+  <main>
+    <section className='flex justify-center bg-bg-pattern bg-100 bg-repeat py-8'>
+      <div className='max-w-screen-md'>
+        <div className='flex flex-col items-center gap-0'>
+          <BigLogo />
         </div>
-      </section>
-    </main>
-  )
-}
+        <NavButtons />
+      </div>
+    </section>
+  </main>
+)
 
 export default Home

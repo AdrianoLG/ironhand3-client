@@ -1,5 +1,3 @@
-function Garden() {
-  return <h1 className='text-text text-3xl'>Jardín</h1>
-}
+const Garden = () => <h1 className='text-3xl text-text'>Jardín</h1>
 
 export default Garden
