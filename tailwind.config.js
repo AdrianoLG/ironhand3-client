@@ -45,12 +45,22 @@ export default {
       borderWidth: {
         1: '1px'
       },
+      borderRadius: {
+        card: '0.625rem'
+      },
+      minWidth: {
+        'xs-card': 'calc(50% - .55rem)',
+        'sm-card': 'calc(33.33% - .69rem)',
+        'md-card': 'calc(25% - .78rem)',
+        card: 'calc(16.66% - .84rem)'
+      },
       maxWidth: {
         secondaryHeader: '48.625rem'
       },
       screens: {
         xl: '1440px',
         '2xl': '1920px',
+        'content-pad': '1600px',
         content: '1568px'
       }
     }
