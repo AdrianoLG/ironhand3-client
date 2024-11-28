@@ -1,7 +1,9 @@
 import BigLogo from '../components/BigLogo'
-import CleaningShortcuts from '../components/CleaningShortcuts'
 import NavButtons from '../components/NavButtons'
 import Shortcuts from '../components/Shortcuts'
+import CleaningShortcuts from '../components/ShortcutsCleaning'
+import ShortcutsExercise from '../components/ShortcutsExercise'
+import ShortcutsMusic from '../components/ShortcutsMusic'
 
 const Home = () => (
   <main>
@@ -18,6 +20,12 @@ const Home = () => (
     </section>
     <section className='mx-auto mb-16 mt-8 max-w-screen-content px-8'>
       <CleaningShortcuts />
+    </section>
+    <section className='mx-auto mb-16 mt-8 max-w-screen-content px-8'>
+      <ShortcutsExercise />
+    </section>
+    <section className='mx-auto mb-16 mt-8 max-w-screen-content px-8'>
+      <ShortcutsMusic />
     </section>
   </main>
 )

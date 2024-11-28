@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import Button from './Button'
+
 import { removeDiacritics } from '../utils/removeDiacritics'
+import Button from './Button'
 
 const NavButtons = () => {
   const [showMobMenu, setShowMobMenu] = useState(false)
