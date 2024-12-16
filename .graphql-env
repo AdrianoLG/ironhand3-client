@@ -1,0 +1,2 @@
+# Rename file to .env #
+VITE_GRAPHQL_URI=#GraphQLURI#

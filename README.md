@@ -22,6 +22,12 @@
 $ npm install
 ```
 
+2. Rename the `graphql-env` file to ".env" and change the variables to your GraphQL values
+
+```bash
+VITE_GRAPHQL_URI=#GraphQLURI#
+```
+
 ## Compile and run the project
 
 ```bash
