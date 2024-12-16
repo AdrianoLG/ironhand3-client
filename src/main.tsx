@@ -17,7 +17,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ApolloProvider client={client}>
       <App />
-      {uri}
     </ApolloProvider>
   </StrictMode>
 )
