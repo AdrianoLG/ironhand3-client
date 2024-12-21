@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Exercise from './pages/Exercise'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import Cleaning from './pages/Cleaning'
-import Rehearsals from './pages/Rehearsals'
+import Exercise from './pages/Exercise'
 import Garden from './pages/Garden'
-import Header from './components/header/MainHeader'
+import Home from './pages/Home'
+import Rehearsals from './pages/Rehearsals'
 
 const App = () => (
   <BrowserRouter>
-    <Header />
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/ejercicio' element={<Exercise />} />
