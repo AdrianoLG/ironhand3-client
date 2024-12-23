@@ -1,21 +1,7 @@
+import switchColor from '../../utils/switchColor'
+
 const IconLogo = ({ color }: { color: string }) => {
-  switch (color) {
-    case 'primary':
-      color = 'var(--primary)'
-      break
-    case 'secondary':
-      color = 'var(--secondary)'
-      break
-    case 'accent':
-      color = 'var(--accent)'
-      break
-    case 'secondaryLight':
-      color = 'var(--secondaryLight)'
-      break
-    default:
-      color = 'var(--primary)'
-      break
-  }
+  color = switchColor(color)
 
   return (
     <svg

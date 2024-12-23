@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
 
+import { removeDiacritics } from '../utils/removeDiacritics'
 import { iHeaders } from '../utils/types'
 import Button from './Button'
 
 const NavButtons = ({ headers }: { headers: iHeaders[] }) => {
   const [showMobMenu, setShowMobMenu] = useState(false)
+
+  const handleMenuItem = (url: string) => () => {
+    window.location.href = removeDiacritics(url.toLocaleLowerCase())
+  }
 
   return (
     <>
@@ -25,17 +29,15 @@ const NavButtons = ({ headers }: { headers: iHeaders[] }) => {
       <ul
         className={
           (showMobMenu ? 'grid' : 'hidden') +
-          ' absolute z-10 w-full grid-cols-1 gap-x-4 gap-y-3 rounded-b-md bg-accent p-4 sm:static sm:z-0 sm:grid sm:grid-cols-2 lg:grid-cols-3'
+          ' absolute z-10 w-full grid-cols-1 gap-x-4 gap-y-3 bg-secondaryLight p-4 sm:static sm:z-0 sm:grid sm:grid-cols-2 md:bg-transparent lg:grid-cols-3'
         }
       >
         {headers?.map(header => (
           <li key={header.title}>
-            <NavLink
-              to={header.url}
-              className='block rounded-md p-2 hover:bg-accentLight'
-            >
-              {header.title}
-            </NavLink>
+            <Button
+              text={header.title}
+              onMouseClick={handleMenuItem(header.url)}
+            />
           </li>
         ))}
       </ul>

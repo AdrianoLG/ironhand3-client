@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 
 import Header from '../components/header/Header'
+import Heading from '../components/header/Heading'
 
 const Exercise = () => {
   const QUERY = gql`
@@ -38,11 +39,7 @@ const Exercise = () => {
   return (
     <>
       <Header isMain={false} headers={headers} />
-      <section className='my-16 bg-bg-pattern bg-100 bg-repeat py-4'>
-        <h1 className='mx-auto max-w-screen-content text-3xl text-text'>
-          Ejercicio
-        </h1>
-      </section>
+      <Heading title='Ejercicio' />
     </>
   )
 }
