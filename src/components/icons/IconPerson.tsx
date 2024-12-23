@@ -1,8 +1,8 @@
-import switchColor from '../../utils/switchColor';
+import switchColor from '../../utils/switchColor'
 
 const IconPerson = ({ color }: { color: string }) => {
   color = switchColor(color)
-  }
+
   return (
     <svg
       id='icPerson'
