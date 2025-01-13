@@ -20,6 +20,7 @@
   --transparent: rgba(255, 255, 255, 0);
   --transparentWhite70: rgba(255, 255, 255, 0.7);
   --transparentBlack70: rgba(2, 2, 2, 0.7);
+  --darkBlueLightBlue0: #bfc6cf;
   --darkBlueLightBlue1: #7f8d9f;
   --darkBlueLightBlue2: #718094;
   --darkBlueLightBlue3: #63748a;
@@ -30,6 +31,7 @@
   --darkBlueLightBlue8: #1d3555;
   --darkBlueLightBlue9: #0f294b;
   --darkBlueLightBlue10: #011c40;
+  --value0: var(--darkBlueLightBlue0);
   --value1: var(--darkBlueLightBlue1);
   --value2: var(--darkBlueLightBlue2);
   --value3: var(--darkBlueLightBlue3);
