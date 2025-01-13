@@ -16,3 +16,19 @@ export interface iShortcuts {
   shortcuts: iShortcut[]
   action: string
 }
+
+export interface iCompletedExercise {
+  _id: string
+  name: string
+  parts: string[]
+  repetitions?: number
+  cardio?: number
+  time?: number
+}
+
+export interface iCompletedExercises {
+  _id: string
+  date: string
+  exercises: iCompletedExercise[]
+  totalTime: number
+}

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 import { iHeaders } from '../../utils/types'
-import Hamburguer from '../icons/Hamburguer'
+import Hamburguer from '../svgs/Hamburguer'
 
 const HeaderSecondaryMobile = ({
   isOpen,

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import IconLogo from '../icons/IconLogo'
+import IconLogo from '../svgs/IconLogo'
 import HeaderSecondaryDesktop from './HeaderSecondaryDesktop'
 import HeaderSecondaryMobile from './HeaderSecondaryMobile'
 import UserNav from './UserNav'
@@ -26,7 +26,7 @@ const SecondaryHeader = ({ headers }: { headers: iHeaders[] }) => {
   return (
     <>
       <div
-        className={`absolute z-10 block h-screen w-full bg-transparent70 ${isOpen ? 'block' : 'hidden'}`}
+        className={`absolute z-10 block h-screen w-full bg-transparent70 lg:hidden ${isOpen ? 'block' : 'hidden'}`}
         onClick={() => setIsOpen(false)}
       ></div>
       <div className='relative z-30 bg-secondary shadow-md'>

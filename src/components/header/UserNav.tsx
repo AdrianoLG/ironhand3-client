@@ -1,4 +1,4 @@
-import IconPerson from '../icons/IconPerson'
+import IconPerson from '../svgs/IconPerson'
 
 const UserNav = ({ color }: { color: string }) => (
   <p className={`flex gap-2 text-${color}`}>

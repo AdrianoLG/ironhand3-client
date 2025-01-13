@@ -1,4 +1,4 @@
-import IconLogo from './icons/IconLogo'
+import IconLogo from './svgs/IconLogo'
 
 const BigLogo = () => (
   <>
