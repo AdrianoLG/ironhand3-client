@@ -1,7 +1,7 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react'
 
-import { iCompletedExercises } from '../../utils/types';
-import BodyFigure from './BodyFigure';
+import { iCompletedExercises } from '../../utils/types'
+import BodyFigure from './BodyFigure'
 
 const Body = ({
   color,
