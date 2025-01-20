@@ -16,7 +16,8 @@ export default {
       category1: 'var(--category1)',
       category2: 'var(--category2)',
       transparent: 'var(--transparent)',
-      transparent70: 'var(--transparent70)'
+      transparent70: 'var(--transparent70)',
+      transparent70B: 'var(--transparent70B)'
     },
     fontFamily: {
       sans: ['Heebo', 'sans-serif']
