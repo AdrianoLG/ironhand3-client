@@ -4,8 +4,8 @@ import { gql, useQuery } from '@apollo/client'
 
 import BigLogo from '../components/BigLogo'
 import Header from '../components/header/Header'
+import Shortcuts from '../components/home/Shortcuts'
 import NavButtons from '../components/NavButtons'
-import Shortcuts from '../components/Shortcuts'
 import { iShortcuts } from '../utils/types'
 
 const Home = () => {
@@ -17,6 +17,7 @@ const Home = () => {
         shortcuts {
           _id
           title
+          subtitle
           image
           action
         }

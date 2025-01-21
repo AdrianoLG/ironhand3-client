@@ -1,4 +1,4 @@
-import switchColor from '../../utils/switchColor'
+import switchColor from '../../../utils/switchColor'
 
 const IconLogo = ({ color }: { color: string }) => {
   color = switchColor(color)

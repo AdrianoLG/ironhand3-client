@@ -6,7 +6,9 @@ export interface iHeaders {
 export interface iShortcut {
   _id: string
   title: string
+  subtitle?: string
   image: string
+  category: string
   action: string
 }
 

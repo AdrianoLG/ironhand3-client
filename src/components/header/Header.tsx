@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import IconLogo from '../svgs/IconLogo'
+import IconLogo from '../_assets/svgs/IconLogo'
 import HeaderSecondaryDesktop from './HeaderSecondaryDesktop'
 import HeaderSecondaryMobile from './HeaderSecondaryMobile'
 import UserNav from './UserNav'

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { gql, useQuery } from '@apollo/client'
 
+import Cardio from '../components/_assets/svgs/Cardio'
+import Stretch from '../components/_assets/svgs/Stretch'
 import Button from '../components/Button'
 import Body from '../components/exercise/Body'
 import { CompletedExercisesMock } from '../components/exercise/CompletedExercisesMock'
@@ -9,8 +11,6 @@ import ExerciseList from '../components/exercise/ExerciseList'
 import Header from '../components/header/Header'
 import HeaderButtons from '../components/header/HeaderButtons'
 import Heading from '../components/header/Heading'
-import Cardio from '../components/svgs/Cardio'
-import Stretch from '../components/svgs/Stretch'
 
 const Exercise = () => {
   const QUERY = gql`
@@ -76,12 +76,14 @@ const Exercise = () => {
               outline
               classes='justify-self-end'
               disabled
+              isFit
             />
             <Button
               text='Semana pasada'
               onMouseClick={() => changeWeek('last')}
               small
               outline
+              isFit
             />
             <Button
               text='Este mes'
@@ -89,12 +91,14 @@ const Exercise = () => {
               small
               outline
               classes='justify-self-end'
+              isFit
             />
             <Button
               text='Mes pasado'
               onMouseClick={() => changeMonth('last')}
               small
               outline
+              isFit
             />
           </div>
         </aside>

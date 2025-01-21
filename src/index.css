@@ -1,3 +1,4 @@
+@import url('reset.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,6 +59,7 @@
   --category2: var(--lightBlue);
   --transparent: var(--transparent);
   --transparent70: var(--transparentWhite70);
+  --transparent70B: var(--transparentBlack70);
 }
 .dark {
   --primary: var(--black);
@@ -74,4 +76,5 @@
   --category2: var(--lightBlue);
   --transparent: var(--transparent);
   --transparent70: var(--transparentBlack70);
+  --transparent70B: var(--transparentWhite70);
 }
