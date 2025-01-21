@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { iShortcut } from '../utils/types'
-import Button from './Button'
-import Card from './Card'
-import ShortcutsLayout from './ShortcutsLayout'
-import CloseButton from './svgs/CloseButton'
+import { iShortcut } from '../../utils/types'
+import Card from '../Card'
+import PopupLayout from '../layouts/PopupLayout'
+import ShortcutsLayout from '../layouts/ShortcutsLayout'
+import HomePopupForms from './HomePopupForms'
 
 const Shortcuts = ({
   title,
@@ -20,7 +20,6 @@ const Shortcuts = ({
 
   useEffect(() => {
     if (!activeCard) return
-
     dialogRef.current?.showModal()
     document.body.style.overflow = 'hidden'
     const dialog = dialogRef.current
@@ -51,48 +50,15 @@ const Shortcuts = ({
 
   return (
     <>
-      <dialog
-        ref={dialogRef}
-        className='backdrop:bg-transparent70B rounded-lg bg-secondaryLighter'
-      >
-        {activeCard && (
-          <div className='max-h-[90vh] max-w-[90vw]'>
-            <p className='px-4'>{activeCard.title}</p>
-            {activeCard.subtitle && (
-              <p className='px-4'>{activeCard.subtitle}</p>
-            )}
-            <img
-              src={`./src/assets/img/${activeCard.image}.jpg`}
-              className='w-full'
-              alt=''
-            />
-            <form action=''>
-              <label htmlFor='distance'>Distancia</label>
-              <input type='number' name='distance' id='distance' />
-              <label htmlFor='time'>Tiempo</label>
-              <input type='number' name='time' id='time' />
-              <div className='flex'>
-                <Button
-                  text='Cancelar'
-                  onMouseClick={() => closeModal()}
-                  small={true}
-                  secondary={true}
-                />
-                <Button
-                  text='Guardar'
-                  onMouseClick={() => console.log('submit')}
-                  small={true}
-                  type='submit'
-                />
-              </div>
-            </form>
-            <p className='px-4'>{activeCard.action}</p>
-            <button className='absolute right-4 top-4' onClick={closeModal}>
-              <CloseButton />
-            </button>
-          </div>
-        )}
-      </dialog>
+      <PopupLayout activeCard={activeCard} dialogRef={dialogRef}>
+        {activeCard !== null ? (
+          <HomePopupForms
+            cardAction={activeCard.action}
+            closeModal={closeModal}
+            setActiveCard={setActiveCard}
+          />
+        ) : null}
+      </PopupLayout>
       <ShortcutsLayout title={title}>
         {shortcuts.map((shortcut: iShortcut) => (
           <Card
