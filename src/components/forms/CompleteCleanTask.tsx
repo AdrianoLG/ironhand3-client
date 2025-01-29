@@ -1,5 +1,5 @@
+import FormField from '../../utils/FormField'
 import Button from '../Button'
-import FormField from './FormField'
 
 const CompleteCleanTask = ({
   closeModal,

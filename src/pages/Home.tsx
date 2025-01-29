@@ -1,42 +1,16 @@
-import { useEffect, useState } from 'react'
-
-import { gql, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 import BigLogo from '../components/BigLogo'
 import Header from '../components/header/Header'
 import Shortcuts from '../components/home/Shortcuts'
 import NavButtons from '../components/NavButtons'
-import { iShortcuts } from '../utils/types'
+import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../gql/Queries'
+import { iShortcutCategoriesAndHeaders, iShortcuts } from '../utils/types'
 
 const Home = () => {
-  const QUERY = gql`
-    query ShortcutCategories {
-      shortcutCategories {
-        _id
-        title
-        shortcuts {
-          _id
-          title
-          subtitle
-          image
-          action
-        }
-      }
-      headers {
-        title
-        url
-      }
-    }
-  `
-
-  const { data, loading, error } = useQuery(QUERY)
-  const [headers, setHeaders] = useState([])
-
-  useEffect(() => {
-    if (data) {
-      setHeaders(data?.headers)
-    }
-  }, [data])
+  const { data, loading, error } = useQuery<iShortcutCategoriesAndHeaders>(
+    SHORTCUT_CATEGORIES_AND_HEADERS
+  )
 
   if (loading) return 'Loading...'
   if (error) return <pre>{error.message}</pre>
@@ -50,20 +24,21 @@ const Home = () => {
             <div className='mb-8 flex flex-col items-center gap-2'>
               <BigLogo />
             </div>
-            <NavButtons headers={headers} />
+            <NavButtons headers={data?.headers ?? []} />
           </div>
         </section>
-        {data.shortcutCategories.map((shortcutCategory: iShortcuts) => (
-          <section
-            key={shortcutCategory._id}
-            className='mx-auto mb-16 mt-8 max-w-screen-content px-8'
-          >
-            <Shortcuts
-              title={shortcutCategory.title}
-              shortcuts={[...shortcutCategory.shortcuts]}
-            />
-          </section>
-        ))}
+        {data &&
+          data.shortcutCategories.map((shortcutCategory: iShortcuts) => (
+            <section
+              key={shortcutCategory._id}
+              className='mx-auto mb-16 mt-8 max-w-screen-content px-8'
+            >
+              <Shortcuts
+                title={shortcutCategory.title}
+                shortcuts={[...shortcutCategory.shortcuts]}
+              />
+            </section>
+          ))}
       </main>
     </>
   )

@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from 'react'
 
 import { iCompletedExercises } from '../../utils/types'
 import BodyFigure from './BodyFigure'
+import chosenColor from './ChosenColor'
 
 const Body = ({
   color,
@@ -29,25 +30,16 @@ const Body = ({
 
   useLayoutEffect(() => {
     const completedExercisesCount = completedExercises.reduce(
-      (acc: { [key: string]: number }, exercise) => {
-        for (const ex of exercise.exercises) {
-          if (ex.parts.length) {
-            for (const part of ex.parts) {
-              if (!acc[part]) {
-                acc[part] = 0
-              }
-              if (ex.repetitions != undefined) {
-                acc[part] += ex.repetitions
-              }
-            }
-            if (!acc[ex.name]) {
-              acc[ex.name] = 0
-            }
-            if (ex.repetitions != undefined) {
-              acc[ex.name] += ex.repetitions
-            }
+      (acc: { [key: string]: number }, completedExercise) => {
+        completedExercise.exercise.bodyParts.forEach(part => {
+          if (!acc[part]) {
+            acc[part] = 0
           }
-        }
+          if (!acc[completedExercise.exercise.name]) {
+            acc[completedExercise.exercise.name] = 0
+          }
+          acc[part]++
+        })
         return acc
       },
       {}
@@ -74,43 +66,11 @@ const Body = ({
       Pies: setCurrentFillFeet
     }
     for (const bodyPart in fills) {
-      fills[bodyPart](chosenColor(completedExercisesCount[bodyPart]))
+      fills[bodyPart](
+        chosenColor(completedExercisesCount[bodyPart], 'strength')
+      )
     }
   }, [completedExercises])
-
-  const chosenColor = (value: number): string => {
-    if (value >= 0 && value < 10) {
-      return 'var(--value0)'
-    }
-    if (value >= 10 && value < 20) {
-      return 'var(--value2)'
-    }
-    if (value >= 20 && value < 30) {
-      return 'var(--value3)'
-    }
-    if (value >= 30 && value < 40) {
-      return 'var(--value4)'
-    }
-    if (value >= 40 && value < 50) {
-      return 'var(--value5)'
-    }
-    if (value >= 50 && value < 60) {
-      return 'var(--value6)'
-    }
-    if (value >= 60 && value < 70) {
-      return 'var(--value7)'
-    }
-    if (value >= 70 && value < 80) {
-      return 'var(--value8)'
-    }
-    if (value >= 80 && value < 90) {
-      return 'var(--value9)'
-    }
-    if (value >= 90) {
-      return 'var(--value10)'
-    }
-    return 'var(--value0)'
-  }
 
   return (
     <BodyFigure

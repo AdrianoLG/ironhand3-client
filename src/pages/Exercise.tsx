@@ -1,45 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@apollo/client';
 
-import { gql, useQuery } from '@apollo/client'
-
-import Cardio from '../components/_assets/svgs/Cardio'
-import Stretch from '../components/_assets/svgs/Stretch'
-import Button from '../components/Button'
-import Body from '../components/exercise/Body'
-import { CompletedExercisesMock } from '../components/exercise/CompletedExercisesMock'
-import ExerciseList from '../components/exercise/ExerciseList'
-import Header from '../components/header/Header'
-import HeaderButtons from '../components/header/HeaderButtons'
-import Heading from '../components/header/Heading'
+import Cardio from '../components/_assets/svgs/Cardio';
+import Stretch from '../components/_assets/svgs/Stretch';
+import Button from '../components/Button';
+import Body from '../components/exercise/Body';
+import ExerciseList from '../components/exercise/ExerciseList';
+import Header from '../components/header/Header';
+import HeaderButtons from '../components/header/HeaderButtons';
+import Heading from '../components/header/Heading';
+import { SHORTCUT_CATEGORIES_HEADERS_AND_COMPLETED_EXERCISES } from '../gql/Queries';
 
 const Exercise = () => {
-  const QUERY = gql`
-    query ShortcutCategories {
-      shortcutCategories {
-        _id
-        title
-        shortcuts {
-          _id
-          title
-          image
-          action
-        }
-      }
-      headers {
-        title
-        url
-      }
-    }
-  `
-
-  const { data, loading, error } = useQuery(QUERY)
-  const [headers, setHeaders] = useState([])
-
-  useEffect(() => {
-    if (data) {
-      setHeaders(data?.headers)
-    }
-  }, [data])
+  const { data, loading, error } = useQuery(
+    SHORTCUT_CATEGORIES_HEADERS_AND_COMPLETED_EXERCISES
+  )
 
   if (loading) return 'Loading...'
   if (error) return <pre>{error.message}</pre>
@@ -53,7 +27,7 @@ const Exercise = () => {
 
   return (
     <>
-      <Header isMain={false} headers={headers} />
+      <Header isMain={false} headers={data.headers} />
       <Heading title='Ejercicio' />
       <HeaderButtons />
       <div className='mx-auto flex flex-wrap justify-start px-8 pb-16 xl:max-w-screen-content'>
@@ -61,10 +35,13 @@ const Exercise = () => {
           <div className='relative rounded-md border-1 border-secondaryLighter px-12 py-4 shadow-md xl:px-24 xl:py-9'>
             <Body
               color='var(--value1)'
-              completedExercises={CompletedExercisesMock}
+              completedExercises={data.completedExercises}
             />
             <div className='absolute bottom-0 right-0 flex gap-3 p-4'>
-              <Stretch width='.7rem' color='var(--value1)' />
+              <Stretch
+                width='.7rem'
+                completedExercises={data.completedExercises}
+              />
               <Cardio width='1rem' color='var(--value1)' />
             </div>
           </div>
@@ -103,7 +80,7 @@ const Exercise = () => {
           </div>
         </aside>
         <main className='w-full pb-8 md:w-2/3 md:pl-10 xl:pl-36'>
-          <ExerciseList completedExercises={CompletedExercisesMock} />
+          <ExerciseList completedExercises={data.completedExercises} />
         </main>
       </div>
     </>

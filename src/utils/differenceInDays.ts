@@ -1,4 +1,4 @@
-export const difInDays = (date: string) => {
+export const difInDays = (date: Date) => {
   const today = new Date()
   const pastDate = new Date(date)
   const dif = today.getTime() - pastDate.getTime()

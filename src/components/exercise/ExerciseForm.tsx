@@ -1,18 +1,13 @@
-import FormField from '../../utils/FormField'
-import Button from '../Button'
+import FormField from '../../utils/FormField';
+import Button from '../Button';
 
-const AddCleanTask = ({
-  closeModal,
-  type
-}: {
-  closeModal: () => void
-  type: string
-}) => (
+const ExerciseForm = ({ closeModal }: { closeModal: () => void }) => (
   <form action=''>
-    <p>{type}</p>
     <div className='my-7 flex w-full gap-9 px-9'>
-      <FormField tag='date' type='date' title='Fecha' isRequired />
-      <FormField tag='area' type='text' title='Zona' />
+      <FormField tag='name' type='text' title='Nombre' isRequired />
+      <FormField tag='bodyParts' type='text' title='Partes del cuerpo' />
+      <FormField tag='type' type='text' title='Tipo' />
+      <FormField tag='img' type='img' title='Imagen' />
     </div>
     <div className='flex w-full justify-end gap-4 px-9'>
       <Button
@@ -33,4 +28,4 @@ const AddCleanTask = ({
   </form>
 )
 
-export default AddCleanTask
+export default ExerciseForm
