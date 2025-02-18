@@ -1,6 +1,6 @@
 import { forwardRef, HTMLProps, Ref } from 'react'
 
-import Button from '../components/Button'
+import Button from '../components/atoms/Button'
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   label: string

@@ -2,8 +2,6 @@ import { Dialog } from 'radix-ui'
 
 import { Cross2Icon } from '@radix-ui/react-icons'
 
-import Button from '../Button'
-
 const DialogLayout = ({
   buttonText,
   title,

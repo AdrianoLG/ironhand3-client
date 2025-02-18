@@ -10,6 +10,7 @@ import {
 interface iSelectOptions {
   value: string
   name: string
+  type?: string
 }
 
 const FormSelect = ({
@@ -28,56 +29,59 @@ const FormSelect = ({
   error?: string
   tag: string
   onChange: (value: string) => void
-}) => (
-  <div className='flex flex-col'>
-    <Label.Root className='mb-1 text-reg' htmlFor={tag}>
-      {selectName} {isRequired && <span className='text-warn'>*</span>}
-    </Label.Root>
+}) => {
+  return (
+    <div className='flex flex-col'>
+      <Label.Root className='mb-1 text-reg' htmlFor={tag}>
+        {selectName} {isRequired && <span className='text-warn'>*</span>}
+      </Label.Root>
 
-    <Select.Root
-      name={tag}
-      required={isRequired}
-      onValueChange={value => onChange(value)}
-    >
-      <Select.Trigger
-        id={selectName}
-        className='inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 border-secondaryLighter bg-secondaryLightest px-2 py-1 text-sm leading-none text-secondary hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter data-[placeholder]:text-secondaryLight'
-        aria-label={selectName}
+      <Select.Root
+        name={tag}
+        onValueChange={value => {
+          onChange(value)
+        }}
       >
-        <Select.Value placeholder={placeholder} className='text-sm' />
-        <Select.Icon className='text-secondary'>
-          <ChevronDownIcon />
-        </Select.Icon>
-      </Select.Trigger>
-      <div className='absolute z-50'>
-        <Select.Portal>
-          <Select.Content className='relative overflow-hidden rounded-md bg-primary shadow-md'>
-            <Select.ScrollUpButton className='flex h-[30px] cursor-default items-center justify-center bg-secondaryLighter text-secondary'>
-              <ChevronUpIcon />
-            </Select.ScrollUpButton>
-            <Select.Viewport className='absolute rounded-md border-1 border-secondaryLighter'>
-              <Select.Group>
-                {options.map(option => (
-                  <SelectItem
-                    key={option.value}
-                    value={option.value}
-                    className='px-4 py-1 text-sm'
-                  >
-                    {option.name}
-                  </SelectItem>
-                ))}
-              </Select.Group>
-            </Select.Viewport>
-            <Select.ScrollDownButton className='bg-white flex h-[25px] cursor-default items-center justify-center text-secondary'>
-              <ChevronDownIcon />
-            </Select.ScrollDownButton>
-          </Select.Content>
-        </Select.Portal>
-      </div>
-    </Select.Root>
-    {error && <p className='text-xs text-warn'>{error}</p>}
-  </div>
-)
+        <Select.Trigger
+          id={selectName}
+          className='inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 border-secondaryLighter bg-secondaryLightest px-2 py-1 text-sm leading-none text-secondary hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter data-[placeholder]:text-secondaryLight'
+          aria-label={selectName}
+        >
+          <Select.Value placeholder={placeholder} className='text-sm' />
+          <Select.Icon className='text-secondary'>
+            <ChevronDownIcon />
+          </Select.Icon>
+        </Select.Trigger>
+        <div className='absolute z-50'>
+          <Select.Portal>
+            <Select.Content className='relative overflow-hidden rounded-md bg-primary shadow-md'>
+              <Select.ScrollUpButton className='flex h-[30px] cursor-default items-center justify-center bg-secondaryLighter text-secondary'>
+                <ChevronUpIcon />
+              </Select.ScrollUpButton>
+              <Select.Viewport className='absolute rounded-md border-1 border-secondaryLighter'>
+                <Select.Group>
+                  {options.map(option => (
+                    <SelectItem
+                      key={option.value}
+                      value={`${option.value}-${option.type}`}
+                      className='px-4 py-1 text-sm'
+                    >
+                      {option.name}
+                    </SelectItem>
+                  ))}
+                </Select.Group>
+              </Select.Viewport>
+              <Select.ScrollDownButton className='bg-white flex h-[25px] cursor-default items-center justify-center text-secondary'>
+                <ChevronDownIcon />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </div>
+      </Select.Root>
+      {error && <p className='text-xs text-warn'>{error}</p>}
+    </div>
+  )
+}
 
 interface SelectItemProps {
   children: React.ReactNode

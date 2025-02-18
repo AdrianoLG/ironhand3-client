@@ -1,0 +1,218 @@
+import { Dialog } from 'radix-ui'
+import { useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { useQuery } from '@apollo/client'
+
+import Button from '../../components/atoms/Button'
+import { SELECT_EXERCISES } from '../../gql/ExerciseQueries'
+import FormInput from '../../utils/FormInput'
+import FormSelect from '../../utils/FormSelect'
+import { iExercises } from '../../utils/types'
+
+interface iFormInput {
+  exercise: string
+  date: string
+  time: number
+  repetitions: number
+  weight: number
+  ppm_max: number
+  ppm_min: number
+}
+
+const CompleteExerciseForm = () => {
+  const { data, loading, error } = useQuery<iExercises>(SELECT_EXERCISES)
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    setError,
+    clearErrors,
+    formState: { errors, isValid },
+    watch
+  } = useForm<iFormInput>()
+
+  const [isRequiredSelected, setIsRequiredSelected] = useState(false)
+
+  const onSubmit: SubmitHandler<iFormInput> = data => {
+    if (getValues('exercise')) {
+      clearErrors('exercise')
+      console.log(data)
+    } else {
+      setError('exercise', {
+        type: 'custom',
+        message: 'Ejercicio requerido'
+      })
+      console.log(errors)
+    }
+  }
+
+  const handleButtons = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    tag: keyof iFormInput
+  ) => {
+    e.preventDefault()
+
+    if (setValue) {
+      setValue(tag, parseInt(e.currentTarget.textContent || '0'))
+    }
+  }
+
+  const [fields, setFields] = useState({
+    time: false,
+    repetitions: false,
+    weight: false,
+    ppm_max: false,
+    ppm_min: false
+  })
+
+  const showFields = (type: string) => {
+    if (type === 'strength') {
+      setFields({
+        time: false,
+        repetitions: true,
+        weight: true,
+        ppm_max: true,
+        ppm_min: true
+      })
+    }
+    if (type === 'cardio') {
+      setFields({
+        time: true,
+        repetitions: false,
+        weight: false,
+        ppm_max: true,
+        ppm_min: true
+      })
+    }
+    if (type === 'stretch') {
+      setFields({
+        time: true,
+        repetitions: false,
+        weight: false,
+        ppm_max: false,
+        ppm_min: false
+      })
+    }
+  }
+
+  if (loading) return 'Loading...'
+  if (error) return <pre>{error.message}</pre>
+
+  const watchForm = watch()
+
+  return (
+    <form
+      className='my-7 grid w-full grid-cols-1 gap-4 px-8 sm:grid-cols-2'
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <FormInput
+        {...register('date', {
+          required: {
+            value: true,
+            message: 'Fecha requerida'
+          },
+          valueAsDate: true
+        })}
+        label='Fecha'
+        type='date'
+        value={new Date().toISOString().slice(0, 10)}
+        error={errors.date?.message}
+        required
+      />
+      <FormSelect
+        tag='exercise'
+        selectName='Ejercicio'
+        placeholder='Selecciona un ejercicio'
+        options={
+          data?.exercises.map(exercise => ({
+            value: exercise._id,
+            name: exercise.name,
+            type: exercise.type
+          })) || []
+        }
+        isRequired
+        error={errors.exercise?.message}
+        onChange={(value: string) => {
+          clearErrors('exercise')
+          setIsRequiredSelected(true)
+          setValue('exercise', value)
+          showFields(value.split('-')[1])
+        }}
+      />
+      {fields.time && (
+        <FormInput
+          {...register('time', {
+            valueAsNumber: true
+          })}
+          label='Tiempo (min)'
+          error={errors.time?.message}
+          type='number'
+          quickButtons={['5', '10', '15']}
+          handleButtons={e => handleButtons(e, 'time')}
+        />
+      )}
+      {fields.repetitions && (
+        <FormInput
+          {...register('repetitions', {
+            valueAsNumber: true
+          })}
+          label='Repeticiones'
+          error={errors.repetitions?.message}
+          type='number'
+          quickButtons={['20', '30', '40']}
+          handleButtons={e => handleButtons(e, 'repetitions')}
+        />
+      )}
+      {fields.weight && (
+        <FormInput
+          {...register('weight', {
+            valueAsNumber: true
+          })}
+          label='Peso (kg)'
+          error={errors.weight?.message}
+          type='number'
+        />
+      )}
+      {fields.ppm_max && (
+        <FormInput
+          {...register('ppm_max', {
+            valueAsNumber: true
+          })}
+          label='Máximo de PPM'
+          error={errors.ppm_max?.message}
+          type='number'
+        />
+      )}
+      {fields.ppm_min && (
+        <FormInput
+          {...register('ppm_min', {
+            valueAsNumber: true
+          })}
+          label='Mínimo de PPM'
+          error={errors.ppm_min?.message}
+          type='number'
+        />
+      )}
+      <div className='col-span-2'>
+        <code>
+          <pre>{JSON.stringify(watchForm, null, 4)}</pre>
+        </code>
+      </div>
+      <p>{isRequiredSelected ? ' Seleccionado' : ' NO seleccionado'}</p>
+      <p>{isValid ? ' Válido' : ' NO válido'}</p>
+      <Dialog.Close asChild>
+        <Button
+          text='Insertar'
+          type='submit'
+          isFit
+          small
+          disabled={!isRequiredSelected || !isValid}
+        />
+      </Dialog.Close>
+    </form>
+  )
+}
+export default CompleteExerciseForm

@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
 
-import BigLogo from '../components/BigLogo'
-import Header from '../components/header/Header'
-import Shortcuts from '../components/home/Shortcuts'
-import NavButtons from '../components/NavButtons'
-import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../gql/Queries'
+import BigLogo from '../components/molecules/BigLogo'
+import NavButtons from '../components/molecules/NavButtons'
+import Header from '../components/organisms/header/Header'
+import Shortcuts from '../feature/home/Shortcuts'
+import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../gql/HomeQueries'
 import { iShortcutCategoriesAndHeaders, iShortcuts } from '../utils/types'
 
 const Home = () => {

@@ -1,14 +1,14 @@
 import { useQuery } from '@apollo/client'
 
-import Cardio from '../components/_assets/svgs/Cardio'
-import Stretch from '../components/_assets/svgs/Stretch'
-import Button from '../components/Button'
-import Body from '../components/exercise/Body'
-import ExerciseHeaderButtons from '../components/exercise/ExerciseHeaderButtons'
-import ExerciseList from '../components/exercise/ExerciseList'
-import Header from '../components/header/Header'
-import Heading from '../components/header/Heading'
-import { EXERCISES_INFO } from '../gql/Queries'
+import Cardio from '../assets/svgs/Cardio'
+import Stretch from '../assets/svgs/Stretch'
+import Button from '../components/atoms/Button'
+import Header from '../components/organisms/header/Header'
+import Heading from '../components/organisms/header/Heading'
+import Body from '../feature/exercise/Body'
+import ExerciseHeaderButtons from '../feature/exercise/ExerciseHeaderButtons'
+import ExerciseList from '../feature/exercise/ExerciseList'
+import { EXERCISES_INFO } from '../gql/ExerciseQueries'
 import { iExercisesInfo } from '../utils/types'
 
 const Exercise = () => {

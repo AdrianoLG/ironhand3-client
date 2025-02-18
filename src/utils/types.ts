@@ -53,7 +53,7 @@ export interface iExercise {
 export interface iCompletedExercise {
   _id: string
   date: Date
-  exercise: string
+  exercise: iExercise
   time?: number
   repetitions?: number
   weight?: number
