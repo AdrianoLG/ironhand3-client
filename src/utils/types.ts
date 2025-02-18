@@ -1,3 +1,19 @@
+export interface iExercisesInfo {
+  shortcutCategories: {
+    _id: string
+    title: string
+    shortcuts: iShortcut[]
+  }[]
+  headers: {
+    title: string
+    url: string
+  }[]
+  completedExercises: iCompletedExercise[]
+  exercises: iExercise[]
+}
+export interface iExercises {
+  exercises: iExercise[]
+}
 export interface iHeaders {
   title: string
   url: string
@@ -26,7 +42,7 @@ export interface iPopupData {
   action: () => void
 }
 
-export interface iCompletedExercise {
+export interface iExercise {
   _id: string
   name: string
   bodyParts: string[]
@@ -34,10 +50,10 @@ export interface iCompletedExercise {
   img?: string
 }
 
-export interface iCompletedExercises {
+export interface iCompletedExercise {
   _id: string
   date: Date
-  exercise: iCompletedExercise
+  exercise: string
   time?: number
   repetitions?: number
   weight?: number
@@ -70,10 +86,7 @@ export interface iShortcutCategoriesHeadersAndCompletedExercises {
   }[]
   completedExercises: {
     date: Date
-    exercise: {
-      name: string
-      bodyParts: string[]
-    }[]
+    exercise: iExercise
     repetitions: number
     time: number
   }[]

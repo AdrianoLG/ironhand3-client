@@ -1,31 +1,96 @@
-import FormField from '../../utils/FormField';
-import Button from '../Button';
+import { Dialog } from 'radix-ui'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
-const ExerciseForm = ({ closeModal }: { closeModal: () => void }) => (
-  <form action=''>
-    <div className='my-7 flex w-full gap-9 px-9'>
-      <FormField tag='name' type='text' title='Nombre' isRequired />
-      <FormField tag='bodyParts' type='text' title='Partes del cuerpo' />
-      <FormField tag='type' type='text' title='Tipo' />
-      <FormField tag='img' type='img' title='Imagen' />
-    </div>
-    <div className='flex w-full justify-end gap-4 px-9'>
-      <Button
-        text='Cancelar'
-        onMouseClick={() => closeModal()}
-        small={true}
-        outline
-        isFit
+import FormInput from '../../utils/FormInput'
+import FormSelect from '../../utils/FormSelect'
+import Button from '../Button'
+
+interface iFormInput {
+  name: string
+  type: string
+  bodyParts: string
+  img: string
+}
+
+const ExerciseForm = () => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch
+  } = useForm<iFormInput>()
+
+  const onSubmit: SubmitHandler<iFormInput> = data => {
+    console.log(data)
+  }
+
+  const watchForm = watch()
+  return (
+    <form
+      className='my-7 grid w-full grid-cols-1 gap-4 px-8 sm:grid-cols-2'
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <FormInput
+        {...register('name', {
+          required: {
+            value: true,
+            message: 'Nombre requerido'
+          }
+        })}
+        label='Nombre'
+        type='text'
+        error={errors.name?.message}
+        required
       />
-      <Button
-        text='Añadir'
-        onMouseClick={() => console.log('submit')}
-        small={true}
-        type='submit'
-        isFit
+      <FormInput
+        {...register('img', {
+          required: {
+            value: true,
+            message: 'Imagen requerida'
+          }
+        })}
+        label='Imagen'
+        type='img'
+        error={errors.type?.message}
+        required
       />
-    </div>
-  </form>
-)
+      <FormSelect
+        tag='type'
+        selectName='Tipo'
+        placeholder='Selecciona el tipo'
+        options={[
+          { value: 'strength', name: 'Fuerza' },
+          { value: 'cardio', name: 'Cardio' },
+          { value: 'stretch', name: 'Estiramiento' }
+        ]}
+        isRequired
+        error={errors.type?.message}
+        onChange={(value: string) => setValue('type', value)}
+      />
+      <FormSelect
+        tag='bodyParts'
+        selectName='Partes del cuerpo'
+        placeholder='Selecciona parte...'
+        options={[
+          { value: 'face', name: 'Cara' },
+          { value: 'neck', name: 'Cuello' }
+        ]}
+        isRequired
+        error={errors.bodyParts?.message}
+        onChange={(value: string) => setValue('bodyParts', value)}
+      />
+
+      <div className='col-span-2'>
+        <code>
+          <pre>{JSON.stringify(watchForm, null, 4)}</pre>
+        </code>
+      </div>
+      <Dialog.Close asChild>
+        <Button text='Insertar' type='submit' isFit small />
+      </Dialog.Close>
+    </form>
+  )
+}
 
 export default ExerciseForm

@@ -1,7 +1,7 @@
 const chosenColor = (value: number, type: string): string => {
   if (type === 'strength') {
     if (value >= 0 && value < 10) {
-      return 'var(--value0)'
+      return 'var(--value1)'
     }
     if (value >= 10 && value < 20) {
       return 'var(--value2)'

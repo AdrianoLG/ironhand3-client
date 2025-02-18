@@ -42,6 +42,7 @@ const BodyFigure = ({
     viewBox='0 0 316 294'
     fill={color}
   >
+    <title>Body figure</title>
     <g id='abs'>
       <path
         fill={currentFillAbs}

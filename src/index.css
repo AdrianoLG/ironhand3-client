@@ -7,6 +7,7 @@
   --darkBlue: #011c40;
   --blue: #415570;
   --lightBlue: #7f8d9f;
+  --lightestBlue: #f1f5fa;
   --yellow: #f2e1ac;
   --mediumYellow: #f9ecc6;
   --lightYellow: #fff6e0;
@@ -49,6 +50,7 @@
   --secondary: var(--darkBlue);
   --secondaryLight: var(--blue);
   --secondaryLighter: var(--lightBlue);
+  --secondaryLightest: var(--lightestBlue);
   --accent: var(--yellow);
   --accentLight: var(--lightYellow);
   --text: var(--gray);
@@ -66,6 +68,7 @@
   --secondary: var(--yellow);
   --secondaryLight: var(--mediumYellow);
   --secondaryLighter: var(--lightYellow);
+  --secondaryLightest: var(--lightYellow);
   --accent: var(--darkBlue);
   --accentLight: var(--blue);
   --text: var(--white);

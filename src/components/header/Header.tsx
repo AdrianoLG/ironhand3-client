@@ -31,7 +31,7 @@ const SecondaryHeader = ({ headers }: { headers: iHeaders[] }) => {
       ></div>
       <div className='relative z-30 bg-secondary shadow-md'>
         <header className='mx-auto flex items-center justify-between px-8 py-1 lg:py-3 xl:max-w-screen-content'>
-          <NavLink to='/' className='flex justify-start gap-1'>
+          <NavLink to='/' className='flex items-center justify-start gap-1'>
             <div className='w-5'>
               <IconLogo color='accent' />
             </div>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 export const SHORTCUT_CATEGORIES_AND_HEADERS = gql`
   query {
@@ -18,8 +18,16 @@ export const SHORTCUT_CATEGORIES_AND_HEADERS = gql`
     }
   }
 `
+export const SELECT_EXERCISES = gql`
+  query {
+    exercises {
+      _id
+      name
+    }
+  }
+`
 
-export const SHORTCUT_CATEGORIES_HEADERS_AND_COMPLETED_EXERCISES = gql`
+export const EXERCISES_INFO = gql`
   query {
     shortcutCategories {
       _id
@@ -36,13 +44,20 @@ export const SHORTCUT_CATEGORIES_HEADERS_AND_COMPLETED_EXERCISES = gql`
       url
     }
     completedExercises {
+      _id
       date
       exercise {
+        _id
         name
         bodyParts
+        type
       }
       repetitions
       time
+    }
+    exercises {
+      _id
+      name
     }
   }
 `

@@ -20,6 +20,7 @@ const Hamburguer = ({
       xmlns='http://www.w3.org/2000/svg'
       className={classes}
     >
+      <title>Hamburguer icon</title>
       <path
         d='M50,12.5H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z'
         className={

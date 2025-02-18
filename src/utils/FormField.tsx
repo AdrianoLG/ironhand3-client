@@ -1,24 +1,33 @@
-import Button from '../components/Button';
+import { useState } from 'react'
+
+import Button from '../components/Button'
 
 const FormField = ({
   tag,
   type,
   title,
   isRequired,
-  quickButtons
+  quickButtons,
+  defaultValue
 }: {
   tag: string
   type: string
   title: string
   isRequired?: boolean
   quickButtons?: string[]
+  defaultValue?: string
 }) => {
-  const handleButton = (button: React.MouseEventHandler<HTMLButtonElement>) => {
-    console.log(button)
+  const [value, setValue] = useState(defaultValue ? defaultValue : '')
+  const handleButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    setValue(e.currentTarget.textContent || '')
+  }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
   }
   return (
     <div className='w-full'>
-      <label className='block w-full' htmlFor={tag}>
+      <label className='mb-1 block w-full' htmlFor={tag}>
         {title} {isRequired && <span className='text-warn'>*</span>}
       </label>
       {quickButtons && (
@@ -27,18 +36,21 @@ const FormField = ({
             <Button
               key={buttonText}
               text={buttonText}
-              onMouseClick={() => handleButton}
+              onMouseClick={e => handleButton(e)}
               outline
-              small
+              xsmall
             ></Button>
           ))}
         </div>
       )}
       <input
-        className='block w-full border-1'
+        className='block w-full rounded-md border-1 border-secondaryLighter bg-secondaryLightest p-1 text-sm leading-none text-secondaryLight hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter'
         type={type}
+        {...(type === 'number' ? { min: '0' } : {})}
         name={tag}
         id={tag}
+        value={value}
+        onChange={onChange}
       />
     </div>
   )

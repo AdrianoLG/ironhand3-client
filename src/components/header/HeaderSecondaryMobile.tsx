@@ -23,7 +23,7 @@ const HeaderSecondaryMobile = ({
         />
       </div>
       <ul
-        className={`absolute right-0 top-12 w-2/3 bg-secondary transition-all duration-500 ease-in lg:hidden ${isOpen ? 'h-screen' : 'h-0 overflow-clip'} z-20`}
+        className={`absolute right-0 top-12 w-2/3 bg-secondary transition-all duration-500 ease-in lg:hidden ${isOpen ? 'h-[calc(100vh-3rem)]' : 'h-0 overflow-clip'} z-20`}
       >
         <div className='flex w-full flex-wrap items-center justify-center py-8'>
           {headers.map(header => (

@@ -7,6 +7,7 @@ export default {
       secondary: 'var(--secondary)',
       secondaryLight: 'var(--secondaryLight)',
       secondaryLighter: 'var(--secondaryLighter)',
+      secondaryLightest: 'var(--secondaryLightest)',
       accent: 'var(--accent)',
       accentLight: 'var(--accentLight)',
       text: 'var(--text)',
