@@ -11,6 +11,7 @@ interface iSelectOptions {
   value: string
   name: string
   type?: string
+  hasType?: boolean
 }
 
 const FormSelect = ({
@@ -20,7 +21,8 @@ const FormSelect = ({
   isRequired,
   error,
   tag,
-  onChange
+  onChange,
+  hasType
 }: {
   selectName: string
   placeholder: string
@@ -29,6 +31,7 @@ const FormSelect = ({
   error?: string
   tag: string
   onChange: (value: string) => void
+  hasType?: boolean
 }) => {
   return (
     <div className='flex flex-col'>
@@ -63,7 +66,11 @@ const FormSelect = ({
                   {options.map(option => (
                     <SelectItem
                       key={option.value}
-                      value={`${option.value}-${option.type}`}
+                      value={
+                        hasType
+                          ? `${option.value}-${option.type}`
+                          : `${option.value}`
+                      }
                       className='px-4 py-1 text-sm'
                     >
                       {option.name}

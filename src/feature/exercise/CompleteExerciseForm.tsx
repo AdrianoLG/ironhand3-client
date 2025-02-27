@@ -5,20 +5,11 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useQuery } from '@apollo/client'
 
 import Button from '../../components/atoms/Button'
-import { SELECT_EXERCISES } from '../../gql/ExerciseQueries'
-import FormInput from '../../utils/FormInput'
-import FormSelect from '../../utils/FormSelect'
-import { iExercises } from '../../utils/types'
-
-interface iFormInput {
-  exercise: string
-  date: string
-  time: number
-  repetitions: number
-  weight: number
-  ppm_max: number
-  ppm_min: number
-}
+import FormInput from '../../components/organisms/forms/FormInput'
+import FormSelect from '../../components/organisms/forms/FormSelect'
+import { SELECT_EXERCISES } from '../../gql/exerciseQueries'
+import { cleanEmpty } from '../../utils/cleanEmpty'
+import { iExerciseFormInput, iExercises } from '../../utils/types'
 
 const CompleteExerciseForm = () => {
   const { data, loading, error } = useQuery<iExercises>(SELECT_EXERCISES)
@@ -30,16 +21,16 @@ const CompleteExerciseForm = () => {
     getValues,
     setError,
     clearErrors,
-    formState: { errors, isValid },
-    watch
-  } = useForm<iFormInput>()
+    formState: { errors, isValid }
+  } = useForm<iExerciseFormInput>()
 
   const [isRequiredSelected, setIsRequiredSelected] = useState(false)
 
-  const onSubmit: SubmitHandler<iFormInput> = data => {
+  const onSubmit: SubmitHandler<iExerciseFormInput> = data => {
     if (getValues('exercise')) {
       clearErrors('exercise')
       console.log(data)
+      console.log(cleanEmpty(data))
     } else {
       setError('exercise', {
         type: 'custom',
@@ -51,7 +42,7 @@ const CompleteExerciseForm = () => {
 
   const handleButtons = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    tag: keyof iFormInput
+    tag: keyof iExerciseFormInput
   ) => {
     e.preventDefault()
 
@@ -69,6 +60,12 @@ const CompleteExerciseForm = () => {
   })
 
   const showFields = (type: string) => {
+    setValue('time', undefined)
+    setValue('repetitions', undefined)
+    setValue('weight', undefined)
+    setValue('ppm_max', undefined)
+    setValue('ppm_min', undefined)
+
     if (type === 'strength') {
       setFields({
         time: false,
@@ -98,10 +95,8 @@ const CompleteExerciseForm = () => {
     }
   }
 
-  if (loading) return 'Loading...'
+  if (loading) return 'Cargando...'
   if (error) return <pre>{error.message}</pre>
-
-  const watchForm = watch()
 
   return (
     <form
@@ -118,7 +113,7 @@ const CompleteExerciseForm = () => {
         })}
         label='Fecha'
         type='date'
-        value={new Date().toISOString().slice(0, 10)}
+        defaultValue={new Date().toISOString().slice(0, 10)}
         error={errors.date?.message}
         required
       />
@@ -141,6 +136,7 @@ const CompleteExerciseForm = () => {
           setValue('exercise', value)
           showFields(value.split('-')[1])
         }}
+        hasType
       />
       {fields.time && (
         <FormInput
@@ -174,6 +170,8 @@ const CompleteExerciseForm = () => {
           label='Peso (kg)'
           error={errors.weight?.message}
           type='number'
+          quickButtons={['10', '15', '20']}
+          handleButtons={e => handleButtons(e, 'weight')}
         />
       )}
       {fields.ppm_max && (
@@ -196,22 +194,17 @@ const CompleteExerciseForm = () => {
           type='number'
         />
       )}
-      <div className='col-span-2'>
-        <code>
-          <pre>{JSON.stringify(watchForm, null, 4)}</pre>
-        </code>
+      <div className='col-span-2 flex justify-end'>
+        <Dialog.Close asChild>
+          <Button
+            text='Insertar'
+            type='submit'
+            isFit
+            small
+            disabled={!isRequiredSelected || !isValid}
+          />
+        </Dialog.Close>
       </div>
-      <p>{isRequiredSelected ? ' Seleccionado' : ' NO seleccionado'}</p>
-      <p>{isValid ? ' Válido' : ' NO válido'}</p>
-      <Dialog.Close asChild>
-        <Button
-          text='Insertar'
-          type='submit'
-          isFit
-          small
-          disabled={!isRequiredSelected || !isValid}
-        />
-      </Dialog.Close>
     </form>
   )
 }

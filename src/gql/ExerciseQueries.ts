@@ -41,6 +41,7 @@ export const EXERCISES_INFO = gql`
     exercises {
       _id
       name
+      img
     }
   }
 `

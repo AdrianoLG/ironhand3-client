@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import Card from '../../components/atoms/Card'
-import PopupLayout from '../../components/layouts/PopupLayout'
-import ShortcutsLayout from '../../components/layouts/ShortcutsLayout'
+import { PopupLayout, ShortcutsLayout } from '../../components/layouts'
 import { iShortcut } from '../../utils/types'
 import HomePopupForms from './HomePopupForms'
 

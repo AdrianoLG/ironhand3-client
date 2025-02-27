@@ -1,14 +1,16 @@
 import { iShortcut } from '../../utils/types'
-import AddCleanTask from './forms/AddCleanTask'
-import AddExercise from './forms/AddExercise'
-import AddExpense from './forms/AddExpense'
-import AddFood from './forms/AddFood'
-import AddRecipee from './forms/AddRecipee'
-import AddToCatalog from './forms/AddToCatalog'
-import AddTodo from './forms/AddTodo'
-import AddWatering from './forms/AddWatering'
-import CompleteCleanTask from './forms/CompleteCleanTask'
-import PlayInstrument from './forms/PlayInstrument'
+import {
+  AddCleanTask,
+  AddExercise,
+  AddExpense,
+  AddFood,
+  AddRecipee,
+  AddToCatalog,
+  AddTodo,
+  AddWatering,
+  CompleteCleanTask,
+  PlayInstrument
+} from './forms'
 
 const HomePopupForms = ({
   cardAction,

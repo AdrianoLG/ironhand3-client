@@ -25,7 +25,7 @@ const DialogLayout = ({
     </Dialog.Trigger>
     <Dialog.Portal>
       <Dialog.Overlay className='data-[state=open]:animate-overlayShow fixed inset-0 bg-transparent70B'>
-        <Dialog.Content className='data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-md bg-primary py-4 shadow-[var(--shadow-6)] focus:outline-none'>
+        <Dialog.Content className='data-[state=open]:animate-contentShow fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overflow-x-hidden rounded-md bg-primary py-4 shadow-[var(--shadow-6)] focus:outline-none'>
           <Dialog.Title className='px-8 text-3xl leading-none'>
             {title}
           </Dialog.Title>

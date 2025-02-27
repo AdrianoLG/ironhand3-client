@@ -1,4 +1,4 @@
-import DialogLayout from '../../components/layouts/DialogLayout'
+import { DialogLayout } from '../../components/layouts'
 import CompleteExerciseForm from './CompleteExerciseForm'
 import ExerciseForm from './ExerciseForm'
 

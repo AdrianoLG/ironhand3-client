@@ -8,13 +8,13 @@ import Heading from '../components/organisms/header/Heading'
 import Body from '../feature/exercise/Body'
 import ExerciseHeaderButtons from '../feature/exercise/ExerciseHeaderButtons'
 import ExerciseList from '../feature/exercise/ExerciseList'
-import { EXERCISES_INFO } from '../gql/ExerciseQueries'
+import { EXERCISES_INFO } from '../gql/exerciseQueries'
 import { iExercisesInfo } from '../utils/types'
 
 const Exercise = () => {
   const { data, loading, error } = useQuery<iExercisesInfo>(EXERCISES_INFO)
 
-  if (loading) return 'Loading...'
+  if (loading) return 'Cargando...'
   if (error) return <pre>{error.message}</pre>
 
   const changeWeek = (weekAt: string) => {
@@ -83,6 +83,9 @@ const Exercise = () => {
         <main className='w-full pb-8 md:w-2/3 md:pl-10 xl:pl-36'>
           {data?.completedExercises && (
             <ExerciseList completedExercises={data?.completedExercises} />
+          )}
+          {data?.exercises && (
+            <pre>{JSON.stringify(data.exercises, null, 2)}</pre>
           )}
         </main>
       </div>

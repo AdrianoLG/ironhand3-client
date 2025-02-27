@@ -1,5 +1,5 @@
 import Button from '../../../components/atoms/Button'
-import FormField from '../../../utils/FormField'
+import FormField from '../../../components/organisms/forms/FormField'
 
 const AddFood = ({ closeModal }: { closeModal: () => void }) => (
   <form action=''>

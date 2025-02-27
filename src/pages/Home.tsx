@@ -4,7 +4,7 @@ import BigLogo from '../components/molecules/BigLogo'
 import NavButtons from '../components/molecules/NavButtons'
 import Header from '../components/organisms/header/Header'
 import Shortcuts from '../feature/home/Shortcuts'
-import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../gql/HomeQueries'
+import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../gql/homeQueries'
 import { iShortcutCategoriesAndHeaders, iShortcuts } from '../utils/types'
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     SHORTCUT_CATEGORIES_AND_HEADERS
   )
 
-  if (loading) return 'Loading...'
+  if (loading) return 'Cargando...'
   if (error) return <pre>{error.message}</pre>
 
   return (
