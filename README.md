@@ -26,6 +26,7 @@ $ npm install
 
 ```bash
 VITE_GRAPHQL_URI=#GraphQLURI#
+VITE_UPLOAD_URI=#UploadsURI#
 ```
 
 ## Compile and run the project
