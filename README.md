@@ -12,7 +12,7 @@
 
 ## Description
 
-[Adri](https://adri.info)'s frontend, with React, Vite and Tailwind to consume Adri's [backend](https://github.com/AdrianoLG/ironhand3-server)
+[Adri](https://adri.info)'s frontend, with React, Vite and Tailwind to consume Adri's [Iron Hand v3 backend](https://github.com/AdrianoLG/ironhand3-server)
 
 ## Project setup
 
