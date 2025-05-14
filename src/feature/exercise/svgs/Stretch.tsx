@@ -1,5 +1,5 @@
-import chosenColor from '../../feature/exercise/chosenColor'
-import { iCompletedExercise } from '../../utils/types'
+import { iCompletedExercise } from '../../../utils/types'
+import chosenColor from '../utils/chosenColor'
 
 const Stretch = ({
   width,

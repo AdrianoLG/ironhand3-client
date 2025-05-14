@@ -11,3 +11,18 @@ export const ADD_EXERCISE = gql`
     }
   }
 `
+
+export const COMPLETE_EXERCISE = gql`
+  mutation CompleteExercise(
+    $createCompletedExerciseInput: CreateCompletedExerciseInput!
+  ) {
+    createCompletedExercise(
+      createCompletedExerciseInput: $createCompletedExerciseInput
+    ) {
+      exercise {
+        _id
+      }
+      date
+    }
+  }
+`

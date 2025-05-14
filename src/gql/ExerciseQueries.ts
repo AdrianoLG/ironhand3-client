@@ -34,9 +34,13 @@ export const EXERCISES_INFO = gql`
         name
         bodyParts
         type
+        img
       }
       repetitions
       time
+      ppm_max
+      ppm_min
+      weight
     }
     exercises {
       _id

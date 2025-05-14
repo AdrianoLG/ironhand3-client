@@ -2,17 +2,25 @@ import { Dialog } from 'radix-ui'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 
-import Button from '../../components/atoms/Button'
-import FormInput from '../../components/organisms/forms/FormInput'
-import FormSelect from '../../components/organisms/forms/FormSelect'
-import { SELECT_EXERCISES } from '../../gql/exerciseQueries'
-import { cleanEmpty } from '../../utils/cleanEmpty'
-import { iExerciseFormInput, iExercises } from '../../utils/types'
+import Button from '../../../components/atoms/Button'
+import FormInput from '../../../components/organisms/forms/FormInput'
+import FormSelect from '../../../components/organisms/forms/FormSelect'
+import { COMPLETE_EXERCISE } from '../../../gql/exerciseMutations'
+import { EXERCISES_INFO, SELECT_EXERCISES } from '../../../gql/exerciseQueries'
+import { cleanEmpty } from '../../../utils/cleanEmpty'
+import { iExerciseFormInput, iExercises } from '../../../utils/types'
 
-const CompleteExerciseForm = () => {
+const CompleteExerciseForm = ({
+  setIsOpen
+}: {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   const { data, loading, error } = useQuery<iExercises>(SELECT_EXERCISES)
+  const [createCompletedExercise] = useMutation(COMPLETE_EXERCISE, {
+    refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
+  })
 
   const {
     register,
@@ -21,23 +29,28 @@ const CompleteExerciseForm = () => {
     getValues,
     setError,
     clearErrors,
-    formState: { errors, isValid }
+    formState: { errors, isValid },
+    reset
   } = useForm<iExerciseFormInput>()
 
   const [isRequiredSelected, setIsRequiredSelected] = useState(false)
 
   const onSubmit: SubmitHandler<iExerciseFormInput> = data => {
-    if (getValues('exercise')) {
-      clearErrors('exercise')
-      console.log(data)
-      console.log(cleanEmpty(data))
-    } else {
+    if (!getValues('exercise')) {
       setError('exercise', {
         type: 'custom',
         message: 'Ejercicio requerido'
       })
-      console.log(errors)
     }
+
+    clearErrors('exercise')
+    const exercise = data.exercise.split('-')[0]
+    data.exercise = exercise
+    createCompletedExercise({
+      variables: { createCompletedExerciseInput: cleanEmpty(data) }
+    })
+    setIsOpen(false)
+    reset()
   }
 
   const handleButtons = (
@@ -100,7 +113,7 @@ const CompleteExerciseForm = () => {
 
   return (
     <form
-      className='my-7 grid w-full grid-cols-1 gap-4 px-8 sm:grid-cols-2'
+      className='my-7 flex w-full flex-col gap-4 px-8 lg:grid lg:grid-cols-2'
       onSubmit={handleSubmit(onSubmit)}
     >
       <FormInput
@@ -174,16 +187,6 @@ const CompleteExerciseForm = () => {
           handleButtons={e => handleButtons(e, 'weight')}
         />
       )}
-      {fields.ppm_max && (
-        <FormInput
-          {...register('ppm_max', {
-            valueAsNumber: true
-          })}
-          label='Máximo de PPM'
-          error={errors.ppm_max?.message}
-          type='number'
-        />
-      )}
       {fields.ppm_min && (
         <FormInput
           {...register('ppm_min', {
@@ -191,6 +194,16 @@ const CompleteExerciseForm = () => {
           })}
           label='Mínimo de PPM'
           error={errors.ppm_min?.message}
+          type='number'
+        />
+      )}
+      {fields.ppm_max && (
+        <FormInput
+          {...register('ppm_max', {
+            valueAsNumber: true
+          })}
+          label='Máximo de PPM'
+          error={errors.ppm_max?.message}
           type='number'
         />
       )}

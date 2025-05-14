@@ -1,8 +1,8 @@
 import { useLayoutEffect, useState } from 'react'
 
 import { iCompletedExercise } from '../../utils/types'
-import BodyFigure from './BodyFigure'
-import chosenColor from './chosenColor'
+import BodyFigure from './svgs/BodyFigure'
+import chosenColor from './utils/chosenColor'
 
 const Body = ({
   color,
@@ -35,9 +35,6 @@ const Body = ({
           if (!acc[part]) {
             acc[part] = 0
           }
-          if (!acc[completedExercise.exercise.name]) {
-            acc[completedExercise.exercise.name] = 0
-          }
           acc[part]++
         })
         return acc
@@ -48,22 +45,22 @@ const Body = ({
     const fills: {
       [key: string]: React.Dispatch<React.SetStateAction<string>>
     } = {
-      Cabeza: setCurrentFillHead,
-      Cuello: setCurrentFillNeck,
-      Hombros: setCurrentFillShoulders,
-      Pecho: setCurrentFillChest,
-      Espalda: setCurrentFillBack,
-      Abdominales: setCurrentFillAbs,
-      Tríceps: setCurrentFillTriceps,
-      Bíceps: setCurrentFillBiceps,
-      Brazos: setCurrentFillArms,
-      Manos: setCurrentFillHands,
-      Glúteos: setCurrentFillGlutes,
-      Muslos: setCurrentFillThighs,
-      Cuádriceps: setCurrentFillQuadriceps,
-      Rodillas: setCurrentFillKnees,
-      Piernas: setCurrentFillLegs,
-      Pies: setCurrentFillFeet
+      head: setCurrentFillHead,
+      neck: setCurrentFillNeck,
+      shoulders: setCurrentFillShoulders,
+      chest: setCurrentFillChest,
+      back: setCurrentFillBack,
+      abs: setCurrentFillAbs,
+      triceps: setCurrentFillTriceps,
+      biceps: setCurrentFillBiceps,
+      arms: setCurrentFillArms,
+      hands: setCurrentFillHands,
+      glutes: setCurrentFillGlutes,
+      thighs: setCurrentFillThighs,
+      quadriceps: setCurrentFillQuadriceps,
+      knees: setCurrentFillKnees,
+      legs: setCurrentFillLegs,
+      feet: setCurrentFillFeet
     }
     for (const bodyPart in fills) {
       fills[bodyPart](
