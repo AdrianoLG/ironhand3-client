@@ -1,4 +1,4 @@
-import { iShortcut } from '../../utils/types'
+import { iShortcut } from '../../types/types'
 import {
   AddCleanTask,
   AddExercise,

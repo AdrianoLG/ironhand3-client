@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Button from '../../atoms/Button'
+import { iFormField } from './types'
 
 const FormField = ({
   tag,
@@ -9,14 +10,7 @@ const FormField = ({
   isRequired,
   quickButtons,
   defaultValue
-}: {
-  tag: string
-  type: string
-  title: string
-  isRequired?: boolean
-  quickButtons?: string[]
-  defaultValue?: string
-}) => {
+}: iFormField) => {
   const [value, setValue] = useState(defaultValue ? defaultValue : '')
   const handleButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()

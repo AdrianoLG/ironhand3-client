@@ -1,24 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { CheckIcon } from '@radix-ui/react-icons'
 
-import { iMultiSelect } from '../../../utils/types'
+import { iFormMultiSelect } from './types'
 
 const FormMultiSelect = ({
   label,
   isRequired,
   options,
   onChange,
-  error
-}: {
-  label: string
-  isRequired?: boolean
-  options: iMultiSelect[]
-  onChange: (value: string[]) => void
-  error?: string
-}) => {
+  error,
+  data
+}: iFormMultiSelect) => {
   const [bodyPartsOptions, setBodyPartsOptions] = useState(options)
-  const [selectedParts, setSelectedParts] = useState<string[]>([])
+  const [selectedParts, setSelectedParts] = useState<string[]>(data || [])
+
+  useEffect(() => {
+    setBodyPartsOptions(
+      bodyPartsOptions.map(option =>
+        selectedParts.includes(option.value)
+          ? { ...option, selected: true }
+          : { ...option, selected: false }
+      )
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className='col-span-2 w-full'>
       <label className='mb-1 block w-full'>
@@ -64,7 +71,7 @@ const FormMultiSelect = ({
       <div className='flex justify-end'>
         <div
           key='reset'
-          className='flex w-fit items-center justify-between gap-2 rounded-md border-1 border-secondaryLighter bg-warn px-3 py-1 text-sm leading-none text-textInv hover:cursor-pointer hover:bg-primary hover:text-warn hover:shadow-sm focus:outline-none focus:ring-1 focus:ring-secondaryLighter'
+          className='flex w-fit items-center justify-between gap-2 rounded-md border-1 border-secondaryLighter bg-warn px-3 py-1 text-sm leading-none text-textInv hover:cursor-pointer hover:bg-primary hover:text-warn hover:shadow-md focus:outline-none focus:ring-1 focus:ring-secondaryLighter'
           onClick={() => {
             setBodyPartsOptions(
               bodyPartsOptions.map(option => ({

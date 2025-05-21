@@ -1,5 +1,0 @@
-export { default as Header } from './Header'
-export { default as HeaderSecondaryDesktop } from './HeaderSecondaryDesktop'
-export { default as HeaderSecondaryMobile } from './HeaderSecondaryMobile'
-export { default as Heading } from './Heading'
-export { default as UserNav } from './UserNav'

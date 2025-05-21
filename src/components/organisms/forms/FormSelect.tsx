@@ -1,5 +1,5 @@
 import { Label, Select } from 'radix-ui'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 
 import {
   CheckIcon,
@@ -7,12 +7,7 @@ import {
   ChevronUpIcon
 } from '@radix-ui/react-icons'
 
-interface iSelectOptions {
-  value: string
-  name: string
-  type?: string
-  hasType?: boolean
-}
+import { iFormSelect } from './types'
 
 const FormSelect = ({
   selectName,
@@ -22,33 +17,40 @@ const FormSelect = ({
   error,
   tag,
   onChange,
-  hasType
-}: {
-  selectName: string
-  placeholder: string
-  options: iSelectOptions[]
-  isRequired?: boolean
-  error?: string
-  tag: string
-  onChange: (value: string) => void
-  hasType?: boolean
-}) => {
+  hasType,
+  defaultValue,
+  showFields,
+  disabled
+}: iFormSelect) => {
+  useEffect(() => {
+    if (showFields && defaultValue) {
+      showFields(defaultValue.split('-')[1])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className='flex flex-col'>
-      <Label.Root className='mb-1 text-reg' htmlFor={tag}>
+      <Label.Root
+        className={`mb-1 text-reg ${disabled ? 'text-secondaryLight' : 'text-text'}`}
+        htmlFor={tag}
+      >
         {selectName} {isRequired && <span className='text-warn'>*</span>}
       </Label.Root>
 
       <Select.Root
+        defaultValue={defaultValue}
         name={tag}
         onValueChange={value => {
+          console.log(value)
           onChange(value)
         }}
       >
         <Select.Trigger
           id={selectName}
-          className='inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 border-secondaryLighter bg-secondaryLightest px-2 py-1 text-sm leading-none text-secondary hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter data-[placeholder]:text-secondaryLight'
+          className={`inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 ${disabled ? 'border-secondaryLightest bg-secondaryLightest text-secondaryLighter hover:bg-secondaryLightest data-[placeholder]:text-secondaryLighter' : 'border-secondaryLighter bg-secondaryLightest text-secondary hover:bg-primary data-[placeholder]:text-secondaryLight'} px-2 py-1 text-sm leading-none focus:outline-none focus:ring-1 focus:ring-secondaryLighter`}
           aria-label={selectName}
+          disabled={disabled}
         >
           <Select.Value placeholder={placeholder} className='text-sm' />
           <Select.Icon className='text-secondary'>

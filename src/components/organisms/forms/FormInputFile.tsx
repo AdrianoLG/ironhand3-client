@@ -1,18 +1,9 @@
-import { HTMLProps, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import Button from '../../atoms/Button'
+import { iFileProps } from './types'
 
-interface InputProps extends HTMLProps<HTMLInputElement> {
-  label: string
-  error?: string
-  acceptedTypes?: string
-  multiple?: boolean
-  maxSize?: number
-  setError?: (error: string) => void
-  onUpload: (value: string) => void
-}
-
-const FormInputFile = (props: InputProps) => {
+const FormInputFile = (props: iFileProps) => {
   const {
     label,
     error,
@@ -22,6 +13,7 @@ const FormInputFile = (props: InputProps) => {
     onUpload,
     maxSize,
     setError,
+    img,
     ...inputProps
   } = props
   const [preview, setPreview] = useState<string>()
@@ -96,8 +88,8 @@ const FormInputFile = (props: InputProps) => {
         accept={acceptedTypes}
         multiple={multiple}
       />
-      {preview ? (
-        <img src={preview} className='mt-2 block w-full' alt='Preview' />
+      {preview || img ? (
+        <img src={preview || img} className='mt-2 block w-full' alt='Preview' />
       ) : (
         error && <p className='text-xs text-warn'>{error}</p>
       )}

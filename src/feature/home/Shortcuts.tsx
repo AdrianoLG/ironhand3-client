@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
 import Card from '../../components/atoms/Card'
-import { PopupLayout, ShortcutsLayout } from '../../components/layouts'
-import { iShortcut } from '../../utils/types'
+import { Popup } from '../../components/organisms/dialogs'
+import { iShortcut } from '../../types/types'
+import DraggableShortcuts from './components/DraggableShortcuts'
 import HomePopupForms from './HomePopupForms'
 
 const Shortcuts = ({
@@ -49,7 +50,7 @@ const Shortcuts = ({
 
   return (
     <>
-      <PopupLayout activeCard={activeCard} dialogRef={dialogRef}>
+      <Popup activeCard={activeCard} dialogRef={dialogRef}>
         {activeCard !== null ? (
           <HomePopupForms
             cardAction={activeCard.action}
@@ -57,8 +58,8 @@ const Shortcuts = ({
             setActiveCard={setActiveCard}
           />
         ) : null}
-      </PopupLayout>
-      <ShortcutsLayout title={title}>
+      </Popup>
+      <DraggableShortcuts title={title}>
         {shortcuts.map((shortcut: iShortcut) => (
           <Card
             key={shortcut._id}
@@ -69,7 +70,7 @@ const Shortcuts = ({
             onClick={() => handleDialog(shortcut)}
           />
         ))}
-      </ShortcutsLayout>
+      </DraggableShortcuts>
     </>
   )
 }

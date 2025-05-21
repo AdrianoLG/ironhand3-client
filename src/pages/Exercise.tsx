@@ -1,89 +1,29 @@
-import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-import { useQuery } from '@apollo/client'
-
-import Button from '../components/atoms/Button'
-import Header from '../components/organisms/header/Header'
-import Heading from '../components/organisms/header/Heading'
-import Body from '../feature/exercise/Body'
-import ExerciseList from '../feature/exercise/ExerciseList'
-import ExerciseHeaderButtons from '../feature/exercise/header-buttons/ExerciseHeaderButtons'
-import Cardio from '../feature/exercise/svgs/Cardio'
-import Stretch from '../feature/exercise/svgs/Stretch'
-import { EXERCISES_INFO } from '../gql/exerciseQueries'
-import { iCompletedExercise, iExercisesInfo } from '../utils/types'
+import { Button } from '../components/atoms'
+import Heading from '../components/molecules/Heading'
+import { Dialog } from '../components/organisms/dialogs'
+import Cardio from '../feature/exercise/assets/svgs/Cardio'
+import Stretch from '../feature/exercise/assets/svgs/Stretch'
+import Body from '../feature/exercise/components/Body'
+import ExerciseFilterButtons from '../feature/exercise/components/ExerciseFilterButtons'
+import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons'
+import ExerciseList from '../feature/exercise/components/ExerciseList'
+import ExerciseForm from '../feature/exercise/forms/ExerciseForm'
+import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises'
+import { iExercise } from '../feature/exercise/types/exercises'
+import Header from '../layouts/header/Header'
 
 const Exercise = () => {
-  const { data, loading, error } = useQuery<iExercisesInfo>(EXERCISES_INFO)
-
-  const [completedExercises, setCompletedExercises] = useState<
-    iCompletedExercise[]
-  >([])
-  const [activeButton, setActiveButton] = useState('thisWeek')
-
-  const thisWeeksFirstDay = dayjs().startOf('week').add(1, 'day')
-  const lastWeeksFirstDay = thisWeeksFirstDay.subtract(7, 'days')
-  const thisMonthsFirstDay = dayjs().startOf('month')
-  const lastMonthsFirstDay = thisMonthsFirstDay.subtract(1, 'month')
-
-  const completedExercisesThisWeek = data?.completedExercises.filter(
-    (exercise: iCompletedExercise) => dayjs(exercise.date) > thisWeeksFirstDay
+  const { completedExercises, filterDate, activeButton, data, loading, error } =
+    useFilterCompletedExercises()
+  const [showDialog, setShowDialog] = useState(false)
+  const [selectedExercise, setSelectedExercise] = useState<iExercise | null>(
+    null
   )
-
-  const completedExercisesLastWeek = data?.completedExercises.filter(
-    (exercise: iCompletedExercise) =>
-      dayjs(exercise.date) < thisWeeksFirstDay &&
-      dayjs(exercise.date) > lastWeeksFirstDay
-  )
-
-  const completedExercisesThisMonth = data?.completedExercises.filter(
-    (exercise: iCompletedExercise) => dayjs(exercise.date) > thisMonthsFirstDay
-  )
-
-  const completedExercisesLastMonth = data?.completedExercises.filter(
-    (exercise: iCompletedExercise) =>
-      dayjs(exercise.date) < thisMonthsFirstDay &&
-      dayjs(exercise.date) > lastMonthsFirstDay
-  )
-
-  useEffect(() => {
-    if (data?.completedExercises) {
-      setCompletedExercises(completedExercisesThisWeek || [])
-      setActiveButton('weekAt')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.completedExercises])
 
   if (loading) return 'Cargando...'
   if (error) return <pre>{error.message}</pre>
-
-  const filterDate = (period: string) => {
-    switch (period) {
-      case 'weekAt':
-        setCompletedExercises(completedExercisesThisWeek || [])
-        setActiveButton('weekAt')
-        break
-      case 'pastWeek':
-        setCompletedExercises(completedExercisesLastWeek || [])
-        setActiveButton('pastWeek')
-        break
-      case 'monthAt':
-        setCompletedExercises(completedExercisesThisMonth || [])
-        setActiveButton('monthAt')
-        break
-      case 'pastMonth':
-        setCompletedExercises(completedExercisesLastMonth || [])
-        setActiveButton('pastMonth')
-        break
-      case 'all':
-        setCompletedExercises(data?.completedExercises || [])
-        setActiveButton('all')
-        break
-      default:
-        console.log('Error')
-    }
-  }
 
   return (
     <>
@@ -108,43 +48,9 @@ const Exercise = () => {
             </div>
           )}
           <div className='mt-4 flex grid-rows-4 flex-col gap-2 lg:grid lg:grid-cols-2 lg:grid-rows-2 lg:gap-4'>
-            <Button
-              text='Esta semana'
-              onMouseClick={() => filterDate('weekAt')}
-              small
-              outline
-              classes='justify-self-end'
-              disabled={activeButton === 'weekAt'}
-            />
-            <Button
-              text='Semana pasada'
-              onMouseClick={() => filterDate('pastWeek')}
-              small
-              outline
-              disabled={activeButton === 'pastWeek'}
-            />
-            <Button
-              text='Este mes'
-              onMouseClick={() => filterDate('monthAt')}
-              small
-              outline
-              classes='justify-self-end'
-              disabled={activeButton === 'monthAt'}
-            />
-            <Button
-              text='Mes pasado'
-              onMouseClick={() => filterDate('pastMonth')}
-              small
-              outline
-              disabled={activeButton === 'pastMonth'}
-            />
-            <Button
-              text='Ver todos'
-              onMouseClick={() => filterDate('all')}
-              small
-              outline
-              classes='col-span-2'
-              disabled={activeButton === 'all'}
+            <ExerciseFilterButtons
+              filterDate={filterDate}
+              activeButton={activeButton}
             />
           </div>
         </aside>
@@ -152,12 +58,63 @@ const Exercise = () => {
           {completedExercises && (
             <ExerciseList completedExercises={completedExercises} />
           )}
-          {data?.completedExercises && (
-            <pre>{JSON.stringify(data?.completedExercises, null, 2)}</pre>
-          )}
-          <br />
-          {data?.exercises && (
-            <pre>{JSON.stringify(data.exercises, null, 2)}</pre>
+          <div className='my-12 grid grid-cols-4 gap-4'>
+            {data?.exercises.map(exercise => (
+              <div
+                key={exercise._id}
+                className='group relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1 border-secondaryLighter'
+              >
+                <div
+                  className='h-full w-full bg-cover bg-center brightness-[40%] group-hover:brightness-100'
+                  style={{
+                    backgroundImage: `url(${exercise.img})`
+                  }}
+                ></div>
+                <h2 className='text-md absolute bottom-1 left-0 w-full text-center font-semibold text-secondaryLightest opacity-100 transition-all duration-200 ease-out group-hover:opacity-0'>
+                  {exercise.name}
+                </h2>
+                <div className='absolute bottom-1 left-0 flex w-full justify-center gap-2 opacity-0 transition-all duration-100 ease-out group-hover:opacity-100'>
+                  <Button
+                    text='Actualizar'
+                    onMouseClick={() => {
+                      setShowDialog(true)
+                      setSelectedExercise(exercise)
+                    }}
+                    xsmall
+                    isFit
+                  />
+                  <Button
+                    text='Borrar'
+                    onMouseClick={() => {
+                      console.log('Remove exercise')
+                    }}
+                    xsmall
+                    outline
+                    isFit
+                    secondary
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          {showDialog && (
+            <Dialog
+              buttonText='Actualizar'
+              title='Modificar ejercicio'
+              description='Modifica los datos del ejercicio'
+              image='exercise-bg'
+              child={
+                <ExerciseForm
+                  exercise={selectedExercise}
+                  setIsOpen={setShowDialog}
+                />
+              }
+              secondary
+              xsmall
+              isFit
+              isOpen={showDialog}
+              setIsOpen={setShowDialog}
+            />
           )}
         </main>
       </div>

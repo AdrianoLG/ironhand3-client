@@ -1,13 +1,7 @@
-import { forwardRef, HTMLProps, Ref } from 'react'
+import { forwardRef, Ref } from 'react'
 
 import Button from '../../atoms/Button'
-
-interface InputProps extends HTMLProps<HTMLInputElement> {
-  label: string
-  error?: string
-  quickButtons?: string[]
-  handleButtons?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-}
+import { InputProps } from './types'
 
 const FormInput = forwardRef(
   (props: InputProps, ref: Ref<HTMLInputElement>) => {
