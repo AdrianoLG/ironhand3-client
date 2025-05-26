@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client'
 
 import BigLogo from '../components/molecules/BigLogo'
+import ErrorMessage from '../components/molecules/ErrorMessage'
+import Spinner from '../components/molecules/Spinner'
 import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../feature/home/gql/homeQueries'
 import Shortcuts from '../feature/home/Shortcuts'
 import Header from '../layouts/header/Header'
@@ -12,8 +14,18 @@ const Home = () => {
     SHORTCUT_CATEGORIES_AND_HEADERS
   )
 
-  if (loading) return 'Cargando...'
-  if (error) return <pre>{error.message}</pre>
+  if (loading)
+    return (
+      <Spinner classes='my-7 flex w-full justify-center px-8' widthInRem={2} />
+    )
+
+  if (error)
+    return (
+      <ErrorMessage
+        message={error.message}
+        containerClasses='my-7 flex w-full justify-center px-8 text-warn'
+      />
+    )
 
   return (
     <>

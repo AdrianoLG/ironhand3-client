@@ -5,14 +5,14 @@ export const ADD_EXERCISE = gql`
     createExercise(createExerciseInput: $createExerciseInput) {
       _id
       name
-      bodyParts
       type
+      bodyParts
       img
     }
   }
 `
 
-export const COMPLETE_EXERCISE = gql`
+export const ADD_COMPLETE_EXERCISE = gql`
   mutation CompleteExercise(
     $createCompletedExerciseInput: CreateCompletedExerciseInput!
   ) {
@@ -23,6 +23,49 @@ export const COMPLETE_EXERCISE = gql`
         _id
       }
       date
+    }
+  }
+`
+
+export const UPDATE_EXERCISE = gql`
+  mutation UpdateExercise($updateExerciseInput: UpdateExerciseInput!) {
+    updateExercise(updateExerciseInput: $updateExerciseInput) {
+      _id
+      name
+      bodyParts
+      type
+      img
+    }
+  }
+`
+
+export const REMOVE_EXERCISE = gql`
+  mutation RemoveExercise($removeExerciseId: String!) {
+    removeExercise(id: $removeExerciseId) {
+      _id
+    }
+  }
+`
+
+export const UPDATE_COMPLETE_EXERCISE = gql`
+  mutation CompleteExercise(
+    $updateCompletedExerciseInput: UpdateCompletedExerciseInput!
+  ) {
+    updateCompletedExercise(
+      updateCompletedExerciseInput: $updateCompletedExerciseInput
+    ) {
+      exercise {
+        _id
+      }
+      date
+    }
+  }
+`
+
+export const REMOVE_COMPLETE_EXERCISE = gql`
+  mutation RemoveCompleteExercise($removeCompletedExerciseId: String!) {
+    removeCompletedExercise(id: $removeCompletedExerciseId) {
+      _id
     }
   }
 `

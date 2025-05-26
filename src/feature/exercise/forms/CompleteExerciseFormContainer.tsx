@@ -3,8 +3,13 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useMutation, useQuery } from '@apollo/client'
 
+import ErrorMessage from '../../../components/molecules/ErrorMessage'
+import Spinner from '../../../components/molecules/Spinner'
 import { cleanEmpty } from '../../../utils/cleanEmpty'
-import { COMPLETE_EXERCISE } from '../gql/exerciseMutations'
+import {
+  ADD_COMPLETE_EXERCISE,
+  UPDATE_COMPLETE_EXERCISE
+} from '../gql/exerciseMutations'
 import { EXERCISES_INFO, SELECT_EXERCISES } from '../gql/exerciseQueries'
 import {
   iCompletedExercise,
@@ -14,23 +19,26 @@ import {
 import CompleteExerciseForm from './CompleteExerciseForm'
 
 const CompleteExerciseFormContainer = ({
-  completedExerciseData
+  completedExerciseData,
+  setIsOpen
 }: {
   completedExerciseData?: iCompletedExercise
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
+  /*
+   * GQL
+   */
   const { data, loading, error } = useQuery<iExercises>(SELECT_EXERCISES)
-  const [createCompletedExercise] = useMutation(COMPLETE_EXERCISE, {
+  const [createCompletedExercise] = useMutation(ADD_COMPLETE_EXERCISE, {
     refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
   })
-  const [isRequiredSelected, setIsRequiredSelected] = useState(false)
-  const [fields, setFields] = useState({
-    time: false,
-    repetitions: false,
-    weight: false,
-    ppm_max: false,
-    ppm_min: false
+  const [updateCompletedExercise] = useMutation(UPDATE_COMPLETE_EXERCISE, {
+    refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
   })
 
+  /*
+   * Form logic
+   */
   const {
     register,
     handleSubmit,
@@ -42,27 +50,72 @@ const CompleteExerciseFormContainer = ({
     reset
   } = useForm<iExerciseFormInput>()
 
-  const onSubmit: SubmitHandler<iExerciseFormInput> = data => {
+  /*
+   * State management
+   */
+  const [isRequiredSelected, setIsRequiredSelected] = useState(false)
+  const [fields, setFields] = useState({
+    time: false,
+    repetitions: false,
+    weight: false,
+    ppm_max: false,
+    ppm_min: false
+  })
+
+  /*
+   * Handle form submission
+   * Validates required fields and sends the form data to create or update a completed exercise
+   */
+  const onSubmit: SubmitHandler<iExerciseFormInput> = formData => {
+    // Set error messages
     if (!getValues('exercise')) {
       setError('exercise', {
         type: 'custom',
         message: 'Ejercicio requerido'
       })
+      return
     }
+    const ppmMin = getValues('ppm_min')
+    const ppmMax = getValues('ppm_max')
+    if (ppmMin !== undefined && ppmMax !== undefined && ppmMin > ppmMax) {
+      setError('ppm_min', {
+        type: 'custom',
+        message: 'PPM mínimo no puede ser mayor que PPM máximo'
+      })
+      return
+    }
+
+    // Prepare form data
     clearErrors('exercise')
-    const exercise = data.exercise.split('-')[0]
-    data.exercise = exercise
+    const exercise = formData.exercise.split('-')[0]
+    formData.exercise = exercise
+
+    // Send form: update or create
     if (completedExerciseData) {
-      // TODO: Update completed exercise
-      console.log(cleanEmpty(data))
+      const updateData = {
+        ...formData,
+        exercise: completedExerciseData?.exercise._id,
+        _id: completedExerciseData._id
+      }
+      updateCompletedExercise({
+        variables: { updateCompletedExerciseInput: cleanEmpty(updateData) }
+      }).finally(() => {
+        setIsOpen(false)
+        reset()
+      })
     } else {
       createCompletedExercise({
-        variables: { createCompletedExerciseInput: cleanEmpty(data) }
+        variables: { createCompletedExerciseInput: cleanEmpty(formData) }
+      }).finally(() => {
+        setIsOpen(false)
+        reset()
       })
-      reset()
     }
   }
 
+  /*
+   * Handle button clicks to set values for time, repetitions, weight, etc.
+   */
   const handleButtons = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     tag: keyof iExerciseFormInput
@@ -74,6 +127,9 @@ const CompleteExerciseFormContainer = ({
     }
   }
 
+  /*
+   * Show fields based on exercise type
+   */
   const showFields = (type: string) => {
     setValue('time', undefined)
     setValue('repetitions', undefined)
@@ -110,6 +166,9 @@ const CompleteExerciseFormContainer = ({
     }
   }
 
+  /*
+   * Set initial values if editing an existing completed exercise
+   */
   if (completedExerciseData) {
     setValue(
       'date',
@@ -123,8 +182,18 @@ const CompleteExerciseFormContainer = ({
     setValue('ppm_min', completedExerciseData.ppm_min)
   }
 
-  if (loading) return 'Cargando...'
-  if (error) return <pre>{error.message}</pre>
+  if (loading)
+    return (
+      <Spinner classes='my-7 flex w-full justify-center px-8' widthInRem={2} />
+    )
+
+  if (error)
+    return (
+      <ErrorMessage
+        message={error.message}
+        containerClasses='my-7 flex w-full justify-center px-8 text-warn'
+      />
+    )
 
   return (
     <CompleteExerciseForm
@@ -142,6 +211,7 @@ const CompleteExerciseFormContainer = ({
       fields={fields}
       handleButtons={handleButtons}
       isRequiredSelected={isRequiredSelected}
+      setIsOpen={setIsOpen}
     />
   )
 }

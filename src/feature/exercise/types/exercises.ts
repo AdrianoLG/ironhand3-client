@@ -1,3 +1,13 @@
+import {
+  FieldErrors,
+  SubmitHandler,
+  UseFormClearErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetError,
+  UseFormSetValue
+} from 'react-hook-form'
+
 import { iShortcut } from '../../../types/types'
 
 export interface iCompletedExercise {
@@ -12,12 +22,62 @@ export interface iCompletedExercise {
   img?: string
 }
 
+export interface iCompleteExerciseForm {
+  handleSubmit: UseFormHandleSubmit<iExerciseFormInput, undefined>
+  onSubmit: SubmitHandler<iExerciseFormInput>
+  register: UseFormRegister<iExerciseFormInput>
+  errors: FieldErrors<iExerciseFormInput>
+  isValid: boolean
+  data: iExercises | undefined
+  clearErrors: UseFormClearErrors<iExerciseFormInput>
+  setIsRequiredSelected: React.Dispatch<React.SetStateAction<boolean>>
+  setValue: UseFormSetValue<iExerciseFormInput>
+  showFields: (type: string) => void
+  completedExerciseData: iCompletedExercise | undefined
+  fields: {
+    time: boolean
+    repetitions: boolean
+    weight: boolean
+    ppm_max: boolean
+    ppm_min: boolean
+  }
+  handleButtons: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    tag: keyof iExerciseFormInput
+  ) => void
+  isRequiredSelected: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 export interface iExercise {
   _id: string
   name: string
   bodyParts: string[]
   type: string
   img?: string
+}
+
+export interface iExerciseForm {
+  handleSubmit: UseFormHandleSubmit<iExercise>
+  onSubmit: SubmitHandler<iExercise>
+  register: UseFormRegister<iExercise>
+  errors: FieldErrors<iExercise>
+  setValue: UseFormSetValue<iExercise>
+  clearErrors: UseFormClearErrors<iExercise>
+  setError: UseFormSetError<iExercise>
+  exerciseToUpdate?: iExercise | null
+  exerciseTypeOptions: {
+    value: string
+    name: string
+  }[]
+  exerciseBodyPartsOptions: {
+    value: string
+    name: string
+    selected: boolean
+  }[]
+  setExerciseToUpdate?: React.Dispatch<React.SetStateAction<iExercise | null>>
+  isValid?: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface iExerciseFormInput {

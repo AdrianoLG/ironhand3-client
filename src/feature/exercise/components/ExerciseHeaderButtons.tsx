@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Dialog } from '../../../components/organisms/dialogs'
 import CompleteExerciseFormContainer from '../forms/CompleteExerciseFormContainer'
-import ExerciseForm from '../forms/ExerciseForm'
+import ExerciseFormContainer from '../forms/ExerciseFormContainer'
 
 const ExerciseHeaderButtons = () => {
   const [exerciseFormIsOpen, setExerciseFormIsOpen] = useState(false)
@@ -18,7 +18,11 @@ const ExerciseHeaderButtons = () => {
             title='Completar ejercicio'
             description='Introduce los datos del ejercicio completado'
             image='exercise-bg'
-            child={<CompleteExerciseFormContainer />}
+            child={
+              <CompleteExerciseFormContainer
+                setIsOpen={setCompleteExerciseFormIsOpen}
+              />
+            }
             isOpen={completeExerciseFormIsOpen}
             setIsOpen={setCompleteExerciseFormIsOpen}
           />
@@ -29,7 +33,7 @@ const ExerciseHeaderButtons = () => {
             title='Añadir ejercicio'
             description='Completa los datos del nuevo ejercicio'
             image='exercise-bg'
-            child={<ExerciseForm setIsOpen={setExerciseFormIsOpen} />}
+            child={<ExerciseFormContainer setIsOpen={setExerciseFormIsOpen} />}
             secondary
             isOpen={exerciseFormIsOpen}
             setIsOpen={setExerciseFormIsOpen}

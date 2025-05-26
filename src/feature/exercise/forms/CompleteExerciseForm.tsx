@@ -1,20 +1,6 @@
-import { Dialog } from 'radix-ui'
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormClearErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue
-} from 'react-hook-form'
-
 import { Button } from '../../../components/atoms'
 import { FormInput, FormSelect } from '../../../components/organisms/forms'
-import {
-  iCompletedExercise,
-  iExerciseFormInput,
-  iExercises
-} from '../types/exercises'
+import { iCompleteExerciseForm } from '../types/exercises'
 
 const CompleteExerciseForm = ({
   handleSubmit,
@@ -30,32 +16,9 @@ const CompleteExerciseForm = ({
   completedExerciseData,
   fields,
   handleButtons,
-  isRequiredSelected
-}: {
-  handleSubmit: UseFormHandleSubmit<iExerciseFormInput, undefined>
-  onSubmit: SubmitHandler<iExerciseFormInput>
-  register: UseFormRegister<iExerciseFormInput>
-  errors: FieldErrors<iExerciseFormInput>
-  isValid: boolean
-  data: iExercises | undefined
-  clearErrors: UseFormClearErrors<iExerciseFormInput>
-  setIsRequiredSelected: React.Dispatch<React.SetStateAction<boolean>>
-  setValue: UseFormSetValue<iExerciseFormInput>
-  showFields: (type: string) => void
-  completedExerciseData: iCompletedExercise | undefined
-  fields: {
-    time: boolean
-    repetitions: boolean
-    weight: boolean
-    ppm_max: boolean
-    ppm_min: boolean
-  }
-  handleButtons: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    tag: keyof iExerciseFormInput
-  ) => void
-  isRequiredSelected: boolean
-}) => {
+  isRequiredSelected,
+  setIsOpen
+}: iCompleteExerciseForm) => {
   return (
     <form
       className='my-7 flex w-full flex-col gap-4 px-8 lg:grid lg:grid-cols-2'
@@ -160,28 +123,31 @@ const CompleteExerciseForm = ({
           type='number'
         />
       )}
-      <div className='col-span-2 flex justify-end'>
+      <div className='col-span-2 flex justify-end gap-4'>
+        <Button
+          text='Cancelar'
+          isFit
+          small
+          secondary
+          onMouseClick={() => setIsOpen(false)}
+        />
         {completedExerciseData && (
-          <Dialog.Close asChild>
-            <Button
-              text='Actualizar'
-              type='submit'
-              isFit
-              small
-              disabled={!isValid}
-            />
-          </Dialog.Close>
+          <Button
+            text='Actualizar'
+            type='submit'
+            isFit
+            small
+            disabled={!isValid}
+          />
         )}
         {!completedExerciseData && (
-          <Dialog.Close asChild>
-            <Button
-              text='Insertar'
-              type='submit'
-              isFit
-              small
-              disabled={!isRequiredSelected || !isValid}
-            />
-          </Dialog.Close>
+          <Button
+            text='Insertar'
+            type='submit'
+            isFit
+            small
+            disabled={!isRequiredSelected || !isValid}
+          />
         )}
       </div>
     </form>
