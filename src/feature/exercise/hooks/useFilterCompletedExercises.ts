@@ -7,17 +7,30 @@ import { EXERCISES_INFO } from '../gql/exerciseQueries'
 import { iCompletedExercise, iExercisesInfo } from '../types/exercises'
 
 export const useFilterCompletedExercises = () => {
+  /*
+   * GQL
+   */
   const { data, loading, error } = useQuery<iExercisesInfo>(EXERCISES_INFO)
+
+  /*
+   * State
+   */
   const [completedExercises, setCompletedExercises] = useState<
     iCompletedExercise[]
   >([])
   const [activeButton, setActiveButton] = useState('thisWeek')
 
+  /*
+   * Date calculations
+   */
   const thisWeeksFirstDay = dayjs().startOf('week').add(1, 'day')
   const lastWeeksFirstDay = thisWeeksFirstDay.subtract(7, 'days')
   const thisMonthsFirstDay = dayjs().startOf('month')
   const lastMonthsFirstDay = thisMonthsFirstDay.subtract(1, 'month')
 
+  /*
+   * Filter completed exercises by date
+   */
   const completedExercisesThisWeek = data?.completedExercises.filter(
     (exercise: iCompletedExercise) => dayjs(exercise.date) > thisWeeksFirstDay
   )
@@ -38,6 +51,9 @@ export const useFilterCompletedExercises = () => {
       dayjs(exercise.date) > lastMonthsFirstDay
   )
 
+  /*
+   * Set initial completed exercises to this week's exercises
+   */
   useEffect(() => {
     if (data?.completedExercises) {
       setCompletedExercises(completedExercisesThisWeek || [])
@@ -46,6 +62,9 @@ export const useFilterCompletedExercises = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.completedExercises])
 
+  /*
+   * Filter completed exercises based on the selected period
+   */
   const filterDate = (period: string) => {
     switch (period) {
       case 'weekAt':

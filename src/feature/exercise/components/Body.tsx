@@ -29,19 +29,36 @@ const Body = ({
   const [currentFillFeet, setCurrentFillFeet] = useState('current')
 
   useLayoutEffect(() => {
+    /*
+     * Calculate the total repetitions and weight for each body part
+     * and calculate the punctuation based on the type of exercise
+     */
     const completedExercisesCount = completedExercises.reduce(
       (acc: { [key: string]: number }, completedExercise) => {
+        const type = completedExercise.exercise.type
+        const reps = completedExercise.repetitions || 0
+        const weight = completedExercise.weight || 0
+        const punctuation =
+          type === 'strength'
+            ? weight
+              ? reps + (reps * weight) / 100
+              : reps
+            : 1
         completedExercise.exercise.bodyParts.forEach(part => {
           if (!acc[part]) {
             acc[part] = 0
           }
-          acc[part]++
+          acc[part] += punctuation
         })
         return acc
       },
       {}
     )
 
+    /*
+     * Map the body parts to their respective state setters
+     * to update the fill colors based on the calculations
+     */
     const fills: {
       [key: string]: React.Dispatch<React.SetStateAction<string>>
     } = {
@@ -62,9 +79,15 @@ const Body = ({
       legs: setCurrentFillLegs,
       feet: setCurrentFillFeet
     }
+    /*
+     * Set the fill color for each body part based on
+     * the calculations received
+     */
     for (const bodyPart in fills) {
       fills[bodyPart](
-        chosenColor(completedExercisesCount[bodyPart], 'strength')
+        completedExercisesCount[bodyPart]
+          ? chosenColor(completedExercisesCount[bodyPart], 'strength')
+          : chosenColor(0, 'strength')
       )
     }
   }, [completedExercises])

@@ -16,18 +16,24 @@ const CompletedExercise = ({
 }: {
   completedExercise: iCompletedExercise
 }) => {
-  const [showDialog, setShowDialog] = useState(false)
-  const [showHoverCard, setShowHoverCard] = useState(false)
+  /*
+   * GQL
+   */
   const [deleteCompletedExercise] = useMutation(REMOVE_COMPLETE_EXERCISE, {
     refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
   })
-
   const removeCompletedExercise = (id: string) => {
     deleteCompletedExercise({
       variables: { removeCompletedExerciseId: id }
     })
     setShowDialog(false)
   }
+
+  /*
+   * State
+   */
+  const [showDialog, setShowDialog] = useState(false)
+  const [showHoverCard, setShowHoverCard] = useState(false)
 
   return (
     <>
@@ -63,6 +69,15 @@ const CompletedExercise = ({
             <CompletedExerciseInfo completedExercise={completedExercise} />
             <div className='mb-4 flex justify-center gap-2'>
               <Button
+                text='Actualizar'
+                onMouseClick={() => {
+                  setShowDialog(true)
+                  setShowHoverCard(false)
+                }}
+                xsmall
+                isFit
+              />
+              <Button
                 text='Borrar'
                 onMouseClick={() => {
                   removeCompletedExercise(completedExercise._id)
@@ -71,15 +86,6 @@ const CompletedExercise = ({
                 isFit
                 outline
                 secondary
-              />
-              <Button
-                text='Actualizar'
-                onMouseClick={() => {
-                  setShowDialog(true)
-                  setShowHoverCard(false)
-                }}
-                xsmall
-                isFit
               />
             </div>
             <div className='absolute bottom-0 h-2 w-full translate-y-full bg-transparent'></div>

@@ -52,7 +52,6 @@ const CompleteExerciseForm = ({
         isRequired
         error={errors.exercise?.message}
         onChange={(value: string) => {
-          console.log(value)
           clearErrors('exercise')
           setIsRequiredSelected(true)
           setValue('exercise', value)

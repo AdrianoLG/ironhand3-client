@@ -1,3 +1,4 @@
+import Emptylist from '../../../components/molecules/EmptyList'
 import { difInDays } from '../../../utils/differenceInDays'
 import { iCompletedExercise } from '../types/exercises'
 import CompletedExercise from './CompletedExercise'
@@ -12,9 +13,12 @@ const ExerciseList = ({
    */
   if (completedExercises.length === 0) {
     return (
-      <div>
-        <p>No hay ejercicios en este periodo ☹️</p>
-      </div>
+      <Emptylist
+        message={
+          'No hay ejercicios completados en este periodo ☹️. \n¡Ponte a ello! 💪'
+        }
+        secondary
+      />
     )
   }
 

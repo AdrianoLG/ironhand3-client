@@ -19,12 +19,19 @@ const ExerciseFormContainer = ({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   exercise?: iExercise | null
 }) => {
+  /*
+   * GQL
+   */
   const [addExercise] = useMutation(ADD_EXERCISE, {
     refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
   })
   const [updateExercise] = useMutation(UPDATE_EXERCISE, {
     refetchQueries: [{ query: EXERCISES_INFO }, { query: SELECT_EXERCISES }]
   })
+
+  /*
+   * Form logic
+   */
   const {
     register,
     handleSubmit,
@@ -35,10 +42,17 @@ const ExerciseFormContainer = ({
     reset
   } = useForm<iExercise>()
 
+  /*
+   * State
+   */
   const [exerciseToUpdate, setExerciseToUpdate] = useState<iExercise | null>(
     exercise || null
   )
 
+  /*
+   * Submit handler
+   * Validates the form and either adds or updates an exercise
+   */
   const onSubmit: SubmitHandler<iExercise> = data => {
     if (!data.type) {
       setError('type', {
@@ -73,6 +87,9 @@ const ExerciseFormContainer = ({
     }
   }
 
+  /*
+   * If an exercise is provided, populate the form with its data
+   */
   if (exerciseToUpdate) {
     setValue('name', exerciseToUpdate.name)
     setValue('type', exerciseToUpdate.type)
