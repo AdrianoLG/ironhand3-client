@@ -14,8 +14,16 @@ import LRLayout from '../layouts/body/LRLayout'
 import Header from '../layouts/header/Header'
 
 const Exercise = () => {
-  const { completedExercises, filterDate, activeButton, data, loading, error } =
-    useFilterCompletedExercises()
+  const {
+    completedExercises,
+    filterDate,
+    activeButton,
+    data,
+    loading,
+    error,
+    setCustomDate,
+    customDate
+  } = useFilterCompletedExercises()
 
   const [showDialog, setShowDialog] = useState(false)
   const [showAlert, setShowAlert] = useState<{
@@ -54,6 +62,8 @@ const Exercise = () => {
           completedExercises={completedExercises}
           filterDate={filterDate}
           activeButton={activeButton}
+          setCustomDate={setCustomDate}
+          customDate={customDate}
         />
         <ExerciseMain
           completedExercises={completedExercises}

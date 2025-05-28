@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx,html}',
+    './node_modules/react-tailwindcss-datepicker/dist/index.esm.js'
+  ],
   theme: {
     colors: {
       primary: 'var(--primary)',
@@ -18,7 +21,20 @@ export default {
       category2: 'var(--category2)',
       transparent: 'var(--transparent)',
       transparent70: 'var(--transparent70)',
-      transparent70B: 'var(--transparent70B)'
+      transparent70B: 'var(--transparent70B)',
+      blue: {
+        50: '#f5f7fa',
+        100: '#ebeef3',
+        200: '#d2dae5',
+        300: '#abbbce',
+        400: '#7e97b2',
+        500: '#5d7a9a',
+        600: '#496180',
+        700: '#415570',
+        800: '#354457',
+        900: '#2f3b4b',
+        950: '#202631'
+      }
     },
     fontFamily: {
       sans: ['Heebo', 'sans-serif']

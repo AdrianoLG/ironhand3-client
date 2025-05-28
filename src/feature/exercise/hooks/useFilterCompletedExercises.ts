@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
+import { DateValueType } from 'react-tailwindcss-datepicker'
 
 import { useQuery } from '@apollo/client'
 
@@ -19,6 +20,19 @@ export const useFilterCompletedExercises = () => {
     iCompletedExercise[]
   >([])
   const [activeButton, setActiveButton] = useState('thisWeek')
+  const [customDate, setCustomDate] = useState<DateValueType>({
+    startDate: null,
+    endDate: null
+  })
+
+  /*
+   * Set custom date when the user selects a date range
+   * and filter completed exercises by that range
+   */
+  useEffect(() => {
+    if (customDate?.startDate && customDate.endDate) filterDate('custom')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customDate])
 
   /*
    * Date calculations
@@ -51,6 +65,15 @@ export const useFilterCompletedExercises = () => {
       dayjs(exercise.date) > lastMonthsFirstDay
   )
 
+  const completedExercisesCustom =
+    customDate?.startDate &&
+    customDate.endDate &&
+    data?.completedExercises.filter(
+      (exercise: iCompletedExercise) =>
+        dayjs(exercise.date) > dayjs(customDate.startDate) &&
+        dayjs(exercise.date) < dayjs(customDate.endDate)
+    )
+
   /*
    * Set initial completed exercises to this week's exercises
    */
@@ -66,10 +89,20 @@ export const useFilterCompletedExercises = () => {
    * Filter completed exercises based on the selected period
    */
   const filterDate = (period: string) => {
+    if (period !== 'custom') {
+      setCustomDate({
+        startDate: null,
+        endDate: null
+      })
+    }
     switch (period) {
       case 'weekAt':
         setCompletedExercises(completedExercisesThisWeek || [])
         setActiveButton('weekAt')
+        setCustomDate({
+          startDate: null,
+          endDate: null
+        })
         break
       case 'pastWeek':
         setCompletedExercises(completedExercisesLastWeek || [])
@@ -87,10 +120,23 @@ export const useFilterCompletedExercises = () => {
         setCompletedExercises(data?.completedExercises || [])
         setActiveButton('all')
         break
+      case 'custom':
+        setCompletedExercises(completedExercisesCustom || [])
+        setActiveButton('custom')
+        break
       default:
         console.log('Error')
     }
   }
 
-  return { completedExercises, filterDate, activeButton, data, loading, error }
+  return {
+    completedExercises,
+    filterDate,
+    activeButton,
+    data,
+    loading,
+    error,
+    setCustomDate,
+    customDate
+  }
 }

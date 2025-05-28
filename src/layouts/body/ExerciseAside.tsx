@@ -1,3 +1,5 @@
+import { DateValueType } from 'react-tailwindcss-datepicker'
+
 import Cardio from '../../feature/exercise/assets/svgs/Cardio'
 import Stretch from '../../feature/exercise/assets/svgs/Stretch'
 import Body from '../../feature/exercise/components/Body'
@@ -8,12 +10,16 @@ const ExerciseAside = ({
   data,
   completedExercises,
   filterDate,
-  activeButton
+  activeButton,
+  setCustomDate,
+  customDate
 }: {
   data: iExercisesInfo | undefined
   completedExercises: iExercisesInfo['completedExercises']
   filterDate: (period: string) => void
   activeButton: string
+  setCustomDate: React.Dispatch<React.SetStateAction<DateValueType>>
+  customDate: DateValueType
 }) => (
   <aside className='w-full pb-8 md:w-1/3'>
     {data?.completedExercises && (
@@ -29,6 +35,8 @@ const ExerciseAside = ({
       <ExerciseFilterButtons
         filterDate={filterDate}
         activeButton={activeButton}
+        setCustomDate={setCustomDate}
+        customDate={customDate}
       />
     </div>
   </aside>
