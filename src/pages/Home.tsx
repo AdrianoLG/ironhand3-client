@@ -2,8 +2,6 @@ import { useQuery } from '@apollo/client';
 
 import BigLogo from '../components/molecules/BigLogo';
 import ErrorMessage from '../components/molecules/ErrorMessage';
-import Heading from '../components/molecules/Heading';
-import Spinner from '../components/molecules/Spinner';
 import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../feature/home/gql/homeQueries';
 import Shortcuts from '../feature/home/Shortcuts';
 import Header from '../layouts/header/Header';
@@ -17,10 +15,6 @@ const Home = () => {
 
   if (loading)
     return (
-      // <Spinner
-      //   classes='bg-radial from-20% from-primary to-secondary flex w-full justify-center h-full'
-      //   widthInRem={8}
-      // />
       <>
         <Header isMain={true} />
       </>

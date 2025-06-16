@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import ErrorMessage from '../components/molecules/ErrorMessage';
 import Heading from '../components/molecules/Heading';
-import Spinner from '../components/molecules/Spinner';
 import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons';
 import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises';
 import { iExercise } from '../feature/exercise/types/exercises';
