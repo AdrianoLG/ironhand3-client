@@ -1,17 +1,17 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import ErrorMessage from '../components/molecules/ErrorMessage'
-import Heading from '../components/molecules/Heading'
-import Spinner from '../components/molecules/Spinner'
-import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons'
-import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises'
-import { iExercise } from '../feature/exercise/types/exercises'
-import ExerciseAlert from '../layouts/body/ExerciseAlert'
-import ExerciseAside from '../layouts/body/ExerciseAside'
-import ExerciseDialog from '../layouts/body/ExerciseDialog'
-import ExerciseMain from '../layouts/body/ExerciseMain'
-import LRLayout from '../layouts/body/LRLayout'
-import Header from '../layouts/header/Header'
+import ErrorMessage from '../components/molecules/ErrorMessage';
+import Heading from '../components/molecules/Heading';
+import Spinner from '../components/molecules/Spinner';
+import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons';
+import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises';
+import { iExercise } from '../feature/exercise/types/exercises';
+import ExerciseAlert from '../layouts/body/ExerciseAlert';
+import ExerciseAside from '../layouts/body/ExerciseAside';
+import ExerciseDialog from '../layouts/body/ExerciseDialog';
+import ExerciseMain from '../layouts/body/ExerciseMain';
+import LRLayout from '../layouts/body/LRLayout';
+import Header from '../layouts/header/Header';
 
 const Exercise = () => {
   const {
@@ -40,15 +40,21 @@ const Exercise = () => {
 
   if (loading)
     return (
-      <Spinner classes='my-7 flex w-full justify-center px-8' widthInRem={2} />
+      <>
+        <Header isMain={false} headers={[]} />
+        <Heading title='...' />
+      </>
     )
 
   if (error)
     return (
-      <ErrorMessage
-        message={error.message}
-        containerClasses='my-7 flex w-full justify-center px-8 text-warn'
-      />
+      <>
+        <ErrorMessage
+          message={'No conectado a la base de datos'}
+          errorMessage={error.message}
+          containerClasses='my-7 flex w-full justify-center px-8 text-secondary'
+        />
+      </>
     )
 
   return (

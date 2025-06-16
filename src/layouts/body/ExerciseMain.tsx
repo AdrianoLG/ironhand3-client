@@ -29,11 +29,11 @@ const ExerciseMain = ({
       />
     )}
     {data && (
-      <div className='my-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='my-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
         {data.exercises.map((exercise: iExercise) => (
           <div
             key={exercise._id}
-            className='group relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1 border-secondaryLighter'
+            className='group border-secondaryLighter relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1'
           >
             <div
               className='h-full w-full bg-cover bg-center brightness-[40%] group-hover:brightness-100'
@@ -41,7 +41,7 @@ const ExerciseMain = ({
                 backgroundImage: `url(${exercise.img})`
               }}
             ></div>
-            <h2 className='text-md absolute bottom-1 left-0 w-full text-center font-semibold text-secondaryLightest opacity-100 transition-all duration-200 ease-out group-hover:opacity-0'>
+            <h2 className='text-md text-secondaryLightest absolute bottom-1 left-0 w-full text-center font-semibold opacity-100 transition-all duration-200 ease-out group-hover:opacity-0'>
               {exercise.name}
             </h2>
             <div className='absolute bottom-1 left-0 flex w-full justify-center gap-2 opacity-0 transition-all duration-100 ease-out group-hover:opacity-100'>

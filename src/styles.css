@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+@import 'tailwindcss';
+/* @import url('reset.css'); */
+
+:root {
+  --darkBlue: #011c40;
+  --blue: #415570;
+  --lightBlue: #7f8d9f;
+  --lightestBlue: #f1f5fa;
+  --yellow: #f2e1ac;
+  --mediumYellow: #f9ecc6;
+  --lightYellow: #fff6e0;
+  --gray: #333333;
+  --lightGreen: #71a66f;
+  --lightOrange: #f2b885;
+  --orange: #f26d3d;
+  --darkOrange: #7c2100;
+  --white: #ffffff;
+  --black: #020202;
+  --lighterBlack: #2f2e2e;
+  --transparent: rgba(255, 255, 255, 0);
+  --transparentWhite70: rgba(255, 255, 255, 0.7);
+  --transparentBlack70: rgba(2, 2, 2, 0.7);
+  --darkBlueLightBlue0: #bfc6cf;
+  --darkBlueLightBlue1: #7f8d9f;
+  --darkBlueLightBlue2: #718094;
+  --darkBlueLightBlue3: #63748a;
+  --darkBlueLightBlue4: #55677f;
+  --darkBlueLightBlue5: #475b75;
+  --darkBlueLightBlue6: #394e6a;
+  --darkBlueLightBlue7: #2b4260;
+  --darkBlueLightBlue8: #1d3555;
+  --darkBlueLightBlue9: #0f294b;
+  --darkBlueLightBlue10: #011c40;
+  --value0: var(--darkBlueLightBlue0);
+  --value1: var(--darkBlueLightBlue1);
+  --value2: var(--darkBlueLightBlue2);
+  --value3: var(--darkBlueLightBlue3);
+  --value4: var(--darkBlueLightBlue4);
+  --value5: var(--darkBlueLightBlue5);
+  --value6: var(--darkBlueLightBlue6);
+  --value7: var(--darkBlueLightBlue7);
+  --value8: var(--darkBlueLightBlue8);
+  --value9: var(--darkBlueLightBlue9);
+  --value10: var(--darkBlueLightBlue10);
+}
+.light {
+  --primary: var(--white);
+  --secondary: var(--darkBlue);
+  --secondaryLight: var(--blue);
+  --secondaryLighter: var(--lightBlue);
+  --secondaryLightest: var(--lightestBlue);
+  --accent: var(--yellow);
+  --accentLight: var(--lightYellow);
+  --text: var(--gray);
+  --textInv: var(--white);
+  --success: var(--lightGreen);
+  --warn: var(--orange);
+  --category1: var(--lightOrange);
+  --category2: var(--lightBlue);
+  --transparent: var(--transparent);
+  --transparent70: var(--transparentWhite70);
+  --transparent70B: var(--transparentBlack70);
+}
+.dark {
+  --primary: var(--black);
+  --secondary: var(--yellow);
+  --secondaryLight: var(--mediumYellow);
+  --secondaryLighter: var(--lightYellow);
+  --secondaryLightest: var(--lightYellow);
+  --accent: var(--darkBlue);
+  --accentLight: var(--blue);
+  --text: var(--white);
+  --textInv: var(--gray);
+  --success: var(--lightGreen);
+  --warn: var(--orange);
+  --category1: var(--lightOrange);
+  --category2: var(--lightBlue);
+  --transparent: var(--transparent);
+  --transparent70: var(--transparentBlack70);
+  --transparent70B: var(--transparentWhite70);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-secondaryLight: var(--secondaryLight);
+  --color-secondaryLighter: var(--secondaryLighter);
+  --color-secondaryLightest: var(--secondaryLightest);
+  --color-accent: var(--accent);
+  --color-accentLight: var(--accentLight);
+  --color-text: var(--text);
+  --color-textInv: var(--textInv);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-category1: var(--category1);
+  --color-category2: var(--category2);
+  --color-transparent: var(--transparent);
+  --color-transparent70: var(--transparent70);
+  --color-transparent70B: var(--transparent70B);
+  --color-blue-50: #f5f7fa;
+  --color-blue-100: #ebeef3;
+  --color-blue-200: #d2dae5;
+  --color-blue-300: #abbbce;
+  --color-blue-400: #7e97b2;
+  --color-blue-500: #5d7a9a;
+  --color-blue-600: #496180;
+  --color-blue-700: #415570;
+  --color-blue-800: #354457;
+  --color-blue-900: #2f3b4b;
+  --color-blue-950: #202631;
+  --font-sans: Heebo, sans-serif;
+  --text-5xs: 0.5em;
+  --text-4xs: 0.5625em;
+  --text-3xs: 0.624em;
+  --text-2xs: 0.702em;
+  --text-xs: 0.79em;
+  --text-sm: 0.889em;
+  --text-reg: 1em;
+  --text-lg: 1.125em;
+  --text-xl: 1.266em;
+  --text-2xl: 1.424em;
+  --text-3xl: 1.602em;
+  --text-4xl: 1.802em;
+  --text-5xl: 2.027em;
+  --text-title: 2.561em;
+  --background-image-pattern: url(/bgPattern.png);
+  --border-width-1: 1px;
+  --radius-card: 0.625rem;
+  --spacing-xs-card: calc(50% - 0.55rem);
+  --spacing-sm-card: calc(33.33% - 0.69rem);
+  --spacing-md-card: calc(25% - 0.78rem);
+  --spacing-card: calc(16.66% - 0.84rem);
+  --spacing-secondary-header: 48.625rem;
+  --spacing-screen-xl: 1440px;
+  --spacing-screen-2xl: 1920px;
+  --spacing-screen-content-pad: 1600px;
+  --spacing-screen-content: 1568px;
+  --animate-slideUpAndFade: 'slideUpAndFade 3000ms cubic-bezier(0.16, 0, 0.13, 1)';
+  --animate-slideDownAndFade: 'slideDownAndFade 3000ms cubic-bezier(0.16, 0, 0.13, 1)';
+  --animate-slideRightAndFade: 'slideRightAndFade 3000ms cubic-bezier(0.16, 0, 0.13, 1)';
+  --animate-slideLeftAndFade: 'slideLeftAndFade 3000ms cubic-bezier(0.16, 0, 0.13, 1)';
+  @keyframes slideUpAndFade {
+    0%: {
+      opacity: 0;
+      transform: translateY(2px);
+    },
+    100%: {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideRightAndFade {
+    0%: {
+      opacity: 0;
+      transform: translateX(-2px);
+    },
+    100%: {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideDownAndFade {
+    0%: {
+      opacity: 0;
+      transform: translateY(-2px);
+    },
+    100%: {
+      opacity: 1,
+      transform: translateY(0)
+    }
+  }
+  @keyframes slideLeftAndFade {
+    0%: {
+      opacity: 0;
+      transform: translateX(2px);
+    },
+    100%: {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}

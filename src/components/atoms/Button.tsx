@@ -22,7 +22,7 @@ const Button = ({
   isFit?: boolean
 }) => (
   <button
-    className={`${isFit ? 'w-fit' : 'w-full'} ${disabled ? 'cursor-default opacity-60' : 'hover:shadow-md'} ${secondary ? 'bg-accent text-secondary' : outline ? 'border-secondary bg-primary text-secondary' : 'bg-secondary text-accent'} ${small ? 'px-4 py-1 text-reg' : xsmall ? 'px-4 py-1 text-xs' : 'px-6 py-2 text-xl'} rounded-md border-1 border-secondary hover:border-secondary hover:bg-primary hover:text-secondary focus:outline-none focus:ring-1 focus:ring-secondaryLighter ${classes ? classes : ''} `}
+    className={`${isFit ? 'w-fit' : 'w-full'} ${disabled ? 'cursor-default opacity-60' : 'hover:shadow-md'} ${secondary ? 'bg-accent text-secondary' : outline ? 'border-secondary bg-primary text-secondary' : 'bg-secondary text-accent'} ${small ? 'text-reg px-4 py-1' : xsmall ? 'px-4 py-1 text-xs' : 'px-6 py-2 text-xl'} border-secondary hover:border-secondary hover:bg-primary hover:text-secondary focus:ring-secondaryLighter rounded-md border-1 hover:cursor-pointer focus:ring-1 focus:outline-none ${classes ? classes : ''} `}
     onClick={disabled ? undefined : onMouseClick}
     type={type}
     tabIndex={disabled ? -1 : 0}
