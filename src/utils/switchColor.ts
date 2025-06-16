@@ -8,6 +8,8 @@ const switchColor = (color: string) => {
       return 'var(--accent)'
     case 'secondaryLight':
       return 'var(--secondaryLight)'
+    case 'warn':
+      return 'var(--warn)'
     default:
       return 'var(--primary)'
   }

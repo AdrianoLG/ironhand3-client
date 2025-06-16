@@ -1,11 +1,11 @@
 import switchColor from '../../utils/switchColor'
 
-const IconLogo = ({ color }: { color: string }) => {
+const IconLogo = ({ color, classes }: { color: string; classes?: string }) => {
   color = switchColor(color)
 
   return (
     <svg
-      className='max-w-24 sm:max-w-36'
+      className={classes ? classes : `max-w-24 sm:max-w-36`}
       viewBox='0 0 142 157'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'

@@ -21,10 +21,12 @@ const Home = () => {
 
   if (error)
     return (
-      <ErrorMessage
-        message={error.message}
-        containerClasses='my-7 flex w-full justify-center px-8 text-warn'
-      />
+      <>
+        <ErrorMessage
+          message={error.message}
+          containerClasses='my-7 flex w-full justify-center px-8 text-warn'
+        />
+      </>
     )
 
   return (
