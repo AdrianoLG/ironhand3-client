@@ -37,6 +37,7 @@ const DraggableShortcuts = ({ title, children }: iDraggableShortcuts) => {
         className='w-full overflow-x-hidden'
         onMouseDown={e => e.preventDefault()}
         ref={parentNodeRef}
+        tabIndex={-1}
       >
         <Draggable
           axis='x'
@@ -48,6 +49,7 @@ const DraggableShortcuts = ({ title, children }: iDraggableShortcuts) => {
             className='flex w-full flex-nowrap gap-4 scroll-smooth'
             onMouseDown={e => e.preventDefault()}
             ref={nodeRef}
+            tabIndex={-1}
           >
             {children}
           </div>

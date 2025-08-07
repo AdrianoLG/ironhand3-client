@@ -14,6 +14,8 @@ const FormInputFile = (props: iFileProps) => {
     maxSize,
     setError,
     img,
+    path,
+    sublabel,
     ...inputProps
   } = props
   const [preview, setPreview] = useState<string>()
@@ -30,7 +32,7 @@ const FormInputFile = (props: iFileProps) => {
           setError(`El archivo excede el tamaño máximo de ${maxSize}MB`)
         } else {
           const formdata = new FormData()
-          formdata.append('path', 'exercise')
+          formdata.append('path', path)
           formdata.append('file', file)
 
           await fetch(import.meta.env.VITE_UPLOAD_URI, {
@@ -61,7 +63,10 @@ const FormInputFile = (props: iFileProps) => {
               onUpload(result.data.image)
               setError('')
             })
-            .catch(error => console.log('error', error))
+            .catch(error => {
+              setError('No se ha podido subir correctamente la imagen')
+              console.log('error', error)
+            })
         }
       }
     }
@@ -73,7 +78,7 @@ const FormInputFile = (props: iFileProps) => {
 
   return (
     <div className='w-full'>
-      <label htmlFor={label} className='mb-1 block w-full'>
+      <label htmlFor={label} className={`text-text mb-1 block w-full`}>
         {label} {required && <span className='text-warn'>*</span>}
       </label>
       <Button text={uploadButtonLabel} xsmall outline onMouseClick={hideRef} />
@@ -91,7 +96,10 @@ const FormInputFile = (props: iFileProps) => {
       {preview || img ? (
         <img src={preview || img} className='mt-2 block w-full' alt='Preview' />
       ) : (
-        error && <p className='text-xs text-warn'>{error}</p>
+        error && <p className='text-warn text-xs'>{error}</p>
+      )}
+      {!error && sublabel && (
+        <p className='text-text mt-1 text-xs'>{sublabel}</p>
       )}
     </div>
   )

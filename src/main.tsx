@@ -1,7 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  makeVar
+} from '@apollo/client'
 
 import App from './App.tsx'
 
@@ -10,6 +15,8 @@ const client = new ApolloClient({
   uri: uri,
   cache: new InMemoryCache()
 })
+
+export const mode = makeVar(sessionStorage.getItem('mode') || 'light')
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

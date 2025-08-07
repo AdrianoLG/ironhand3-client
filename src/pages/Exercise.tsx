@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import ErrorMessage from '../components/molecules/ErrorMessage';
-import Heading from '../components/molecules/Heading';
-import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons';
-import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises';
-import { iExercise } from '../feature/exercise/types/exercises';
-import ExerciseAlert from '../layouts/body/ExerciseAlert';
-import ExerciseAside from '../layouts/body/ExerciseAside';
-import ExerciseDialog from '../layouts/body/ExerciseDialog';
-import ExerciseMain from '../layouts/body/ExerciseMain';
-import LRLayout from '../layouts/body/LRLayout';
-import Header from '../layouts/header/Header';
+import ErrorMessage from '../components/molecules/ErrorMessage'
+import Heading from '../components/molecules/Heading'
+import ExerciseHeaderButtons from '../feature/exercise/components/ExerciseHeaderButtons'
+import { useFilterCompletedExercises } from '../feature/exercise/hooks/useFilterCompletedExercises'
+import ExerciseAlert from '../feature/exercise/layouts/ExerciseAlert'
+import ExerciseAside from '../feature/exercise/layouts/ExerciseAside'
+import ExerciseDialog from '../feature/exercise/layouts/ExerciseDialog'
+import ExerciseMain from '../feature/exercise/layouts/ExerciseMain'
+import { iExercise } from '../feature/exercise/types/exercises'
+import LRLayout from '../layouts/body/LRLayout'
+import Header from '../layouts/header/Header'
 
 const Exercise = () => {
   const {

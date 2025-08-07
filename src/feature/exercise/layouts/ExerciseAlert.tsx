@@ -2,13 +2,10 @@ import { AlertDialog } from 'radix-ui'
 
 import { useMutation } from '@apollo/client'
 
-import IconWarn from '../../assets/svgs/IconWarn'
-import { Button } from '../../components/atoms'
-import { REMOVE_EXERCISE } from '../../feature/exercise/gql/exerciseMutations'
-import {
-  EXERCISES_INFO,
-  SELECT_EXERCISES
-} from '../../feature/exercise/gql/exerciseQueries'
+import IconWarn from '../../../assets/svgs/IconWarn'
+import { Button } from '../../../components/atoms'
+import { REMOVE_EXERCISE } from '../gql/exerciseMutations'
+import { EXERCISES_INFO, SELECT_EXERCISES } from '../gql/exerciseQueries'
 
 const ExerciseAlert = ({
   showAlert,
@@ -33,16 +30,16 @@ const ExerciseAlert = ({
     <AlertDialog.Root open={showAlert.visible}>
       <AlertDialog.Portal>
         <AlertDialog.Overlay
-          className='fixed inset-0 bg-transparent70B'
+          className='bg-transparent70B fixed inset-0'
           onClick={() => setShowAlert({ visible: false, id: null })}
         />
-        <AlertDialog.Content className='fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-primary focus:outline-none'>
-          <div className='relative px-8 pb-8 pt-12'>
+        <AlertDialog.Content className='bg-primary fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md focus:outline-none'>
+          <div className='relative px-8 pt-12 pb-8'>
             <IconWarn
               color='var(--warn)'
               classes='bg-primary rounded-full w-12 absolute -top-6 left-1/2 -translate-x-1/2'
             />
-            <AlertDialog.Title className='mb-2 text-center text-lg font-semibold text-warn'>
+            <AlertDialog.Title className='text-warn mb-2 text-center text-lg font-semibold'>
               ¿Estás seguro de que quieres eliminar el ejercicio?
             </AlertDialog.Title>
             <AlertDialog.Description className='mb-8 text-center text-sm'>

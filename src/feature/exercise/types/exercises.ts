@@ -23,7 +23,7 @@ export interface iCompletedExercise {
 }
 
 export interface iCompleteExerciseForm {
-  handleSubmit: UseFormHandleSubmit<iExerciseFormInput, undefined>
+  handleSubmit: UseFormHandleSubmit<iExerciseFormInput>
   onSubmit: SubmitHandler<iExerciseFormInput>
   register: UseFormRegister<iExerciseFormInput>
   errors: FieldErrors<iExerciseFormInput>

@@ -1,6 +1,6 @@
-import { Dialog } from '../../components/organisms/dialogs'
-import ExerciseFormContainer from '../../feature/exercise/forms/ExerciseFormContainer'
-import { iExercise } from '../../feature/exercise/types/exercises'
+import { Dialog } from '../../../components/organisms/dialogs'
+import ExerciseFormContainer from '../forms/ExerciseFormContainer'
+import { iExercise } from '../types/exercises'
 
 const ExerciseDialog = ({
   showDialog,

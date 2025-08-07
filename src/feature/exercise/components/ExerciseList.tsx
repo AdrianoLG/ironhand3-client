@@ -48,7 +48,7 @@ const ExerciseList = ({
   return Object.entries(reducedCompletedExercises).map(
     ([difference, exercises]) => {
       return (
-        <div className='mb-4' key={difference}>
+        <div className='text-text mb-4' key={difference}>
           <h3 className='mb-2 text-sm font-semibold'>{difference}</h3>
           <div className='flex flex-wrap gap-2'>
             {exercises.map(completedExercise => {

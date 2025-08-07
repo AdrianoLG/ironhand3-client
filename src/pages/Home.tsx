@@ -1,12 +1,12 @@
-import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client'
 
-import BigLogo from '../components/molecules/BigLogo';
-import ErrorMessage from '../components/molecules/ErrorMessage';
-import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../feature/home/gql/homeQueries';
-import Shortcuts from '../feature/home/Shortcuts';
-import Header from '../layouts/header/Header';
-import NavButtons from '../layouts/header/NavButtons';
-import { iShortcutCategoriesAndHeaders, iShortcuts } from '../types/types';
+import BigLogo from '../components/molecules/BigLogo'
+import ErrorMessage from '../components/molecules/ErrorMessage'
+import { SHORTCUT_CATEGORIES_AND_HEADERS } from '../feature/home/gql/homeQueries'
+import Shortcuts from '../feature/home/Shortcuts'
+import Header from '../layouts/header/Header'
+import NavButtons from '../layouts/header/NavButtons'
+import { iShortcutCategoriesAndHeaders, iShortcuts } from '../types/types'
 
 const Home = () => {
   const { data, loading, error } = useQuery<iShortcutCategoriesAndHeaders>(
@@ -34,9 +34,9 @@ const Home = () => {
   return (
     <>
       <Header isMain={true} />
-      <main>
-        <section className='bg-pattern flex justify-center bg-size-[100px] bg-repeat py-8'>
-          <div className='max-w-secondaryHeader relative mx-8 w-full'>
+      <main className='bg-primary'>
+        <section className='bg-pattern bg-primary flex justify-center bg-size-[100px] bg-repeat py-8'>
+          <div className='max-w-secondary-header relative mx-8 w-full'>
             <div className='mb-8 flex flex-col items-center gap-2'>
               <BigLogo />
             </div>
@@ -48,6 +48,7 @@ const Home = () => {
             <section
               key={shortcutCategory._id}
               className='max-w-screen-content mx-auto mt-8 mb-16 px-8'
+              tabIndex={-1}
             >
               <Shortcuts
                 title={shortcutCategory.title}

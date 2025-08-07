@@ -190,15 +190,16 @@ const CompleteExerciseFormContainer = ({
   if (error)
     return (
       <ErrorMessage
-        message={error.message}
-        containerClasses='my-7 flex w-full justify-center px-8 text-warn'
+        message={'Error en la base de datos'}
+        errorMessage={error.message}
+        containerClasses='my-7 flex w-full justify-center px-8 text-secondary'
       />
     )
 
   return (
     <CompleteExerciseForm
-      handleSubmit={handleSubmit}
       onSubmit={onSubmit}
+      handleSubmit={handleSubmit}
       errors={errors}
       isValid={isValid}
       register={register}

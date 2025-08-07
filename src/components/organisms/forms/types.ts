@@ -1,12 +1,12 @@
 import { HTMLProps } from 'react'
 
-interface iMultiSelect {
+export interface iMultiSelect {
   value: string
   name: string
   selected: boolean
 }
 
-interface iSelectOptions {
+export interface iSelectOptions {
   value: string
   name: string
   type?: string
@@ -15,6 +15,7 @@ interface iSelectOptions {
 
 export interface iFileProps extends HTMLProps<HTMLInputElement> {
   label: string
+  sublabel?: string
   error?: string
   acceptedTypes?: string
   multiple?: boolean
@@ -22,6 +23,7 @@ export interface iFileProps extends HTMLProps<HTMLInputElement> {
   setError?: (error: string) => void
   onUpload: (value: string) => void
   img?: string
+  path: string
 }
 
 export interface iFormField {
@@ -37,6 +39,8 @@ export interface iFormMultiSelect {
   label: string
   isRequired?: boolean
   options: iMultiSelect[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setOptions: React.Dispatch<React.SetStateAction<any[]>>
   onChange: (value: string[]) => void
   error?: string
   data?: string[]
@@ -61,5 +65,6 @@ export interface InputProps extends HTMLProps<HTMLInputElement> {
   label: string
   error?: string
   quickButtons?: string[]
+  inputClasses?: string
   handleButtons?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }

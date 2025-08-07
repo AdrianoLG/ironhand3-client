@@ -10,13 +10,14 @@ const FormInput = forwardRef(
       error,
       quickButtons,
       required,
+      inputClasses,
       handleButtons,
       ...inputProps
     } = props
 
     return (
-      <div className='w-full'>
-        <label htmlFor={label} className='mb-1 block w-full'>
+      <div className={`w-full ${props.className ? props.className : ''}`}>
+        <label htmlFor={label} className='text-text mb-1 block w-full'>
           {label} {required && <span className='text-warn'>*</span>}
         </label>
         <input
@@ -24,9 +25,10 @@ const FormInput = forwardRef(
           ref={ref}
           {...inputProps}
           {...(props.type === 'number' && { min: '0' })}
-          className='block w-full rounded-md border-1 border-secondaryLighter bg-secondaryLightest p-1 text-sm leading-none text-secondaryLight hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter'
+          className={`${inputClasses ? inputClasses : 'bg-secondaryLightest hover:bg-primary text-secondaryLight border-secondaryLighter text-sm'} focus:ring-secondaryLighter block w-full rounded-md border-1 p-1 leading-none focus:ring-1 focus:outline-none`}
+          tabIndex={0}
         />
-        {error && <p className='text-xs text-warn'>{error}</p>}
+        {error && <p className='text-warn mt-1 text-xs'>{error}</p>}
         {quickButtons && (
           <div className='my-2 flex justify-between gap-2'>
             {quickButtons.map(buttonText => (

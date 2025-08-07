@@ -1,12 +1,16 @@
+import '../../../styles.css'
+
 import { Label, Select } from 'radix-ui'
 import { forwardRef, useEffect } from 'react'
 
+import { useReactiveVar } from '@apollo/client'
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon
 } from '@radix-ui/react-icons'
 
+import { mode } from '../../../main'
 import { iFormSelect } from './types'
 
 const FormSelect = ({
@@ -29,26 +33,27 @@ const FormSelect = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const isDarkMode = useReactiveVar(mode)
+
   return (
     <div className='flex flex-col'>
       <Label.Root
-        className={`mb-1 text-reg ${disabled ? 'text-secondaryLight' : 'text-text'}`}
+        className={`text-reg mb-1 ${disabled ? 'text-secondaryLight' : 'text-text'}`}
         htmlFor={tag}
       >
-        {selectName} {isRequired && <span className='text-warn'>*</span>}
+        {selectName} {isRequired && <span className='text-warn'>*</span>}{' '}
       </Label.Root>
 
       <Select.Root
         defaultValue={defaultValue}
         name={tag}
         onValueChange={value => {
-          console.log(value)
           onChange(value)
         }}
       >
         <Select.Trigger
           id={selectName}
-          className={`inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 ${disabled ? 'border-secondaryLightest bg-secondaryLightest text-secondaryLighter hover:bg-secondaryLightest data-[placeholder]:text-secondaryLighter' : 'border-secondaryLighter bg-secondaryLightest text-secondary hover:bg-primary data-[placeholder]:text-secondaryLight'} px-2 py-1 text-sm leading-none focus:outline-none focus:ring-1 focus:ring-secondaryLighter`}
+          className={`inline-flex h-[30px] items-center justify-between gap-[5px] rounded-md border-1 ${disabled ? 'border-secondaryLightest bg-secondaryLightest text-secondaryLighter data-[placeholder]:text-secondaryLighter' : 'border-secondaryLighter bg-secondaryLightest text-secondary data-[placeholder]:text-secondaryLight'} focus:ring-secondaryLighter px-2 py-1 text-sm leading-none focus:ring-1 focus:outline-none`}
           aria-label={selectName}
           disabled={disabled}
         >
@@ -59,11 +64,13 @@ const FormSelect = ({
         </Select.Trigger>
         <div className='absolute z-50'>
           <Select.Portal>
-            <Select.Content className='relative overflow-hidden rounded-md bg-primary shadow-md'>
-              <Select.ScrollUpButton className='flex h-[30px] cursor-default items-center justify-center bg-secondaryLighter text-secondary'>
+            <Select.Content
+              className={`${isDarkMode === 'dark' ? 'bg-[black] text-[white]' : 'bg-[white] text-[black]'} relative overflow-hidden rounded-md shadow-md`}
+            >
+              <Select.ScrollUpButton className='bg-secondaryLighter text-secondary flex h-[30px] cursor-default items-center justify-center'>
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
-              <Select.Viewport className='absolute rounded-md border-1 border-secondaryLighter'>
+              <Select.Viewport className='border-secondaryLighter absolute rounded-md border-1'>
                 <Select.Group>
                   {options.map(option => (
                     <SelectItem
@@ -73,21 +80,21 @@ const FormSelect = ({
                           ? `${option.value}-${option.type}`
                           : `${option.value}`
                       }
-                      className='px-4 py-1 text-sm'
+                      className={`px-4 py-1 text-sm`}
                     >
                       {option.name}
                     </SelectItem>
                   ))}
                 </Select.Group>
               </Select.Viewport>
-              <Select.ScrollDownButton className='bg-white flex h-[25px] cursor-default items-center justify-center text-secondary'>
+              <Select.ScrollDownButton className='text-secondary flex h-[25px] cursor-default items-center justify-center bg-white'>
                 <ChevronDownIcon />
               </Select.ScrollDownButton>
             </Select.Content>
           </Select.Portal>
         </div>
       </Select.Root>
-      {error && <p className='text-xs text-warn'>{error}</p>}
+      {error && <p className='text-warn text-xs'>{error}</p>}
     </div>
   )
 }
@@ -101,9 +108,10 @@ interface SelectItemProps {
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   ({ children, className, ...props }, forwardedRef) => {
+    const isDarkMode = useReactiveVar(mode)
     return (
       <Select.Item
-        className={`relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-sm leading-none text-secondary data-[disabled]:pointer-events-none data-[highlighted]:bg-secondaryLight data-[disabled]:text-secondaryLighter data-[highlighted]:text-accent data-[highlighted]:outline-none ${className}`}
+        className={`${isDarkMode === 'dark' ? 'data-[highlighted]:bg-[var(--lightYellow)] data-[highlighted]:text-[var(--darkBlue)]' : 'data-[highlighted]:bg-[var(--lightestBlue)]'} text-secondary data-[disabled]:text-secondaryLighter relative flex h-[25px] items-center rounded-[3px] pr-[35px] pl-[25px] text-sm leading-none select-none data-[disabled]:pointer-events-none data-[highlighted]:outline-none ${className}`}
         {...props}
         ref={forwardedRef}
       >

@@ -1,4 +1,4 @@
-const House = () => {
+const HouseFigure = ({ color }: { color: string }) => {
   return (
     <svg
       className='w-full'
@@ -121,4 +121,4 @@ const House = () => {
     </svg>
   )
 }
-export default House
+export default HouseFigure

@@ -6,9 +6,9 @@ const Emptylist = ({
   secondary?: boolean
 }) => (
   <div
-    className={`w-fit rounded-md ${secondary ? 'bg-secondaryLightest' : 'bg-accentLight'} mb-8 px-4 py-2 text-secondary`}
+    className={`w-fit rounded-md ${secondary ? 'bg-secondaryLightest text-inv' : 'bg-accentLight text-accent'} mb-8 px-4 py-2`}
   >
-    <p className='whitespace-pre-wrap font-semibold'>{message}</p>
+    <p className='font-semibold whitespace-pre-wrap'>{message}</p>
   </div>
 )
 

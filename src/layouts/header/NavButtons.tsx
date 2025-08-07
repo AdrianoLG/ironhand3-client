@@ -23,13 +23,14 @@ const NavButtons = ({ headers }: { headers: iHeaders[] }) => {
           <Button
             text='Cerrar menú'
             onMouseClick={() => setShowMobMenu(false)}
+            classes='relative z-10'
           />
         </div>
       )}
       <ul
         className={
           (showMobMenu ? 'grid' : 'hidden') +
-          ' absolute z-10 w-full grid-cols-1 gap-x-4 gap-y-3 bg-secondaryLight p-4 sm:static sm:z-0 sm:grid sm:grid-cols-2 md:bg-transparent lg:grid-cols-3'
+          ' bg-secondaryLight absolute top-[98%] z-[9] w-full grid-cols-1 gap-x-4 gap-y-3 p-4 sm:static sm:z-0 sm:grid sm:grid-cols-2 sm:bg-transparent lg:grid-cols-3'
         }
       >
         {headers?.map(header => (

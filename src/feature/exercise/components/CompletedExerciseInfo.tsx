@@ -8,19 +8,19 @@ const CompletedExerciseInfo = ({
   <div className='flex flex-col'>
     <div className='relative'>
       <img
-        className='absolute -bottom-3 left-1/2 h-6 w-6 -translate-x-1/2 transform rounded-full border-1 border-secondary bg-secondaryLightest p-1'
+        className='border-secondary bg-secondaryLightest absolute -bottom-3 left-1/2 h-6 w-6 -translate-x-1/2 transform rounded-full border-1 p-1'
         src={`./src/assets/img/svg/${completedExercise.exercise.type}.svg`}
         alt={completedExercise.exercise.type}
       />
       <img
         className='w-full'
-        src={completedExercise.exercise.img}
+        src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/exercise/${completedExercise.exercise.img}`}
         alt={completedExercise.exercise.name}
       />
     </div>
     <div className='p-4'>
       <p className='mb-3 text-center'>
-        <span className='border-b-2 border-secondaryLighter'>
+        <span className='border-secondaryLighter border-b-2'>
           {completedExercise.exercise.name}
         </span>
       </p>

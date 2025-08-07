@@ -1,10 +1,7 @@
-import { Button } from '../../components/atoms'
-import Emptylist from '../../components/molecules/EmptyList'
-import ExerciseList from '../../feature/exercise/components/ExerciseList'
-import {
-  iCompletedExercise,
-  iExercise
-} from '../../feature/exercise/types/exercises'
+import { Button } from '../../../components/atoms'
+import Emptylist from '../../../components/molecules/EmptyList'
+import ExerciseList from '../components/ExerciseList'
+import { iCompletedExercise, iExercise } from '../types/exercises'
 
 const ExerciseMain = ({
   completedExercises,
@@ -33,18 +30,18 @@ const ExerciseMain = ({
         {data.exercises.map((exercise: iExercise) => (
           <div
             key={exercise._id}
-            className='group border-secondaryLighter relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1'
+            className='group/Card border-secondaryLighter relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1'
           >
             <div
-              className='h-full w-full bg-cover bg-center brightness-[40%] group-hover:brightness-100'
+              className='group-hover-within/Card:brightness-100 h-full w-full bg-cover bg-center brightness-[40%] group-focus-within/Card:brightness-100 group-hover/Card:brightness-100 group-focus/Card:brightness-100'
               style={{
-                backgroundImage: `url(${exercise.img})`
+                backgroundImage: `url(${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/exercise/${exercise.img})`
               }}
             ></div>
-            <h2 className='text-md text-secondaryLightest absolute bottom-1 left-0 w-full text-center font-semibold opacity-100 transition-all duration-200 ease-out group-hover:opacity-0'>
+            <h2 className='text-md text-secondaryLightest absolute bottom-1 left-0 w-full text-center font-semibold opacity-100 transition-all duration-200 ease-out group-focus-within/Card:opacity-0 group-hover/Card:opacity-0 group-focus/Card:opacity-0'>
               {exercise.name}
             </h2>
-            <div className='absolute bottom-1 left-0 flex w-full justify-center gap-2 opacity-0 transition-all duration-100 ease-out group-hover:opacity-100'>
+            <div className='hover-group-within/Card:opacity-100 absolute bottom-1 left-0 flex w-full justify-center gap-2 opacity-0 transition-all duration-100 ease-out group-focus-within/Card:opacity-100 group-hover/Card:opacity-100 group-focus/Card:opacity-100'>
               <Button
                 text='Actualizar'
                 onMouseClick={() => {
@@ -64,6 +61,7 @@ const ExerciseMain = ({
                 outline
                 isFit
                 secondary
+                classes='pointer-events-auto'
               />
             </div>
           </div>

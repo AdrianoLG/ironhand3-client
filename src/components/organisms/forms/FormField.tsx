@@ -21,7 +21,7 @@ const FormField = ({
   }
   return (
     <div className='w-full'>
-      <label className='mb-1 block w-full' htmlFor={tag}>
+      <label className='text-text mb-1 block w-full' htmlFor={tag}>
         {title} {isRequired && <span className='text-warn'>*</span>}
       </label>
       {quickButtons && (
@@ -38,7 +38,7 @@ const FormField = ({
         </div>
       )}
       <input
-        className='block w-full rounded-md border-1 border-secondaryLighter bg-secondaryLightest p-1 text-sm leading-none text-secondaryLight hover:bg-primary focus:outline-none focus:ring-1 focus:ring-secondaryLighter'
+        className='border-secondaryLighter bg-secondaryLightest text-secondaryLight hover:bg-primary focus:ring-secondaryLighter block w-full rounded-md border-1 p-1 text-sm leading-none focus:ring-1 focus:outline-none'
         type={type}
         {...(type === 'number' ? { min: '0' } : {})}
         name={tag}

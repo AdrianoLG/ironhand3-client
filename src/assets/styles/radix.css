@@ -1,0 +1,42 @@
+.LightOverlay {
+  --transparent70B: var(--transparentWhite70);
+}
+.DarkOverlay {
+  --transparent70B: var(--transparentBlack70);
+}
+.LightContent {
+  --primary: var(--white);
+  --secondary: var(--darkBlue);
+  --secondaryLight: var(--blue);
+  --secondaryLighter: var(--lightBlue);
+  --secondaryLightest: var(--lightestBlue);
+  --accent: var(--yellow);
+  --accentLight: var(--lightYellow);
+  --text: var(--gray);
+  --textInv: var(--white);
+  --success: var(--lightGreen);
+  --warn: var(--orange);
+  --category1: var(--lightOrange);
+  --category2: var(--lightBlue);
+  --transparent: var(--transparent);
+  --transparent70: var(--transparentWhite70);
+  --transparent70B: var(--transparentBlack70);
+}
+.DarkContent {
+  --primary: var(--black);
+  --secondary: var(--yellow);
+  --secondaryLight: var(--mediumYellow);
+  --secondaryLighter: var(--lightYellow);
+  --secondaryLightest: var(--gray);
+  --accent: var(--darkBlue);
+  --accentLight: var(--blue);
+  --text: var(--white);
+  --textInv: var(--gray);
+  --success: var(--lightGreen);
+  --warn: var(--orange);
+  --category1: var(--lightOrange);
+  --category2: var(--lightBlue);
+  --transparent: var(--transparent);
+  --transparent70: var(--transparentBlack70);
+  --transparent70B: var(--transparentWhite70);
+}

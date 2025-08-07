@@ -11,8 +11,9 @@ interface iCard {
 const Card = ({ imageAlt, imageSrc, title, type, onClick }: iCard) => {
   return (
     <div
+      tabIndex={0}
       onClick={onClick}
-      className='min-w-xs-card rounded-card hover:shadow-warn md:min-w-sm-card lg:min-w-md-card content:min-w-card w-auto basis-1/6 items-center overflow-clip transition-all duration-100 ease-in hover:scale-95 hover:cursor-pointer hover:brightness-75'
+      className='min-w-xs-card rounded-card hover:shadow-warn md:min-w-sm-card lg:min-w-md-card content:min-w-card focus:ring-accent w-auto basis-1/6 items-center overflow-clip transition-all duration-100 ease-in hover:scale-95 hover:cursor-pointer hover:brightness-75 focus:scale-95 focus:ring-4 focus:outline-none'
     >
       <Image imageSrc={imageSrc} type={type} imageAlt={imageAlt} />
       <h3 className='bg-secondary text-textInv text-center'>{title}</h3>

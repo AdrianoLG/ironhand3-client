@@ -7,7 +7,6 @@ const CompleteExerciseForm = ({
   onSubmit,
   register,
   errors,
-  isValid,
   data,
   clearErrors,
   setIsRequiredSelected,
@@ -16,7 +15,6 @@ const CompleteExerciseForm = ({
   completedExerciseData,
   fields,
   handleButtons,
-  isRequiredSelected,
   setIsOpen
 }: iCompleteExerciseForm) => {
   return (
@@ -131,22 +129,10 @@ const CompleteExerciseForm = ({
           onMouseClick={() => setIsOpen(false)}
         />
         {completedExerciseData && (
-          <Button
-            text='Actualizar'
-            type='submit'
-            isFit
-            small
-            disabled={!isValid}
-          />
+          <Button text='Actualizar' type='submit' isFit small />
         )}
         {!completedExerciseData && (
-          <Button
-            text='Insertar'
-            type='submit'
-            isFit
-            small
-            disabled={!isRequiredSelected || !isValid}
-          />
+          <Button text='Insertar' type='submit' isFit small />
         )}
       </div>
     </form>
