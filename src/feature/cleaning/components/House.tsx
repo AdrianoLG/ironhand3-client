@@ -1,8 +1,8 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react'
 
-import HouseFigure from '../assets/svgs/HouseFigure';
-import { iCompletedCleaningTasks } from '../types/exercises';
-import chosenColor from '../utils/chosenColor';
+import HouseFigure from '../assets/svgs/HouseFigure'
+import { iCompletedCleaningTasks } from '../types/completedCleaningTasks'
+import chosenColor from '../utils/chosenColor'
 
 const House = ({
   color,
@@ -14,41 +14,51 @@ const House = ({
   const [currentFillStairs, setCurrentFillStairs] = useState('current')
   const [currentFillLivingRoom, setCurrentFillLivingRoom] = useState('current')
   const [currentFillMainRoom, setCurrentFillMainRoom] = useState('current')
-  const [currentFillNorthTerrace, setCurrentFillNorthTerrace] = useState('current')
-  const [currentFillBasementRoom, setCurrentFillBasementRoom] = useState('current')
+  const [currentFillNorthTerrace, setCurrentFillNorthTerrace] =
+    useState('current')
+  const [currentFillBasementRoom, setCurrentFillBasementRoom] =
+    useState('current')
   const [currentFillKitchen, setCurrentFillKitchen] = useState('current')
   const [currentFillStudio, setCurrentFillStudio] = useState('current')
-  const [currentFillSouthTerrace, setCurrentFillSouthTerrace] = useState('current')
+  const [currentFillSouthTerrace, setCurrentFillSouthTerrace] =
+    useState('current')
   const [currentFillBasement, setCurrentFillBasement] = useState('current')
-  const [currentFillAtticBathroom, setCurrentFillAtticBathroom] = useState('current')
-  const [currentFillKitchenBathroom, setCurrentFillKitchenBathroom] = useState('current')
+  const [currentFillAtticBathroom, setCurrentFillAtticBathroom] =
+    useState('current')
+  const [currentFillKitchenBathroom, setCurrentFillKitchenBathroom] =
+    useState('current')
   const [currentFillWorkshop, setCurrentFillWorkshop] = useState('current')
   const [currentFillGarage, setCurrentFillGarage] = useState('current')
-  const [currentFillStudioBathroom, setCurrentFillStudioBathroom] = useState('current')
-  const [currentFillMainroomBathroom, setCurrentFillMainroomBathroom] = useState('current')
+  const [currentFillStudioBathroom, setCurrentFillStudioBathroom] =
+    useState('current')
+  const [currentFillMainroomBathroom, setCurrentFillMainroomBathroom] =
+    useState('current')
   const [currentFillAttic, setCurrentFillAttic] = useState('current')
 
   useLayoutEffect(() => {
+    console.log('completedCleaningTasks:', completedCleaningTasks)
+
     /*
-     * Calculate the total repetitions and weight for each body part
-     * and calculate the punctuation based on the type of exercise
+     * Calculate the total completed tasks for each room
      */
     const completedCleaningTasksCount = completedCleaningTasks.reduce(
       (acc: { [key: string]: number }, completedCleaningTask) => {
-        const count = completedCleaningTask.count || 0
         completedCleaningTask.rooms.forEach(room => {
-          if (!acc[room]) {
-            acc[room] = 0
+          const roomSlug = room.slug
+          if (!acc[roomSlug]) {
+            acc[roomSlug] = 0
           }
-          acc[room] += count
+          acc[roomSlug] += 1
         })
         return acc
       },
       {}
     )
 
+    console.log('completedCleaningTasksCount:', completedCleaningTasksCount)
+
     /*
-     * Map the body parts to their respective state setters
+     * Map the house parts to their respective state setters
      * to update the fill colors based on the calculations
      */
     const fills: {
@@ -58,7 +68,7 @@ const House = ({
       livingRoom: setCurrentFillLivingRoom,
       mainRoom: setCurrentFillMainRoom,
       northTerrace: setCurrentFillNorthTerrace,
-      basementRoom: setCurrentFillBasementRoom,
+      basementBathroom: setCurrentFillBasementRoom,
       kitchen: setCurrentFillKitchen,
       studio: setCurrentFillStudio,
       southTerrace: setCurrentFillSouthTerrace,
@@ -68,19 +78,18 @@ const House = ({
       workshop: setCurrentFillWorkshop,
       garage: setCurrentFillGarage,
       studioBathroom: setCurrentFillStudioBathroom,
-      mainroomBathroom: setCurrentFillMainroomBathroom,
+      mainRoomBathroom: setCurrentFillMainroomBathroom,
       attic: setCurrentFillAttic
     }
     /*
-     * Set the fill color for each body part based on
+     * Set the fill color for each room based on
      * the calculations received
      */
-    for (const bodyPart in fills) {
-      fills[bodyPart](
-        completedCleaningTasks[bodyPart]
-          ? chosenColor(completedCleaningTasks[bodyPart], 'strength')
-          : chosenColor(0, 'strength')
-      )
+    for (const room in fills) {
+      const colorValue = completedCleaningTasksCount[room]
+        ? chosenColor(completedCleaningTasksCount[room])
+        : chosenColor(0)
+      fills[room](colorValue)
     }
   }, [completedCleaningTasks])
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { CheckIcon } from '@radix-ui/react-icons'
 
@@ -10,49 +10,26 @@ const FormMultiSelect = ({
   options,
   onChange,
   error,
-  data,
-  setOptions
+  data
 }: iFormMultiSelect) => {
   const [selectedParts, setSelectedParts] = useState<string[]>(data || [])
 
-  useEffect(() => {
-    const optionsToSet = options.map(option =>
-      selectedParts.includes(option.value)
-        ? { ...option, selected: true }
-        : { ...option, selected: false }
-    )
-    setOptions(optionsToSet)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const isSelected = (value: string) => selectedParts.includes(value)
 
   const changeOptions = (part: iMultiSelect) => {
-    setOptions(
-      options.map(option =>
-        option.value === part.value
-          ? { ...option, selected: !option.selected }
-          : option
-      )
-    )
-    if (part.selected) {
-      setSelectedParts(
-        selectedParts.filter(selectedPart => selectedPart !== part.value)
-      )
-      onChange(
-        selectedParts.filter(selectedPart => selectedPart !== part.value)
+    let newSelected: string[]
+    if (isSelected(part.value)) {
+      newSelected = selectedParts.filter(
+        selectedPart => selectedPart !== part.value
       )
     } else {
-      setSelectedParts([...selectedParts, part.value])
-      onChange([...selectedParts, part.value])
+      newSelected = [...selectedParts, part.value]
     }
+    setSelectedParts(newSelected)
+    onChange(newSelected)
   }
 
   const resetOptions = () => {
-    setOptions(
-      options.map(option => ({
-        ...option,
-        selected: false
-      }))
-    )
     setSelectedParts([])
     onChange([])
   }
@@ -75,14 +52,13 @@ const FormMultiSelect = ({
           >
             <p className='select-none'>{part.name}</p>
             <div className='border-secondaryLighter flex h-3 w-3 items-center justify-center rounded-sm border-1'>
-              {part.selected && <CheckIcon />}
+              {isSelected(part.value) && <CheckIcon />}
             </div>
           </div>
         ))}
       </div>
       <div className='flex justify-end'>
         <div
-          key='reset'
           className='border-secondaryLighter bg-warn text-textInv hover:bg-primary hover:text-warn focus:ring-secondaryLighter flex w-fit items-center justify-between gap-2 rounded-md border-1 px-3 py-1 text-sm leading-none hover:cursor-pointer hover:shadow-md focus:ring-1 focus:outline-none'
           tabIndex={0}
           onKeyDown={e => {

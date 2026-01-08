@@ -17,8 +17,7 @@ const CleaningTaskForm = ({
   roomOptions,
   setIsOpen,
   setCleaningTaskToUpdate,
-  setError,
-  setRoomOptions
+  setError
 }: iCleaningTaskForm) => {
   return (
     <form
@@ -58,7 +57,10 @@ const CleaningTaskForm = ({
           type='file'
           error={errors.img?.message}
           required
-          onUpload={(value: string) => setValue('img', value)}
+          onUpload={(value: string) => {
+            const filename = value.replace('cleaning/', '')
+            setValue('img', filename)
+          }}
           acceptedTypes='image/avif'
           maxSize={0.2}
           setError={(error: string) =>
@@ -66,7 +68,11 @@ const CleaningTaskForm = ({
               ? setError('img', { message: error })
               : clearErrors('img')
           }
-          img={cleaningTaskToUpdate?.img}
+          img={
+            cleaningTaskToUpdate?.img
+              ? `${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/cleaning/${cleaningTaskToUpdate.img}`
+              : undefined
+          }
           path='cleaning'
         />
       </div>
@@ -77,13 +83,13 @@ const CleaningTaskForm = ({
           name: room.name,
           selected: false
         }))}
-        setOptions={setRoomOptions}
         error={errors.possibleRooms?.message}
         onChange={(value: string[]) => {
+          const possibleRooms = roomOptions.filter(room =>
+            value.includes(room._id)
+          )
+          setValue('possibleRooms', possibleRooms)
           if (setCleaningTaskToUpdate && cleaningTaskToUpdate) {
-            const possibleRooms = roomOptions.filter(room =>
-              value.includes(room.slug)
-            )
             setCleaningTaskToUpdate({
               ...cleaningTaskToUpdate,
               _id: cleaningTaskToUpdate._id,
@@ -92,7 +98,7 @@ const CleaningTaskForm = ({
           }
           clearErrors('possibleRooms')
         }}
-        data={cleaningTaskToUpdate?.possibleRooms.map(room => room.slug) || []}
+        data={cleaningTaskToUpdate?.possibleRooms.map(room => room._id) || []}
       />
       <div className='col-span-2 flex justify-end gap-4'>
         <Button

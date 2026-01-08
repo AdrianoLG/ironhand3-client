@@ -38,7 +38,6 @@ export const ADD_COMPLETED_CLEANING_TASK = gql`
       createCompletedCleaningTaskInput: $createCompletedCleaningTaskInput
     ) {
       _id
-      completedAt
     }
   }
 `
@@ -51,16 +50,15 @@ export const UPDATE_COMPLETED_CLEANING_TASK = gql`
       updateCompletedCleaningTaskInput: $updateCompletedCleaningTaskInput
     ) {
       _id
-      completedAt
     }
   }
 `
 
 export const REMOVE_COMPLETED_CLEANING_TASK = gql`
   mutation RemoveCompletedCleaningTask(
-    $removedCompletedCleaningTaskId: String!
+    $removeCompletedCleaningTaskId: String!
   ) {
-    removedCompletedCleaningTask(id: $removedCompletedCleaningTaskId) {
+    removeCompletedCleaningTask(id: $removeCompletedCleaningTaskId) {
       _id
     }
   }

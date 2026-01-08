@@ -1,8 +1,8 @@
-import { DateValueType } from 'react-tailwindcss-datepicker';
+import { DateValueType } from 'react-tailwindcss-datepicker'
 
-import House from '../assets/svgs/HouseFigure';
-import CleaningFilterButtons from '../components/CleaningFilterButtons';
-import { iCleaningInfo } from '../types/cleaningTasks';
+import CleaningFilterButtons from '../components/CleaningFilterButtons'
+import House from '../components/House'
+import { iCleaningInfo } from '../types/cleaningTasks'
 
 const CleaningAside = ({
   data,

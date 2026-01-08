@@ -36,7 +36,7 @@ const CleaningAlert = ({
           className='bg-transparent70B fixed inset-0'
           onClick={() => setShowAlert({ visible: false, id: null })}
         />
-        <AlertDialog.Content className='bg-primary fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md focus:outline-none'>
+        <AlertDialog.Content className='bg-warn fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md focus:outline-none'>
           <div className='relative px-8 pt-12 pb-8'>
             <IconWarn
               color='var(--warn)'

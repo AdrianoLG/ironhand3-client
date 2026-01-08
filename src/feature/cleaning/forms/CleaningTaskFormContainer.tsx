@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useMutation, useQuery } from '@apollo/client'
@@ -56,6 +56,15 @@ const CleaningTaskFormContainer = ({
   const [roomOptions, setRoomOptions] = useState<iRoom[]>([])
 
   /*
+   * Populate roomOptions when data is loaded
+   */
+  useEffect(() => {
+    if (data?.rooms) {
+      setRoomOptions(data.rooms)
+    }
+  }, [data])
+
+  /*
    * Handle form submission
    * Validates required fields and sends the form data to create or update a completed cleaning task
    */
@@ -84,7 +93,13 @@ const CleaningTaskFormContainer = ({
     }
 
     if (cleaningTask) {
-      const updateData = { ...data, _id: cleaningTask._id }
+      const updateData = {
+        _id: cleaningTask._id,
+        name: formData.name,
+        slug: formData.slug,
+        img: formData.img,
+        possibleRooms: formData.possibleRooms?.map(room => room._id) || []
+      }
       updateCleaningTask({
         variables: { updateCleaningTaskInput: updateData }
       }).finally(() => {
@@ -92,12 +107,18 @@ const CleaningTaskFormContainer = ({
         reset()
       })
     } else {
-      addCleaningTask({ variables: { createCleaningTaskInput: data } }).finally(
-        () => {
-          setIsOpen(false)
-          reset()
-        }
-      )
+      const createData = {
+        name: formData.name,
+        slug: formData.slug,
+        img: formData.img,
+        possibleRooms: formData.possibleRooms?.map(room => room._id) || []
+      }
+      addCleaningTask({
+        variables: { createCleaningTaskInput: createData }
+      }).finally(() => {
+        setIsOpen(false)
+        reset()
+      })
     }
 
     /*
@@ -130,7 +151,6 @@ const CleaningTaskFormContainer = ({
         setValue={setValue}
         clearErrors={clearErrors}
         setCleaningTaskToUpdate={setCleaningTaskToUpdate}
-        setRoomOptions={setRoomOptions}
         setError={setError}
         isValid={isValid}
         setIsOpen={setIsOpen}

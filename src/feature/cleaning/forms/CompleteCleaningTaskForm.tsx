@@ -27,7 +27,7 @@ const CompleteCleaningTaskForm = ({
   const [selectedTask, setSelectedTask] = useState('')
   const options =
     data?.cleaningTasks.map(cleaningTask => ({
-      value: cleaningTask.slug,
+      value: cleaningTask._id,
       name: cleaningTask.name
     })) || []
   const [roomOptionss, setRoomOptionss] = useState<
@@ -36,14 +36,13 @@ const CompleteCleaningTaskForm = ({
 
   useEffect(() => {
     if (data && data.cleaningTasks && selectedTask) {
+      const task = data.cleaningTasks.find(task => task._id === selectedTask)
       setRoomOptionss(
-        data?.cleaningTasks
-          .filter(task => selectedTask === task.slug)[0]
-          .possibleRooms.map(room => ({
-            value: room._id,
-            name: room.name,
-            selected: false
-          })) || []
+        task?.possibleRooms.map(room => ({
+          value: room._id,
+          name: room.name,
+          selected: false
+        })) || []
       )
     }
   }, [data, selectedTask])
@@ -75,21 +74,11 @@ const CompleteCleaningTaskForm = ({
         error={errors.cleaningTask?.message}
         options={options}
         onChange={(value: string) => {
-          clearErrors('cleaningTask')
           setIsRequiredSelected(true)
           setValue('cleaningTask', value)
           setSelectedTask(value)
-          setRoomOptionss(
-            data?.cleaningTasks
-              .filter(task => value === task.slug)[0]
-              .possibleRooms.map(room => ({
-                value: room._id,
-                name: room.name,
-                selected: false
-              })) || []
-          )
         }}
-        defaultValue={completedCleaningTaskData?.cleaningTask.slug}
+        defaultValue={completedCleaningTaskData?.cleaningTask._id}
         disabled={!!completedCleaningTaskData}
       />
       {selectedTask !== '' && roomOptionss.length && (
@@ -100,12 +89,14 @@ const CompleteCleaningTaskForm = ({
           setOptions={setRoomOptionss}
           error={errors.rooms?.message}
           onChange={(value: string[]) => {
+            // Guardar los _id seleccionados en el formulario
+            setValue('rooms', value)
             if (
               setCompletedCleaningTaskToUpdate &&
               completedCleaningTaskData?.cleaningTask
             ) {
               const selectedRooms = roomOptions.filter(room =>
-                value.includes(room.slug)
+                value.includes(room._id)
               )
               setCompletedCleaningTaskToUpdate({
                 ...completedCleaningTaskData?.cleaningTask,

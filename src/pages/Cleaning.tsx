@@ -66,7 +66,7 @@ const Cleaning = () => {
           customDate={customDate}
         />
         <CleaningMain
-          completedCleaningTasks={data?.completedCleaningTasks || []}
+          completedCleaningTasks={completedCleaningTasks}
           data={data}
           setShowDialog={setShowDialog}
           setSelectedCleaningTask={setSelectedCleaningTask}

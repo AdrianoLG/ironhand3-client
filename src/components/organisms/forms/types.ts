@@ -39,8 +39,6 @@ export interface iFormMultiSelect {
   label: string
   isRequired?: boolean
   options: iMultiSelect[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setOptions: React.Dispatch<React.SetStateAction<any[]>>
   onChange: (value: string[]) => void
   error?: string
   data?: string[]

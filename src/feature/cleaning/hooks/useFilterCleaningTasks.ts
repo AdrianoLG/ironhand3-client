@@ -97,9 +97,15 @@ export const useFilterCleaningTasks = () => {
         endDate: null
       })
     }
+
+    const sortByDateDesc = (tasks: iCompletedCleaningTask[]) =>
+      [...tasks].sort((a, b) => dayjs(b.completedAt).diff(dayjs(a.completedAt)))
+
     switch (period) {
       case 'weekAt':
-        setCompletedCleaningTasks(completedCleaningTasksThisWeek || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(completedCleaningTasksThisWeek || [])
+        )
         setActiveButton('weekAt')
         setCustomDate({
           startDate: null,
@@ -107,23 +113,33 @@ export const useFilterCleaningTasks = () => {
         })
         break
       case 'pastWeek':
-        setCompletedCleaningTasks(completedCleaningTasksLastWeek || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(completedCleaningTasksLastWeek || [])
+        )
         setActiveButton('pastWeek')
         break
       case 'monthAt':
-        setCompletedCleaningTasks(completedCleaningTasksThisMonth || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(completedCleaningTasksThisMonth || [])
+        )
         setActiveButton('monthAt')
         break
       case 'pastMonth':
-        setCompletedCleaningTasks(completedCleaningTasksLastMonth || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(completedCleaningTasksLastMonth || [])
+        )
         setActiveButton('pastMonth')
         break
       case 'all':
-        setCompletedCleaningTasks(data?.completedCleaningTasks || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(data?.completedCleaningTasks || [])
+        )
         setActiveButton('all')
         break
       case 'custom':
-        setCompletedCleaningTasks(completedCleaningTasksCustom || [])
+        setCompletedCleaningTasks(
+          sortByDateDesc(completedCleaningTasksCustom || [])
+        )
         setActiveButton('custom')
         break
       default:

@@ -18,7 +18,10 @@ const client = new ApolloClient({
 
 export const mode = makeVar(sessionStorage.getItem('mode') || 'light')
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root')!
+const root = createRoot(rootElement)
+
+root.render(
   <StrictMode>
     <ApolloProvider client={client}>
       <App />

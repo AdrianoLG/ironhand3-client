@@ -97,11 +97,13 @@ const CompleteCleaningTaskFormContainer = ({
 
     // Send form: update or create
     if (completedCleaningTaskData?.cleaningTask) {
+      const rooms = completedCleaningTaskData.rooms.map(room => room._id)
       const updatedData = {
         ...formData,
-        _id: completedCleaningTaskToUpdate?._id,
-        rooms: completedCleaningTaskToUpdate?.possibleRooms || []
+        _id: completedCleaningTaskData?._id,
+        rooms: rooms
       }
+
       updateCompletedCleaningTask({
         variables: {
           updateCompletedCleaningTaskInput: cleanEmpty(updatedData)
@@ -111,12 +113,8 @@ const CompleteCleaningTaskFormContainer = ({
         reset()
       })
     } else {
-      const createData = {
-        ...formData,
-        rooms: completedCleaningTaskToUpdate?.possibleRooms || []
-      }
       createCompletedCleaningTask({
-        variables: { createCompletedCleaningTaskInput: cleanEmpty(createData) }
+        variables: { createCompletedCleaningTaskInput: cleanEmpty(formData) }
       }).finally(() => {
         setIsOpen(false)
         reset()

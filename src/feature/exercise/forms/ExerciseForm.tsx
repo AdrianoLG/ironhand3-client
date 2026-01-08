@@ -61,7 +61,6 @@ const ExerciseForm = ({
         label='Partes del cuerpo'
         isRequired
         options={options}
-        setOptions={setOptions}
         error={errors.bodyParts?.message}
         onChange={(value: string[]) => {
           setValue('bodyParts', value)
@@ -81,7 +80,10 @@ const ExerciseForm = ({
         type='file'
         error={errors.img?.message}
         required
-        onUpload={(value: string) => setValue('img', value)}
+        onUpload={(value: string) => {
+          const filename = value.replace('exercise/', '')
+          setValue('img', filename)
+        }}
         acceptedTypes='image/avif'
         maxSize={0.2}
         setError={(error: string) =>
@@ -89,7 +91,11 @@ const ExerciseForm = ({
             ? setError('img', { message: error })
             : clearErrors('img')
         }
-        img={exerciseToUpdate?.img}
+        img={
+          exerciseToUpdate?.img
+            ? `${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/exercise/${exerciseToUpdate.img}`
+            : undefined
+        }
         path='exercise'
       />
       <div className='col-span-2 flex justify-end gap-4'>

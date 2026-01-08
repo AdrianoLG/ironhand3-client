@@ -33,11 +33,11 @@ const ExerciseAlert = ({
           className='bg-transparent70B fixed inset-0'
           onClick={() => setShowAlert({ visible: false, id: null })}
         />
-        <AlertDialog.Content className='bg-primary fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md focus:outline-none'>
+        <AlertDialog.Content className='fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md border-4 border-[#f2b885] bg-[#f5e6d9] focus:outline-none'>
           <div className='relative px-8 pt-12 pb-8'>
             <IconWarn
-              color='var(--warn)'
-              classes='bg-primary rounded-full w-12 absolute -top-6 left-1/2 -translate-x-1/2'
+              color='#f26d3d'
+              classes='bg-[#fff] rounded-full w-12 absolute -top-6 left-1/2 -translate-x-1/2'
             />
             <AlertDialog.Title className='text-warn mb-2 text-center text-lg font-semibold'>
               ¿Estás seguro de que quieres eliminar el ejercicio?
@@ -50,7 +50,6 @@ const ExerciseAlert = ({
               <AlertDialog.Cancel asChild>
                 <Button
                   text='Cancelar'
-                  secondary
                   isFit
                   small
                   onMouseClick={() =>

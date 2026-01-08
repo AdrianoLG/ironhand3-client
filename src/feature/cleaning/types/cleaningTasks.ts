@@ -64,7 +64,6 @@ export interface iCleaningTaskForm {
   setValue: UseFormSetValue<iCleaningTask>
   cleaningTaskToUpdate: iCleaningTask | null
   roomOptions: iRoom[]
-  setRoomOptions: React.Dispatch<React.SetStateAction<iRoom[]>>
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setCleaningTaskToUpdate?: React.Dispatch<
     React.SetStateAction<iCleaningTask | null>

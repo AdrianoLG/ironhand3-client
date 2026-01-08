@@ -59,7 +59,8 @@ const FormInputFile = (props: iFileProps) => {
                 }
                 return
               }
-              setPreview(result.data.image)
+              const imageUrl = `${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/${result.data.image}`
+              setPreview(imageUrl)
               onUpload(result.data.image)
               setError('')
             })
