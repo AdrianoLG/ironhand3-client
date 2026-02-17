@@ -36,7 +36,7 @@ const FormMultiSelect = ({
 
   return (
     <div className='col-span-2 w-full'>
-      <label className='text-text mb-1 block w-full'>
+      <label className='text-text mb-1 block w-full text-sm'>
         {label} {isRequired && <span className='text-warn'>*</span>}
       </label>
       <div className='mb-2 flex flex-wrap gap-2'>

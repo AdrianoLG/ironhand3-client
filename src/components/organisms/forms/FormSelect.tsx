@@ -38,7 +38,7 @@ const FormSelect = ({
   return (
     <div className='flex flex-col'>
       <Label.Root
-        className={`text-reg mb-1 ${disabled ? 'text-secondaryLight' : 'text-text'}`}
+        className={`mb-1 text-sm ${disabled ? 'text-secondaryLight' : 'text-text'}`}
         htmlFor={tag}
       >
         {selectName} {isRequired && <span className='text-warn'>*</span>}{' '}

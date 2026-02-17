@@ -17,7 +17,7 @@ const FormInput = forwardRef(
 
     return (
       <div className={`w-full ${props.className ? props.className : ''}`}>
-        <label htmlFor={label} className='text-text mb-1 block w-full'>
+        <label htmlFor={label} className='text-text mb-1 block w-full text-sm'>
           {label} {required && <span className='text-warn'>*</span>}
         </label>
         <input

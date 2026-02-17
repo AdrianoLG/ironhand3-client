@@ -1,19 +1,19 @@
 import { Button } from '../../../components/atoms'
-import { iCompletedExercise } from '../types/exercises'
-import CompletedExerciseInfo from './CompletedExerciseInfo'
+import { iCompletedRehearsal } from '../types/rehearsals'
+import CompletedRehearsalInfo from './CompletedRehearsalInfo'
 
-const ExerciseHoverCard = ({
+const RehearsalHoverCard = ({
   showHoverCard,
-  completedExercise,
+  completedRehearsal,
   setShowDialog,
   setShowHoverCard,
-  removeCompletedExercise
+  removeCompletedRehearsal
 }: {
   showHoverCard: boolean
-  completedExercise: iCompletedExercise
+  completedRehearsal: iCompletedRehearsal
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>
   setShowHoverCard: React.Dispatch<React.SetStateAction<boolean>>
-  removeCompletedExercise: (id: string) => void
+  removeCompletedRehearsal: (id: string) => void
 }) => {
   return (
     <div
@@ -21,7 +21,7 @@ const ExerciseHoverCard = ({
     >
       <div className='border-b-secondaryLight absolute top-0 bottom-4 left-1/2 z-20 h-0 w-0 border-r-4 border-b-4 border-l-4 border-r-transparent border-l-transparent'></div>
       <div className='bg-primary border-secondaryLight overflow-clip rounded-md border-1 shadow-md'>
-        <CompletedExerciseInfo completedExercise={completedExercise} />
+        <CompletedRehearsalInfo completedRehearsal={completedRehearsal} />
         <div className='mb-4 flex justify-center gap-2'>
           <Button
             text='Actualizar'
@@ -35,7 +35,7 @@ const ExerciseHoverCard = ({
           <Button
             text='Borrar'
             onMouseClick={() => {
-              removeCompletedExercise(completedExercise._id)
+              removeCompletedRehearsal(completedRehearsal._id)
             }}
             xsmall
             isFit
@@ -50,4 +50,4 @@ const ExerciseHoverCard = ({
   )
 }
 
-export default ExerciseHoverCard
+export default RehearsalHoverCard

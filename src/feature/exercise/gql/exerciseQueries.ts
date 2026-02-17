@@ -12,16 +12,6 @@ export const SELECT_EXERCISES = gql`
 
 export const EXERCISES_INFO = gql`
   query {
-    shortcutCategories {
-      _id
-      title
-      shortcuts {
-        _id
-        title
-        image
-        action
-      }
-    }
     headers {
       title
       url

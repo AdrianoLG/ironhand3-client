@@ -79,7 +79,7 @@ const FormInputFile = (props: iFileProps) => {
 
   return (
     <div className='w-full'>
-      <label htmlFor={label} className={`text-text mb-1 block w-full`}>
+      <label htmlFor={label} className={`text-text mb-1 block w-full text-sm`}>
         {label} {required && <span className='text-warn'>*</span>}
       </label>
       <Button text={uploadButtonLabel} xsmall outline onMouseClick={hideRef} />

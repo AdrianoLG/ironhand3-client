@@ -17,10 +17,10 @@ const CleaningHoverCard = ({
 }) => {
   return (
     <div
-      className={`${showHoverCard ? 'absolute' : 'hidden'} left-1/2 z-10 w-56 -translate-x-1/2 pt-1 shadow-md transition-all duration-200 ease-out`}
+      className={`${showHoverCard ? 'absolute' : 'hidden'} left-1/2 z-10 w-56 -translate-x-1/2 pt-1 transition-all duration-200 ease-out`}
     >
       <div className='border-b-secondaryLight absolute top-0 bottom-4 left-1/2 z-20 h-0 w-0 border-r-4 border-b-4 border-l-4 border-r-transparent border-l-transparent'></div>
-      <div className='bg-primary border-secondaryLight overflow-clip rounded-md border-1'>
+      <div className='bg-primary border-secondaryLight overflow-clip rounded-md border-1 shadow-md'>
         <CompletedCleaningTaskInfo
           completedCleaningTask={completedCleaningTask}
         />

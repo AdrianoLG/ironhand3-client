@@ -73,10 +73,9 @@ const CompleteCleaningTaskFormContainer = ({
    * State management
    */
   const [isRequiredSelected, setIsRequiredSelected] = useState(false)
-  const [completedCleaningTaskToUpdate, setCompletedCleaningTaskToUpdate] =
-    useState<iCleaningTask | null>(
-      completedCleaningTaskData?.cleaningTask || null
-    )
+  const [, setCompletedCleaningTaskToUpdate] = useState<iCleaningTask | null>(
+    completedCleaningTaskData?.cleaningTask || null
+  )
 
   /*
    * Handle form submission

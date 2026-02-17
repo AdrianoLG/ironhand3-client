@@ -86,7 +86,6 @@ const CompleteCleaningTaskForm = ({
           label='Habitaciones'
           isRequired
           options={roomOptionss}
-          setOptions={setRoomOptionss}
           error={errors.rooms?.message}
           onChange={(value: string[]) => {
             // Guardar los _id seleccionados en el formulario

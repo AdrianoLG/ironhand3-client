@@ -15,6 +15,9 @@ const ModeButton = ({
         const nextMode = mode() === 'light' ? 'dark' : 'light'
         mode(nextMode)
         sessionStorage.setItem('mode', nextMode)
+        const root = document.documentElement
+        root.classList.remove('light', 'dark')
+        root.classList.add(nextMode)
       }}
       className={`text-secondaryLight`}
     >
