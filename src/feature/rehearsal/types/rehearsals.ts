@@ -95,3 +95,13 @@ export interface iCompletedRehearsalForm {
   setSelectedInstrument: React.Dispatch<React.SetStateAction<string>>
   selectedInstrument: string
 }
+
+export interface iBandFigure {
+  noRehearsals: boolean
+  currentOpacityPiano: number
+  currentOpacityElectricGuitar: number
+  currentOpacityAcousticGuitar: number
+  currentOpacityDrums: number
+  currentOpacityBass: number
+  currentOpacityMK2: number
+}
