@@ -15,6 +15,5 @@ export const instrumentIcons: Record<string, string> = {
 }
 
 export const getInstrumentIcon = (slug: string): string | undefined => {
-  console.log(instrumentIcons[slug])
   return instrumentIcons[slug]
 }

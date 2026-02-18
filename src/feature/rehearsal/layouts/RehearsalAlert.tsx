@@ -69,7 +69,6 @@ const RehearsalAlert = ({
                   small
                   onMouseClick={() => {
                     setShowAlert({ visible: false, id: null })
-                    console.log('ID ShowAlert', showAlert.id)
 
                     deleteSheet({
                       variables: { removeSheetId: showAlert.id }

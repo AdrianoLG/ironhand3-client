@@ -14,8 +14,6 @@ const SheetForm = ({
   setIsOpen,
   setSheetToUpdate
 }: iSheetForm) => {
-  console.log('Sheet to update', sheetToUpdate)
-
   return (
     <form
       className='my-7 flex w-full flex-col gap-4 px-8 lg:grid lg:grid-cols-2'

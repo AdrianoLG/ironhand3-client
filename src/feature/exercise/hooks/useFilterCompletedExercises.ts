@@ -125,7 +125,7 @@ export const useFilterCompletedExercises = () => {
         setActiveButton('custom')
         break
       default:
-        console.log('Error')
+        console.log('Error: cannot filter by date')
     }
   }
 

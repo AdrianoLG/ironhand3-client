@@ -36,8 +36,6 @@ const House = ({
   const [currentFillAttic, setCurrentFillAttic] = useState('current')
 
   useLayoutEffect(() => {
-    console.log('completedCleaningTasks:', completedCleaningTasks)
-
     /*
      * Calculate the total completed tasks for each room
      */
@@ -54,8 +52,6 @@ const House = ({
       },
       {}
     )
-
-    console.log('completedCleaningTasksCount:', completedCleaningTasksCount)
 
     /*
      * Map the house parts to their respective state setters

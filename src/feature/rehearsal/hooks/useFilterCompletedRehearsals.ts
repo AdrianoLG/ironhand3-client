@@ -45,7 +45,6 @@ export const useFilterCompletedRehearsals = () => {
   /*
    * Filter completed rehearsals by date
    */
-  console.log('DATA', data)
   const completedRehearsalsThisWeek = data?.rehearsals.filter(
     (rehearsal: iCompletedRehearsal) =>
       dayjs(rehearsal.completedAt) > thisWeeksFirstDay
@@ -140,7 +139,7 @@ export const useFilterCompletedRehearsals = () => {
         setActiveButton('custom')
         break
       default:
-        console.log('Error')
+        console.log('Error: cannot filter by date')
     }
   }
 
