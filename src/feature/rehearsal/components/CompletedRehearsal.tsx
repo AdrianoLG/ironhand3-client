@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { Dialog } from '../../../components/organisms/dialogs'
-// import RehearsalHoverCard from './RehearsalHoverCard';
 import { REMOVE_REHEARSAL } from '../gql/rehearsalMutations'
 import { REHEARSAL_INFO, SELECT_REHEARSALS } from '../gql/rehearsalQueries'
 import { iCompletedRehearsal } from '../types/rehearsals'

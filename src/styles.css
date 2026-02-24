@@ -181,6 +181,18 @@
     }
   }
 }
+
+/*
+  * Table styles
+*/
+.table-data-sheet .odd {
+  @apply bg-secondaryLightest;
+}.table-data-sheet td {
+  @apply p-1;
+}
+.table-data-sheet td:first-child {
+  @apply font-bold w-36;
+}
 /*
   * React Datepicker Styles
 */
