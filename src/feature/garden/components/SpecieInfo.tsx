@@ -10,8 +10,10 @@ const SpecieInfo = ({ plant }: { plant: iPlant }) => {
     plant.specie.category.charAt(0).toUpperCase() +
     plant.specie.category.slice(1).toLowerCase()
   return (
-    <div className='text-secondary py-2 text-xs'>
-      <h3 className='mb-2 text-center text-2xl'> {plant.name}</h3>
+    <div className='text-secondary py-4 text-xs'>
+      <h3 className='mb-4 text-center text-xl'>
+        {plant.death ? '💀' : ''} {plant.name} {plant.death ? '🦴' : ''}
+      </h3>
       <p>
         <span className='font-bold'>Plantada</span>:{' '}
         {formatDateShort(plant.planted)}
@@ -51,10 +53,10 @@ const SpecieInfo = ({ plant }: { plant: iPlant }) => {
           {formatDateShort(plant.death.date)})
         </p>
       )}
-      <div className='border-secondaryLight mt-2 border-t-1'>
-        <div className='flex items-center px-2'>
+      <div className='mt-2'>
+        <div className='flex items-center gap-4'>
           <img
-            className='block w-full max-w-24'
+            className='mb-4 block w-full max-w-24'
             src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/plant/specie/${plant.specie.image}`}
             alt={plant.specie.name}
           />
@@ -69,9 +71,9 @@ const SpecieInfo = ({ plant }: { plant: iPlant }) => {
         </div>
 
         {plant.specie.comments && (
-          <div className='mb-6 px-2'>
+          <div className='mb-6'>
             <div
-              className='text-2xs max-w-none'
+              className='w-full max-w-none text-xs'
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(decodeHtml(plant.specie.comments), {
                   ALLOWED_TAGS,

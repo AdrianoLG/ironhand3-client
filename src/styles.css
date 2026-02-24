@@ -185,6 +185,9 @@
 /*
   * Table styles
 */
+.table-data-sheet {
+  @apply w-full;
+}
 .table-data-sheet .odd {
   @apply bg-secondaryLightest;
 }.table-data-sheet td {
