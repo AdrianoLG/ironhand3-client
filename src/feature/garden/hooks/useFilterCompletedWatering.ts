@@ -16,7 +16,7 @@ export const useFilterCompletedWatering = () => {
   /*
    * State
    */
-  const [completedWatering, setCompletedWatering] = useState<iWatering[]>([])
+  const [completedWaterings, setCompletedWaterings] = useState<iWatering[]>([])
   const [activeButton, setActiveButton] = useState('thisWeek')
   const [customDate, setCustomDate] = useState<DateValueType>({
     startDate: null,
@@ -43,45 +43,56 @@ export const useFilterCompletedWatering = () => {
   /*
    * Filter completed waterings by date
    */
-  const completedWateringThisWeek = data?.waterings.filter(
-    (watering: iWatering) => dayjs(watering.date) > thisWeeksFirstDay
-  )
+  const completedWateringThisWeek = data?.crops
+    .reduce((acc, crop) => [...acc, ...crop.waterings], [] as iWatering[])
+    .filter((watering: iWatering) => dayjs(watering.date) > thisWeeksFirstDay)
 
-  const completedWateringLastWeek = data?.waterings.filter(
-    (watering: iWatering) =>
-      dayjs(watering.date) < thisWeeksFirstDay &&
-      dayjs(watering.date) > lastWeeksFirstDay
-  )
+  const completedWateringLastWeek = data?.crops
+    .reduce((acc, crop) => [...acc, ...crop.waterings], [] as iWatering[])
+    .filter(
+      (watering: iWatering) =>
+        dayjs(watering.date) < thisWeeksFirstDay &&
+        dayjs(watering.date) > lastWeeksFirstDay
+    )
 
-  const completedWateringThisMonth = data?.waterings.filter(
-    (watering: iWatering) => dayjs(watering.date) > thisMonthsFirstDay
-  )
+  const completedWateringThisMonth = data?.crops
+    .reduce((acc, crop) => [...acc, ...crop.waterings], [] as iWatering[])
+    .filter((watering: iWatering) => dayjs(watering.date) > thisMonthsFirstDay)
 
-  const completedWateringLastMonth = data?.waterings.filter(
-    (watering: iWatering) =>
-      dayjs(watering.date) < thisMonthsFirstDay &&
-      dayjs(watering.date) > lastMonthsFirstDay
-  )
+  const completedWateringLastMonth = data?.crops
+    .reduce((acc, crop) => [...acc, ...crop.waterings], [] as iWatering[])
+    .filter(
+      (watering: iWatering) =>
+        dayjs(watering.date) < thisMonthsFirstDay &&
+        dayjs(watering.date) > lastMonthsFirstDay
+    )
 
   const completedWateringCustom =
     customDate?.startDate &&
     customDate.endDate &&
-    data?.waterings.filter(
-      (watering: iWatering) =>
-        dayjs(watering.date) > dayjs(customDate.startDate) &&
-        dayjs(watering.date) < dayjs(customDate.endDate)
-    )
+    data?.crops
+      .reduce((acc, crop) => [...acc, ...crop.waterings], [] as iWatering[])
+      .filter(
+        (watering: iWatering) =>
+          dayjs(watering.date) > dayjs(customDate.startDate) &&
+          dayjs(watering.date) < dayjs(customDate.endDate)
+      )
 
   /*
    * Set initial completed waterings to this week's waterings
    */
   useEffect(() => {
-    if (data?.waterings) {
-      setCompletedWatering(completedWateringThisWeek || [])
+    if (
+      data?.crops.reduce(
+        (acc, crop) => [...acc, ...crop.waterings],
+        [] as iWatering[]
+      )
+    ) {
+      setCompletedWaterings(completedWateringThisWeek || [])
       setActiveButton('weekAt')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.waterings])
+  }, [data?.crops])
 
   /*
    * Filter completed waterings based on the selected period
@@ -99,7 +110,7 @@ export const useFilterCompletedWatering = () => {
 
     switch (period) {
       case 'weekAt':
-        setCompletedWatering(sortByDateDesc(completedWateringThisWeek || []))
+        setCompletedWaterings(sortByDateDesc(completedWateringThisWeek || []))
         setActiveButton('weekAt')
         setCustomDate({
           startDate: null,
@@ -107,23 +118,30 @@ export const useFilterCompletedWatering = () => {
         })
         break
       case 'pastWeek':
-        setCompletedWatering(sortByDateDesc(completedWateringLastWeek || []))
+        setCompletedWaterings(sortByDateDesc(completedWateringLastWeek || []))
         setActiveButton('pastWeek')
         break
       case 'monthAt':
-        setCompletedWatering(sortByDateDesc(completedWateringThisMonth || []))
+        setCompletedWaterings(sortByDateDesc(completedWateringThisMonth || []))
         setActiveButton('monthAt')
         break
       case 'pastMonth':
-        setCompletedWatering(sortByDateDesc(completedWateringLastMonth || []))
+        setCompletedWaterings(sortByDateDesc(completedWateringLastMonth || []))
         setActiveButton('pastMonth')
         break
       case 'all':
-        setCompletedWatering(sortByDateDesc(data?.waterings || []))
+        setCompletedWaterings(
+          sortByDateDesc(
+            data?.crops.reduce(
+              (acc, crop) => [...acc, ...crop.waterings],
+              [] as iWatering[]
+            ) || []
+          )
+        )
         setActiveButton('all')
         break
       case 'custom':
-        setCompletedWatering(sortByDateDesc(completedWateringCustom || []))
+        setCompletedWaterings(sortByDateDesc(completedWateringCustom || []))
         setActiveButton('custom')
         break
       default:
@@ -132,7 +150,7 @@ export const useFilterCompletedWatering = () => {
   }
 
   return {
-    completedWatering,
+    completedWaterings,
     filterDate,
     activeButton,
     data,

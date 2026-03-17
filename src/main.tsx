@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import {
   ApolloClient,
   ApolloProvider,
+  HttpLink,
   InMemoryCache,
   makeVar
 } from '@apollo/client'
@@ -12,7 +13,7 @@ import App from './App.tsx'
 
 const uri = import.meta.env.VITE_GRAPHQL_URI as string
 const client = new ApolloClient({
-  uri: uri,
+  link: new HttpLink({ uri }),
   cache: new InMemoryCache()
 })
 

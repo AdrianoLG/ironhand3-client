@@ -7,3 +7,10 @@ export const REMOVE_PLANT = gql`
     }
   }
 `
+export const REMOVE_COMPLETED_WATERING = gql`
+  mutation RemoveCompletedWatering($removedCompletedWateringId: String!) {
+    removeCompletedWatering(id: $removedCompletedWateringId) {
+      _id
+    }
+  }
+`

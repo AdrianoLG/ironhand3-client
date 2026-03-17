@@ -57,7 +57,7 @@ const SpecieInfo = ({ plant }: { plant: iPlant }) => {
         <div className='flex items-center gap-4'>
           <img
             className='mb-4 block w-full max-w-24'
-            src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/plant/specie/${plant.specie.image}`}
+            src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/garden/specie/${plant.specie.image}`}
             alt={plant.specie.name}
           />
           <div className='text-sm'>

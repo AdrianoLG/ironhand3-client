@@ -30,9 +30,33 @@ export const GARDEN_INFO = gql`
       endDate
       gallery
       comments
-      watering {
+      plants {
+        _id
+        name
+        specie {
+          _id
+        }
+        planted
+        inBloom
+        harvested
+        death {
+          date
+          cause
+        }
+      }
+      waterings {
         _id
         date
+        water
+        fertilizers {
+          qty
+          fertilizer {
+            _id
+            name
+            comments
+            img
+          }
+        }
       }
       cropContainer {
         _id
@@ -41,10 +65,6 @@ export const GARDEN_INFO = gql`
         capacity
         auto
       }
-    }
-    waterings {
-      _id
-      date
     }
   }
 `

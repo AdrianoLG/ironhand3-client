@@ -14,7 +14,9 @@ const App = () => {
   return (
     <div id='mode' className={`${isDarkMode === 'dark' ? 'dark' : 'light'}`}>
       <div className='bg-primary min-h-screen'>
-        <BrowserRouter>
+        <BrowserRouter
+          future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+        >
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/ejercicio' element={<Exercise />} />

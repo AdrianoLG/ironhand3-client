@@ -1,14 +1,16 @@
 import { iPlant } from '../types/garden'
 import { getCategoryOrder } from '../utils/categoryOrder'
+import mapCategoryName from '../utils/mapCategoryName'
 import Plant from './Plant'
 
 const PlantList = ({ plants }: { plants: iPlant[] }) => {
   const grouped = plants.reduce<Record<string, iPlant[]>>((acc, plant) => {
-    const category = plant.specie?.category || 'Otros'
+    const category = mapCategoryName(plant.specie?.category)
     if (!acc[category]) acc[category] = []
     acc[category].push(plant)
     return acc
   }, {})
+  console.log(grouped)
 
   const categoryOrder = getCategoryOrder(grouped)
 

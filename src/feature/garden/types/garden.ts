@@ -5,7 +5,6 @@ export interface iGardenInfo {
   }[]
   plants: iPlant[]
   crops: iCrop[]
-  waterings: iWatering[]
 }
 
 export interface iPlant {
@@ -51,6 +50,7 @@ export interface iFertilizer {
 
 export interface iCrop {
   _id: string
+  comments: string
   startDate: Date
   endDate: Date
   plants: iPlant[]

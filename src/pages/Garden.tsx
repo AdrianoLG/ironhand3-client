@@ -1,7 +1,9 @@
 import ErrorMessage from '../components/molecules/ErrorMessage'
 import Heading from '../components/molecules/Heading'
 import Spinner from '../components/molecules/Spinner'
+import CropList from '../feature/garden/components/CropList'
 import PlantList from '../feature/garden/components/PlantList'
+import WateringList from '../feature/garden/components/WateringList'
 import { useFilterCompletedWatering } from '../feature/garden/hooks/useFilterCompletedWatering'
 import ThirdsLayout from '../layouts/body/ThirdsLayout'
 import Header from '../layouts/header/Header'
@@ -45,10 +47,11 @@ const Garden = () => {
       <ThirdsLayout>
         <div>
           <h2 className='mb-4 text-2xl'>Riegos</h2>
+          <WateringList crops={data?.crops ?? []} />
         </div>
         <div>
           <h2 className='mb-4 text-2xl'>Cultivos</h2>
-          <pre>{JSON.stringify(data?.crops, null, 2)}</pre>
+          <CropList crops={data?.crops ?? []} />
         </div>
         <div>
           <h2 className='mb-4 text-2xl'>Plantas</h2>
