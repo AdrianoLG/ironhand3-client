@@ -33,7 +33,7 @@ const CleaningMain = ({
             className='group/Card border-secondaryLighter relative flex h-24 items-end justify-center overflow-hidden rounded-md border-1'
           >
             <div
-              className='group-hover-within/Card:brightness-100 h-full w-full bg-cover bg-center brightness-[40%] group-focus-within/Card:brightness-100 group-hover/Card:brightness-100 group-focus/Card:brightness-100'
+              className='group-hover-within/Card:brightness-100 brightness-40% h-full w-full bg-cover bg-center group-focus-within/Card:brightness-100 group-hover/Card:brightness-100 group-focus/Card:brightness-100'
               style={{
                 backgroundImage: `url(${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/cleaning/${cleaningTask.img})`
               }}

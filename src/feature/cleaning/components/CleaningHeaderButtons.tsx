@@ -25,6 +25,7 @@ const CleaningHeaderButtons = () => {
             }
             isOpen={completeCleaningFormIsOpen}
             setIsOpen={setCompleteCleaningFormIsOpen}
+            secondary
           />
         </div>
         <div>
@@ -36,7 +37,6 @@ const CleaningHeaderButtons = () => {
             child={
               <CleaningTaskFormContainer setIsOpen={setCleaningFormIsOpen} />
             }
-            secondary
             isOpen={cleaningFormIsOpen}
             setIsOpen={setCleaningFormIsOpen}
           />

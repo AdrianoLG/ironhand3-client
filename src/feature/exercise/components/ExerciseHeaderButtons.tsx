@@ -11,7 +11,7 @@ const ExerciseHeaderButtons = () => {
 
   return (
     <>
-      <nav className='mx-auto flex flex-wrap justify-start gap-2 px-8 pb-16 xl:max-w-screen-content'>
+      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-8 pb-16'>
         <div>
           <Dialog
             buttonText='Completar ejercicio'
@@ -25,6 +25,7 @@ const ExerciseHeaderButtons = () => {
             }
             isOpen={completeExerciseFormIsOpen}
             setIsOpen={setCompleteExerciseFormIsOpen}
+            secondary
           />
         </div>
         <div>
@@ -34,7 +35,6 @@ const ExerciseHeaderButtons = () => {
             description='Completa los datos del nuevo ejercicio'
             image='exercise-bg'
             child={<ExerciseFormContainer setIsOpen={setExerciseFormIsOpen} />}
-            secondary
             isOpen={exerciseFormIsOpen}
             setIsOpen={setExerciseFormIsOpen}
           />

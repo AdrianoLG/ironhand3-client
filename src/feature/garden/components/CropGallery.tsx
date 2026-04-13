@@ -43,6 +43,7 @@ const CropGallery = ({ crop }: { crop: iCrop }) => {
                 key={index}
                 type='button'
                 onClick={() => openGallery(crop._id, index)}
+                className='hover:cursor-pointer hover:opacity-90'
               >
                 <img
                   src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/garden/gallery/${smImage}`}

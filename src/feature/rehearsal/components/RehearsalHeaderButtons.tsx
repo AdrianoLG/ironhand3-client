@@ -25,6 +25,7 @@ const RehearsalHeaderButtons = () => {
             }
             isOpen={completeRehearsalFormIsOpen}
             setIsOpen={setCompleteRehearsalFormIsOpen}
+            secondary
           />
         </div>
         <div>
@@ -34,7 +35,6 @@ const RehearsalHeaderButtons = () => {
             description='Completa los datos de la nueva partitura'
             image='rehearsal-bg'
             child={<SheetFormContainer setIsOpen={setSheetFormIsOpen} />}
-            secondary
             isOpen={sheetFormIsOpen}
             setIsOpen={setSheetFormIsOpen}
           />

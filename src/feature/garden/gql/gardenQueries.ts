@@ -68,3 +68,58 @@ export const GARDEN_INFO = gql`
     }
   }
 `
+
+export const SELECT_GARDEN_FORM_DATA = gql`
+  query SelectGardenFormData {
+    species {
+      _id
+      name
+      category
+      image
+      comments
+    }
+    plants {
+      _id
+      name
+      specie {
+        _id
+        name
+      }
+      planted
+      inBloom
+      harvested
+      death {
+        date
+        cause
+      }
+    }
+    cropContainers {
+      _id
+      name
+      img
+      capacity
+      auto
+    }
+    fertilizers {
+      _id
+      name
+      comments
+      img
+    }
+    crops {
+      _id
+      startDate
+      comments
+      cropContainer {
+        _id
+        name
+      }
+      plants {
+        _id
+      }
+      waterings {
+        _id
+      }
+    }
+  }
+`

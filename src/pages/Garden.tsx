@@ -2,6 +2,7 @@ import ErrorMessage from '../components/molecules/ErrorMessage'
 import Heading from '../components/molecules/Heading'
 import Spinner from '../components/molecules/Spinner'
 import CropList from '../feature/garden/components/CropList'
+import GardenHeaderButtons from '../feature/garden/components/GardenHeaderButtons'
 import PlantList from '../feature/garden/components/PlantList'
 import WateringList from '../feature/garden/components/WateringList'
 import { useFilterCompletedWatering } from '../feature/garden/hooks/useFilterCompletedWatering'
@@ -44,6 +45,7 @@ const Garden = () => {
     <>
       <Header isMain={false} headers={data?.headers} />
       <Heading title='Jardín' />
+      <GardenHeaderButtons />
       <ThirdsLayout>
         <div>
           <h2 className='mb-4 text-2xl'>Riegos</h2>
