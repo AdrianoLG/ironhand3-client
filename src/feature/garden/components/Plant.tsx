@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { Dialog } from '../../../components/organisms/dialogs'
+import PlantFormContainer from '../forms/PlantFormContainer'
 import { REMOVE_PLANT } from '../gql/gardenMutations'
 import { GARDEN_INFO } from '../gql/gardenQueries'
 import { iPlant } from '../types/garden'
@@ -62,13 +63,15 @@ const Plant = ({ plant }: { plant: iPlant }) => {
             </p>
           </div>
         </div>
-        <PlantHoverCard
-          showHoverCard={showHoverCard}
-          plant={plant}
-          setShowDialog={setShowDialog}
-          setShowHoverCard={setShowHoverCard}
-          removePlant={removePlant}
-        />
+        {!showDialog && (
+          <PlantHoverCard
+            showHoverCard={showHoverCard}
+            plant={plant}
+            setShowDialog={setShowDialog}
+            setShowHoverCard={setShowHoverCard}
+            removePlant={removePlant}
+          />
+        )}
       </div>
       {showDialog && (
         <Dialog
@@ -77,17 +80,11 @@ const Plant = ({ plant }: { plant: iPlant }) => {
           description='Modifica los datos de la planta'
           image='plant-bg'
           child={
-            <></>
-            // <CompletePlantFormContainer
-            //   plantData={plant}
-            //   setIsOpen={() => setShowDialog(false)}
-            // />
+            <PlantFormContainer plantData={plant} setIsOpen={setShowDialog} />
           }
-          secondary
-          xsmall
-          isFit
           isOpen={showDialog}
           setIsOpen={setShowDialog}
+          hideTrigger
         />
       )}
     </div>

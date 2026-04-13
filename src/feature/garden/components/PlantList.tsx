@@ -10,7 +10,6 @@ const PlantList = ({ plants }: { plants: iPlant[] }) => {
     acc[category].push(plant)
     return acc
   }, {})
-  console.log(grouped)
 
   const categoryOrder = getCategoryOrder(grouped)
 

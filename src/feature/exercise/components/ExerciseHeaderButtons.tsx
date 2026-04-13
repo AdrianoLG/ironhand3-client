@@ -11,7 +11,7 @@ const ExerciseHeaderButtons = () => {
 
   return (
     <>
-      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-8 pb-16'>
+      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-12 pb-16'>
         <div>
           <Dialog
             buttonText='Completar ejercicio'

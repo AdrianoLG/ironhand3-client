@@ -20,6 +20,7 @@ export interface iFileProps extends HTMLProps<HTMLInputElement> {
   acceptedTypes?: string
   multiple?: boolean
   maxSize?: number
+  createThumbnail?: boolean
   setError?: (error: string) => void
   onUpload: (value: string) => void
   img?: string

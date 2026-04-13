@@ -80,13 +80,14 @@ const CropGalleryManager = ({ crop }: { crop: iCrop }) => {
       {showUploader && (
         <FormInputFile
           label='Añadir imagen a galería'
-          sublabel='Resolución 800x306'
+          sublabel='Se generará miniatura 500x500'
           type='file'
           error={uploadError}
           required
           onUpload={addImage}
           acceptedTypes='image/avif'
           maxSize={0.2}
+          createThumbnail
           setError={setUploadError}
           path='garden/gallery'
         />

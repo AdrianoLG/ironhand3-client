@@ -9,4 +9,6 @@ export interface iDialog {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
   xsmall?: boolean
   isFit?: boolean
+  outline?: boolean
+  hideTrigger?: boolean
 }

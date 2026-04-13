@@ -1,14 +1,19 @@
 import { useState } from 'react'
 
-import { Dialog } from '../../../components/organisms/dialogs'
 import { iCrop } from '../types/garden'
-import CropGallery from './CropGallery'
-import CropGalleryManager from './CropGalleryManager'
 import CropHeader from './CropHeader'
-import CropTooltip from './CropTooltip'
+import CropListDetail from './CropListDetail'
 
 const CropList = ({ crops }: { crops: iCrop[] }) => {
-  const [activeCropForGallery, setActiveCropForGallery] = useState<string>('')
+  const [expandedCrops, setExpandedCrops] = useState<string[]>([])
+
+  const toggleCropDetail = (cropId: string) => {
+    setExpandedCrops(prev =>
+      prev.includes(cropId)
+        ? prev.filter(id => id !== cropId)
+        : [...prev, cropId]
+    )
+  }
 
   return (
     <div className='flex flex-col gap-4'>
@@ -16,6 +21,7 @@ const CropList = ({ crops }: { crops: iCrop[] }) => {
         <div
           key={crop._id}
           className='border-secondaryLight flex flex-col gap-2 rounded-md border-1 p-4'
+          onClick={() => toggleCropDetail(crop._id)}
         >
           <CropHeader crop={crop} />
           <div className='relative'>
@@ -32,32 +38,11 @@ const CropList = ({ crops }: { crops: iCrop[] }) => {
               {crop.cropContainer.capacity} l.
             </p>
           </div>
-          <div>
-            <p className='text-secondary mb-2 text-sm font-semibold'>Plantas</p>
-            <div className='grid grid-cols-2 gap-1'>
-              <CropTooltip crop={crop} />
+          {expandedCrops.includes(crop._id) && (
+            <div onClick={e => e.stopPropagation()}>
+              <CropListDetail crop={crop} />
             </div>
-          </div>
-          <p className='text-lg'>{crop.comments}</p>
-          <CropGallery crop={crop} />
-          <Dialog
-            buttonText='Gestionar galería'
-            title='Gestionar galería'
-            description='Añade o elimina miniaturas del cultivo'
-            image='crop-bg'
-            child={<CropGalleryManager crop={crop} />}
-            isOpen={activeCropForGallery === crop._id}
-            setIsOpen={isOpen => {
-              if (isOpen) {
-                setActiveCropForGallery(crop._id)
-              } else {
-                setActiveCropForGallery('')
-              }
-            }}
-            secondary
-            xsmall
-            isFit
-          />
+          )}
         </div>
       ))}
     </div>

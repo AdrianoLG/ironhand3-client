@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 
 import { Dialog } from '../../../components/organisms/dialogs'
+import WateringFormContainer from '../forms/WateringFormContainer'
 import { REMOVE_COMPLETED_WATERING } from '../gql/gardenMutations'
 import { GARDEN_INFO } from '../gql/gardenQueries'
 import { iWatering } from '../types/garden'
@@ -66,21 +67,21 @@ const CompletedWaterings = ({
       {showDialog && (
         <Dialog
           buttonText='Actualizar'
-          title='Modificar tarea completada'
-          description='Modifica los datos de la tarea completada'
+          title='Modificar riego'
+          description='Modifica los datos del riego'
           image='wateringtask-bg'
           child={
-            <p>Hey</p>
-            // <CompleteWateringFormContainer
-            //   completedWateringData={completedWatering}
-            //   setIsOpen={() => setShowDialog(false)}
-            // />
+            <WateringFormContainer
+              completedWateringData={completedWatering}
+              setIsOpen={setShowDialog}
+            />
           }
           secondary
           xsmall
           isFit
           isOpen={showDialog}
           setIsOpen={setShowDialog}
+          hideTrigger
         />
       )}
     </>

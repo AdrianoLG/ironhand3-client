@@ -14,6 +14,7 @@ import {
   FormInputFile,
   FormSelect
 } from '../../../components/organisms/forms'
+import FormTextarea from '../../../components/organisms/forms/FormTextarea'
 import { iSpecie } from '../types/garden'
 
 type SpecieCategory = 'VEGETABLES' | 'FRUITS' | 'HERBS' | 'MEDICINAL'
@@ -111,7 +112,6 @@ const SpecieForm = ({
         <div className='lg:col-span-2'>
           <FormInputFile
             label='Imagen'
-            sublabel='Resolución 800x306'
             type='file'
             error={errors.image?.message}
             required
@@ -135,7 +135,7 @@ const SpecieForm = ({
             path='garden/specie'
           />
         </div>
-        <FormInput
+        <FormTextarea
           {...register('comments', {
             required: {
               value: true,

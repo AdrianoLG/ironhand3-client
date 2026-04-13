@@ -16,7 +16,7 @@ type CropFormInput = {
   endDate?: string
   comments?: string
   cropContainer: string
-  plants: string
+  plants: string[]
 }
 
 const CropFormContainer = ({
@@ -29,6 +29,7 @@ const CropFormContainer = ({
   const { data, loading, error } = useQuery<{
     plants: iPlant[]
     cropContainers: iCropContainer[]
+    crops: { _id: string; plants: { _id: string }[] }[]
   }>(SELECT_GARDEN_FORM_DATA)
 
   const [createCrop] = useMutation(ADD_CROP, {
@@ -65,7 +66,10 @@ const CropFormContainer = ({
     )
     setValue('comments', cropData.comments || '')
     setValue('cropContainer', cropData.cropContainer._id)
-    setValue('plants', cropData.plants[0]?._id || '')
+    setValue(
+      'plants',
+      cropData.plants.map(p => p._id)
+    )
   }, [cropData, setValue])
 
   const onSubmit: SubmitHandler<CropFormInput> = formData => {
@@ -83,7 +87,7 @@ const CropFormContainer = ({
       startDate: new Date(formData.startDate),
       endDate: formData.endDate ? new Date(formData.endDate) : undefined,
       comments: formData.comments,
-      plants: formData.plants ? [formData.plants] : [],
+      plants: formData.plants,
       cropContainer: formData.cropContainer
     }
 
@@ -123,6 +127,15 @@ const CropFormContainer = ({
       />
     )
 
+  const usedPlantIds = new Set(
+    (data?.crops ?? [])
+      .filter(crop => !cropData || crop._id !== cropData._id)
+      .flatMap(crop => crop.plants.map(p => p._id))
+  )
+  const availablePlants = (data?.plants ?? []).filter(
+    plant => !usedPlantIds.has(plant._id)
+  )
+
   return (
     <CropForm
       handleSubmit={handleSubmit}
@@ -133,6 +146,7 @@ const CropFormContainer = ({
       clearErrors={clearErrors}
       data={data}
       cropData={cropData}
+      availablePlants={availablePlants}
       setIsOpen={setIsOpen}
     />
   )

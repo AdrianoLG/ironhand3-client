@@ -49,6 +49,10 @@ const CropGallery = ({ crop }: { crop: iCrop }) => {
                   src={`${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/garden/gallery/${smImage}`}
                   alt={`Gallery image ${index + 1}`}
                   className='h-24 w-24 object-cover'
+                  onError={e => {
+                    e.currentTarget.onerror = null
+                    e.currentTarget.src = `${import.meta.env.VITE_UPLOAD_IMAGES_PATH}/garden/gallery/${image}`
+                  }}
                 />
               </button>
             )

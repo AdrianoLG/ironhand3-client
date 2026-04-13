@@ -1,19 +1,27 @@
 import {
-    FieldErrors, SubmitHandler, UseFormClearErrors, UseFormHandleSubmit, UseFormRegister,
-    UseFormSetValue
-} from 'react-hook-form';
+  FieldErrors,
+  SubmitHandler,
+  UseFormClearErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormSetValue
+} from 'react-hook-form'
 
-import { Button } from '../../../components/atoms';
-import { FormInput, FormSelect } from '../../../components/organisms/forms';
-import FormTextarea from '../../../components/organisms/forms/FormTextarea';
-import { iCrop, iCropContainer, iPlant } from '../types/garden';
+import { Button } from '../../../components/atoms'
+import {
+  FormInput,
+  FormMultiSelect,
+  FormSelect
+} from '../../../components/organisms/forms'
+import FormTextarea from '../../../components/organisms/forms/FormTextarea'
+import { iCrop, iCropContainer, iPlant } from '../types/garden'
 
 type CropFormInput = {
   startDate: string
   endDate?: string
   comments?: string
   cropContainer: string
-  plants: string
+  plants: string[]
 }
 
 const CropForm = ({
@@ -25,6 +33,7 @@ const CropForm = ({
   clearErrors,
   data,
   cropData,
+  availablePlants,
   setIsOpen
 }: {
   handleSubmit: UseFormHandleSubmit<CropFormInput>
@@ -35,6 +44,7 @@ const CropForm = ({
   clearErrors: UseFormClearErrors<CropFormInput>
   data: { plants: iPlant[]; cropContainers: iCropContainer[] } | undefined
   cropData?: iCrop
+  availablePlants: iPlant[]
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   return (
@@ -79,20 +89,17 @@ const CropForm = ({
         type='date'
         error={errors.endDate?.message}
       />
-      <FormSelect
-        tag='plants'
-        selectName='Planta asociada'
-        placeholder='Selecciona una planta'
-        options={
-          data?.plants.map(plant => ({
-            value: plant._id,
-            name: `${plant.name} (${plant.specie.name})`
-          })) || []
-        }
-        onChange={(value: string) => {
+      <FormMultiSelect
+        label='Plantas asociadas'
+        options={availablePlants.map(plant => ({
+          value: plant._id,
+          name: `${plant.name} (${plant.specie.name})`,
+          selected: cropData?.plants.some(p => p._id === plant._id) ?? false
+        }))}
+        onChange={(value: string[]) => {
           setValue('plants', value)
         }}
-        defaultValue={cropData?.plants[0]?._id}
+        data={cropData?.plants.map(p => p._id)}
       />
       <FormTextarea
         {...register('comments')}

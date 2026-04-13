@@ -35,7 +35,7 @@ const SecondaryHeader = ({ headers }: { headers: iHeaders[] }) => {
         onClick={() => setIsOpen(false)}
       ></div>
       <div className='bg-secondary relative z-30 shadow-md'>
-        <header className='xl:max-w-screen-content mx-auto flex items-center justify-between px-8 py-1 lg:py-3'>
+        <header className='xl:max-w-screen-content mx-auto flex items-center justify-between px-12 py-1 lg:py-3'>
           <NavLink
             to='/'
             className='flex items-center justify-start gap-1'

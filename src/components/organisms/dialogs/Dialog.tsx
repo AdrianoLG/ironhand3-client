@@ -15,23 +15,27 @@ const DialogLayout = ({
   description,
   child,
   secondary,
+  outline,
   image,
   xsmall,
   isFit,
   isOpen,
-  setIsOpen
+  setIsOpen,
+  hideTrigger
 }: iDialog) => {
   const isDarkMode = useReactiveVar(mode)
   return (
     <Dialog.Root open={isOpen}>
-      <Dialog.Trigger
-        className={`${secondary ? 'bg-accent text-secondary' : 'bg-secondary text-accent'} ${isFit ? 'w-fit' : 'w-full'} ${xsmall ? 'px-4 py-1 text-xs' : 'px-4 py-1 text-lg'} border-secondary bg-accent hover:border-secondary hover:bg-primary hover:text-secondary focus:ring-accent rounded-md border-1 px-4 py-1 hover:cursor-pointer hover:shadow-md focus:ring-4 focus:outline-none`}
-        onClick={() => {
-          if (setIsOpen) setIsOpen(true)
-        }}
-      >
-        {buttonText}
-      </Dialog.Trigger>
+      {!hideTrigger && (
+        <Dialog.Trigger
+          className={`${secondary ? 'bg-accent text-secondary' : 'bg-secondary text-accent'} ${isFit ? 'w-fit' : 'w-full'} ${xsmall ? 'px-4 py-1 text-xs' : 'px-4 py-1 text-lg'} border-secondary bg-accent hover:border-secondary hover:bg-primary hover:text-secondary focus:ring-accent rounded-md border-1 px-4 py-1 hover:cursor-pointer hover:shadow-md focus:ring-4 focus:outline-none ${outline ? 'border-secondary text-secondary border-1 bg-white' : ''}`}
+          onClick={() => {
+            if (setIsOpen) setIsOpen(true)
+          }}
+        >
+          {buttonText}
+        </Dialog.Trigger>
+      )}
       <Dialog.Portal>
         <Dialog.Overlay
           className={`${isDarkMode === 'dark' ? 'LightOverlay' : 'DarkOverlay'} data-[state=open]:animate-overlayShow bg-transparent70B fixed inset-0`}

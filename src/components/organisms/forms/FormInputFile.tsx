@@ -15,6 +15,7 @@ const FormInputFile = (props: iFileProps) => {
     setError,
     img,
     path,
+    createThumbnail,
     sublabel,
     ...inputProps
   } = props
@@ -33,6 +34,9 @@ const FormInputFile = (props: iFileProps) => {
         } else {
           const formdata = new FormData()
           formdata.append('path', path)
+          if (createThumbnail) {
+            formdata.append('createThumbnail', 'true')
+          }
           formdata.append('file', file)
 
           await fetch(import.meta.env.VITE_UPLOAD_URI, {
@@ -41,6 +45,14 @@ const FormInputFile = (props: iFileProps) => {
           })
             .then(response => response.json())
             .then(result => {
+              if (!result?.data?.image) {
+                setError(
+                  result?.message ||
+                    'No se ha podido subir correctamente la imagen'
+                )
+                return
+              }
+
               if (result.error) {
                 if (result.status === 400) {
                   setError('Sólo se permiten imágenes')
