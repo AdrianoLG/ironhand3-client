@@ -10,22 +10,7 @@ import ThirdsLayout from '../layouts/body/ThirdsLayout'
 import Header from '../layouts/header/Header'
 
 const Garden = () => {
-  const {
-    // completedWatering,
-    // filterDate,
-    // activeButton,
-    data,
-    loading,
-    error
-    // setCustomDate,
-    // customDate
-  } = useFilterCompletedWatering()
-
-  // const [showDialog, setShowDialog] = useState(false)
-  // const [showAlert, setShowAlert] = useState<{
-  //   visible: boolean
-  //   id: string | null
-  // }>({ visible: false, id: null })
+  const { data, loading, error } = useFilterCompletedWatering()
 
   if (loading)
     return (

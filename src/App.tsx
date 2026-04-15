@@ -7,6 +7,7 @@ import Cleaning from './pages/Cleaning'
 import Exercise from './pages/Exercise'
 import Garden from './pages/Garden'
 import Home from './pages/Home'
+import Nutrition from './pages/Nutrition'
 import Rehearsals from './pages/Rehearsals'
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
             <Route path='/limpieza' element={<Cleaning />} />
             <Route path='/ensayos' element={<Rehearsals />} />
             <Route path='/jardin' element={<Garden />} />
+            <Route path='/comida' element={<Nutrition />} />
           </Routes>
         </BrowserRouter>
       </div>
