@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useMutation, useQuery } from '@apollo/client'
@@ -6,12 +6,9 @@ import { useMutation, useQuery } from '@apollo/client'
 import ErrorMessage from '../../../components/molecules/ErrorMessage'
 import Spinner from '../../../components/molecules/Spinner'
 import { cleanEmpty } from '../../../utils/cleanEmpty'
-import {
-  ADD_SPECIE,
-  REMOVE_SPECIE,
-  UPDATE_SPECIE
-} from '../gql/gardenMutations'
+import { ADD_SPECIE, UPDATE_SPECIE } from '../gql/gardenMutations'
 import { GARDEN_INFO, SELECT_GARDEN_FORM_DATA } from '../gql/gardenQueries'
+import GardenAlert from '../layouts/GardenAlert'
 import { iSpecie } from '../types/garden'
 import SpecieForm from './SpecieForm'
 
@@ -62,8 +59,12 @@ const SpecieFormContainer = ({
     refetchQueries: [{ query: GARDEN_INFO }, { query: SELECT_GARDEN_FORM_DATA }]
   })
 
-  const [removeSpecie] = useMutation(REMOVE_SPECIE, {
-    refetchQueries: [{ query: GARDEN_INFO }, { query: SELECT_GARDEN_FORM_DATA }]
+  const [showAlert, setShowAlert] = useState<{
+    visible: boolean
+    id: string | null
+  }>({
+    visible: false,
+    id: null
   })
 
   const {
@@ -130,14 +131,6 @@ const SpecieFormContainer = ({
     })
   }
 
-  const handleRemoveSpecie = (specieId: string) => {
-    removeSpecie({
-      variables: {
-        removedSpecieId: specieId
-      }
-    })
-  }
-
   if (loading)
     return (
       <Spinner classes='my-7 flex w-full justify-center px-8' widthInRem={2} />
@@ -153,21 +146,28 @@ const SpecieFormContainer = ({
     )
 
   return (
-    <SpecieForm
-      handleSubmit={handleSubmit}
-      onSubmit={onSubmit}
-      register={register}
-      errors={errors}
-      setValue={setValue}
-      setError={setError}
-      clearErrors={clearErrors}
-      setIsOpen={setIsOpen}
-      specieData={specieData}
-      species={data?.species || []}
-      removeSpecie={handleRemoveSpecie}
-      categoryOptions={categoryOptions}
-      defaultCategory={mapCategoryToEnum(specieData?.category)}
-    />
+    <>
+      <GardenAlert
+        type='specie'
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+      />
+      <SpecieForm
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        setError={setError}
+        clearErrors={clearErrors}
+        setIsOpen={setIsOpen}
+        specieData={specieData}
+        species={data?.species || []}
+        setShowAlert={setShowAlert}
+        categoryOptions={categoryOptions}
+        defaultCategory={mapCategoryToEnum(specieData?.category)}
+      />
+    </>
   )
 }
 

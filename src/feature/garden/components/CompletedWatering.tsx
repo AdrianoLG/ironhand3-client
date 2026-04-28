@@ -1,11 +1,8 @@
 import { useState } from 'react'
 
-import { useMutation } from '@apollo/client'
-
 import { Dialog } from '../../../components/organisms/dialogs'
 import WateringFormContainer from '../forms/WateringFormContainer'
-import { REMOVE_COMPLETED_WATERING } from '../gql/gardenMutations'
-import { GARDEN_INFO } from '../gql/gardenQueries'
+import GardenAlert from '../layouts/GardenAlert'
 import { iWatering } from '../types/garden'
 import WateringHoverCard from './WateringHoverCard'
 
@@ -19,24 +16,27 @@ const CompletedWaterings = ({
   /*
    * GQL
    */
-  const [deleteCompletedWatering] = useMutation(REMOVE_COMPLETED_WATERING, {
-    refetchQueries: [{ query: GARDEN_INFO }]
-  })
-  const removeCompletedWatering = (id: string) => {
-    deleteCompletedWatering({
-      variables: { removedCompletedWateringId: id }
-    })
-    setShowDialog(false)
-  }
 
   /*
    * State
    */
   const [showDialog, setShowDialog] = useState(false)
   const [showHoverCard, setShowHoverCard] = useState(false)
+  const [showAlert, setShowAlert] = useState<{
+    visible: boolean
+    id: string | null
+  }>({
+    visible: false,
+    id: null
+  })
 
   return (
     <>
+      <GardenAlert
+        type='watering'
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+      />
       <div
         key={completedWatering._id}
         className='relative'
@@ -61,7 +61,10 @@ const CompletedWaterings = ({
           completedWatering={completedWatering}
           setShowDialog={setShowDialog}
           setShowHoverCard={setShowHoverCard}
-          removeCompletedWatering={removeCompletedWatering}
+          removeCompletedWatering={(id: string) => {
+            setShowDialog(false)
+            setShowAlert({ visible: true, id })
+          }}
         />
       </div>
       {showDialog && (

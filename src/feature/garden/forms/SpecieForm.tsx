@@ -37,7 +37,7 @@ const SpecieForm = ({
   setIsOpen,
   specieData,
   species,
-  removeSpecie,
+  setShowAlert,
   categoryOptions,
   defaultCategory
 }: {
@@ -51,7 +51,12 @@ const SpecieForm = ({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   specieData?: iSpecie
   species: iSpecie[]
-  removeSpecie: (specieId: string) => void
+  setShowAlert: React.Dispatch<
+    React.SetStateAction<{
+      visible: boolean
+      id: string | null
+    }>
+  >
   categoryOptions: { value: SpecieCategory; name: string }[]
   defaultCategory: SpecieCategory | undefined
 }) => {
@@ -72,7 +77,12 @@ const SpecieForm = ({
                 <button
                   className='text-sm leading-none hover:cursor-pointer'
                   type='button'
-                  onClick={() => removeSpecie(specie._id)}
+                  onClick={() =>
+                    setShowAlert({
+                      visible: true,
+                      id: specie._id
+                    })
+                  }
                 >
                   ❌
                 </button>

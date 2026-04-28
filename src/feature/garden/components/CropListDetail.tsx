@@ -1,12 +1,9 @@
 import { useState } from 'react'
 
-import { useMutation } from '@apollo/client'
-
 import { Button } from '../../../components/atoms'
 import { Dialog } from '../../../components/organisms/dialogs'
 import CropFormContainer from '../forms/CropFormContainer'
-import { REMOVE_CROP } from '../gql/gardenMutations'
-import { GARDEN_INFO } from '../gql/gardenQueries'
+import GardenAlert from '../layouts/GardenAlert'
 import { iCrop } from '../types/garden'
 import CropGallery from './CropGallery'
 import CropGalleryManager from './CropGalleryManager'
@@ -15,20 +12,21 @@ import CropTooltip from './CropTooltip'
 const CropListDetail = ({ crop }: { crop: iCrop }) => {
   const [activeCropForGallery, setActiveCropForGallery] = useState<string>('')
   const [activeCropForUpdate, setActiveCropForUpdate] = useState<string>('')
-
-  const [deleteCrop] = useMutation(REMOVE_CROP, {
-    refetchQueries: [{ query: GARDEN_INFO }]
+  const [showAlert, setShowAlert] = useState<{
+    visible: boolean
+    id: string | null
+  }>({
+    visible: false,
+    id: null
   })
 
-  const removeCrop = (id: string) => {
-    deleteCrop({
-      variables: {
-        removedCropId: id
-      }
-    })
-  }
   return (
     <>
+      <GardenAlert
+        type='crop'
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+      />
       <div>
         <p className='text-secondary mb-2 text-sm font-semibold'>Plantas</p>
         <div className='grid grid-cols-2 gap-1'>
@@ -85,7 +83,7 @@ const CropListDetail = ({ crop }: { crop: iCrop }) => {
           xsmall
           outline
           isFit
-          onMouseClick={() => removeCrop(crop._id)}
+          onMouseClick={() => setShowAlert({ visible: true, id: crop._id })}
           secondary
         />
       </div>
