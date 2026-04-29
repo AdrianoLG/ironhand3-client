@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
 import { Dialog } from '../../../components/organisms/dialogs'
+import CompletedMealFormContainer from '../forms/CompletedMealFormContainer'
+import FoodFormContainer from '../forms/FoodFormContainer'
+import IngredientFormContainer from '../forms/IngredientFormContainer'
+import RecipeFormContainer from '../forms/RecipeFormContainer'
 
 const NutritionHeaderButtons = () => {
   const [completeDietFormIsOpen, setCompleteDietFormIsOpen] = useState(false)
   const [recipeFormIsOpen, setRecipeFormIsOpen] = useState(false)
   const [foodFormIsOpen, setFoodFormIsOpen] = useState(false)
   const [ingredientFormIsOpen, setIngredientFormIsOpen] = useState(false)
-
-  const placeholder = (
-    <div className='text-secondary px-8 py-6'>Formulario en construccion.</div>
-  )
 
   return (
     <>
@@ -20,8 +20,12 @@ const NutritionHeaderButtons = () => {
             buttonText='Completar dieta'
             title='Completar dieta'
             description='Introduce los datos de la dieta completada'
-            image='exercise-bg'
-            child={placeholder}
+            image='food-bg'
+            child={
+              <CompletedMealFormContainer
+                setIsOpen={setCompleteDietFormIsOpen}
+              />
+            }
             isOpen={completeDietFormIsOpen}
             setIsOpen={setCompleteDietFormIsOpen}
             secondary
@@ -29,22 +33,22 @@ const NutritionHeaderButtons = () => {
         </div>
         <div>
           <Dialog
-            buttonText='Añadir receta'
-            title='Añadir receta'
-            description='Introduce los datos de la receta'
-            image='exercise-bg'
-            child={placeholder}
+            buttonText='Añadir comida'
+            title='Añadir comida'
+            description='Introduce los datos de la comida'
+            image='food-bg'
+            child={<FoodFormContainer setIsOpen={setRecipeFormIsOpen} />}
             isOpen={recipeFormIsOpen}
             setIsOpen={setRecipeFormIsOpen}
           />
         </div>
         <div>
           <Dialog
-            buttonText='Añadir comida'
-            title='Añadir comida'
-            description='Introduce los datos de la comida'
-            image='exercise-bg'
-            child={placeholder}
+            buttonText='Añadir receta'
+            title='Añadir receta'
+            description='Introduce los datos de la receta'
+            image='food-bg'
+            child={<RecipeFormContainer setIsOpen={setFoodFormIsOpen} />}
             isOpen={foodFormIsOpen}
             setIsOpen={setFoodFormIsOpen}
           />
@@ -54,8 +58,10 @@ const NutritionHeaderButtons = () => {
             buttonText='Añadir ingrediente'
             title='Añadir ingrediente'
             description='Introduce los datos del ingrediente'
-            image='exercise-bg'
-            child={placeholder}
+            image='food-bg'
+            child={
+              <IngredientFormContainer setIsOpen={setIngredientFormIsOpen} />
+            }
             isOpen={ingredientFormIsOpen}
             setIsOpen={setIngredientFormIsOpen}
           />

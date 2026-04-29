@@ -47,7 +47,7 @@ export interface iFormMultiSelect {
 
 export interface iFormSelect {
   selectName: string
-  placeholder: string
+  placeholder?: string
   options: iSelectOptions[]
   isRequired?: boolean
   error?: string

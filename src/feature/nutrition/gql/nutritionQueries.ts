@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const NUTRITION_INFO = gql`
   query NutritionInfo {
@@ -9,12 +9,25 @@ export const NUTRITION_INFO = gql`
     foods {
       _id
       name
-      timeOfDay
       kcal
       carbs
       proteins
       fats
+    }
+    completedMeals {
+      _id
+      timeOfDay
+      qty
+      unit
       created
+      food {
+        _id
+        name
+        kcal
+        carbs
+        proteins
+        fats
+      }
     }
     ingredients {
       _id

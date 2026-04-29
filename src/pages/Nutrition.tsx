@@ -34,7 +34,7 @@ const Nutrition = () => {
       <ThirdsLayout>
         <div>
           <h2 className='mb-4 text-2xl'>Dieta</h2>
-          <FoodList foods={data?.foods ?? []} />
+          <FoodList completedMeals={data?.completedMeals ?? []} />
         </div>
         <div>
           <h2 className='mb-4 text-2xl'>Recetas</h2>

@@ -1,11 +1,28 @@
 import { useState } from 'react'
 
+import { useMutation } from '@apollo/client'
+
+import { Button } from '../../../components/atoms'
+import { AlertDialog, Dialog } from '../../../components/organisms/dialogs'
 import FormInputSearch from '../../../components/organisms/forms/FormInputSearch'
+import RecipeFormContainer from '../forms/RecipeFormContainer'
+import { REMOVE_RECIPE } from '../gql/nutritionMutations'
+import { NUTRITION_INFO } from '../gql/nutritionQueries'
 import { iRecipe } from '../types/nutrition'
 
 const RecipeList = ({ recipes }: { recipes: iRecipe[] }) => {
   const [expandedRecipeId, setExpandedRecipeId] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [editRecipe, setEditRecipe] = useState<iRecipe | null>(null)
+  const [deleteAlert, setDeleteAlert] = useState<{
+    visible: boolean
+    recipe: iRecipe | null
+  }>({ visible: false, recipe: null })
+
+  const [removeRecipe] = useMutation(REMOVE_RECIPE, {
+    refetchQueries: [{ query: NUTRITION_INFO }]
+  })
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase()
   const filteredRecipes =
@@ -85,11 +102,69 @@ const RecipeList = ({ recipes }: { recipes: iRecipe[] }) => {
                     </li>
                   ))}
                 </ol>
+                <div className='mt-8 flex justify-center gap-2'>
+                  <Button
+                    text='Editar'
+                    xsmall
+                    isFit
+                    onMouseClick={event => {
+                      event.stopPropagation()
+                      setEditRecipe(recipe)
+                      setIsEditOpen(true)
+                    }}
+                  />
+                  <Button
+                    text='Borrar'
+                    xsmall
+                    isFit
+                    secondary
+                    onMouseClick={event => {
+                      event.stopPropagation()
+                      setDeleteAlert({ visible: true, recipe })
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </li>
         ))}
       </ul>
+      <Dialog
+        buttonText=''
+        title='Editar receta'
+        description='Modifica los datos de la receta'
+        image='food-bg'
+        child={
+          editRecipe ? (
+            <RecipeFormContainer
+              key={editRecipe._id}
+              setIsOpen={setIsEditOpen}
+              recipeData={editRecipe}
+            />
+          ) : null
+        }
+        isOpen={isEditOpen}
+        setIsOpen={setIsEditOpen}
+        hideTrigger
+      />
+      <AlertDialog
+        isOpen={deleteAlert.visible}
+        onOpenChange={open => {
+          if (!open) setDeleteAlert({ visible: false, recipe: null })
+        }}
+        title='¿Eliminar receta?'
+        description='Esta acción no se puede deshacer.'
+        confirmText='Sí, eliminar receta'
+        layout='compact'
+        onConfirm={() => {
+          if (!deleteAlert.recipe) return
+          removeRecipe({
+            variables: { id: deleteAlert.recipe._id }
+          }).finally(() => {
+            setDeleteAlert({ visible: false, recipe: null })
+          })
+        }}
+      />
     </>
   )
 }

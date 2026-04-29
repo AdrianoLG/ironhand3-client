@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { CheckIcon } from '@radix-ui/react-icons'
 
@@ -13,6 +13,10 @@ const FormMultiSelect = ({
   data
 }: iFormMultiSelect) => {
   const [selectedParts, setSelectedParts] = useState<string[]>(data || [])
+
+  useEffect(() => {
+    setSelectedParts(data || [])
+  }, [data])
 
   const isSelected = (value: string) => selectedParts.includes(value)
 

@@ -1,38 +1,61 @@
+import { useState } from 'react'
+
+import { useMutation } from '@apollo/client'
+
 import Emptylist from '../../../components/molecules/EmptyList'
-import { iFood } from '../types/nutrition'
+import { AlertDialog, Dialog } from '../../../components/organisms/dialogs'
+import CompletedMealFormContainer from '../forms/CompletedMealFormContainer'
+import { REMOVE_COMPLETED_MEAL } from '../gql/nutritionMutations'
+import { NUTRITION_INFO } from '../gql/nutritionQueries'
+import { iCompletedMeal } from '../types/nutrition'
+import {
+  getFoodsByDay,
+  getFoodsForWeek,
+  getMaxWeekOffset,
+  getNextWeekOffset,
+  getPreviousWeekOffset,
+  getWeekRangeLabel
+} from '../utils/nutrition'
+import FoodDay from './FoodDay'
+import WeekPagination from './WeekPagination'
 
-const timeOfDayOrder: Record<iFood['timeOfDay'], number> = {
-  BREAKFAST: 0,
-  LUNCH: 1,
-  SNACK: 2,
-  DINNER: 3
-}
+const FoodList = ({ completedMeals }: { completedMeals: iCompletedMeal[] }) => {
+  const [weekOffset, setWeekOffset] = useState(0)
+  const [selectedFoodId, setSelectedFoodId] = useState<string | null>(null)
+  const [isEditOpen, setIsEditOpen] = useState(false)
+  const [foodToEdit, setFoodToEdit] = useState<iCompletedMeal | null>(null)
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
+  const [foodToDelete, setFoodToDelete] = useState<iCompletedMeal | null>(null)
 
-const timeOfDayLabel: Record<iFood['timeOfDay'], string> = {
-  BREAKFAST: 'Desayuno',
-  LUNCH: 'Comida',
-  SNACK: 'Merienda',
-  DINNER: 'Cena'
-}
+  const [removeCompletedMeal] = useMutation(REMOVE_COMPLETED_MEAL, {
+    refetchQueries: [{ query: NUTRITION_INFO }]
+  })
 
-const normalizeToDay = (value: Date) =>
-  new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime()
+  const handleEditCompletedMeal = (food: iCompletedMeal) => {
+    setFoodToEdit(food)
+    setIsEditOpen(true)
+  }
 
-const getDayLabel = (date: Date) => {
-  const today = new Date()
-  const dayDiff = Math.floor(
-    (normalizeToDay(today) - normalizeToDay(date)) / (1000 * 60 * 60 * 24)
-  )
+  const handleDeleteClick = (food: iCompletedMeal) => {
+    setFoodToDelete(food)
+    setIsDeleteOpen(true)
+  }
 
-  if (dayDiff === 0) return 'HOY'
-  if (dayDiff === 1) return 'AYER'
-  if (dayDiff === 2) return 'ANTEAYER'
+  const handleRemoveCompletedMeal = () => {
+    if (!foodToDelete) return
 
-  return Intl.DateTimeFormat('es-ES', { dateStyle: 'short' }).format(date)
-}
+    removeCompletedMeal({
+      variables: {
+        id: foodToDelete._id
+      }
+    }).finally(() => {
+      setIsDeleteOpen(false)
+      setFoodToDelete(null)
+      setSelectedFoodId(null)
+    })
+  }
 
-const FoodList = ({ foods }: { foods: iFood[] }) => {
-  if (foods.length === 0) {
+  if (completedMeals.length === 0) {
     return (
       <Emptylist
         message={
@@ -43,75 +66,83 @@ const FoodList = ({ foods }: { foods: iFood[] }) => {
     )
   }
 
-  const sortedFoods = [...foods].sort(
-    (a, b) => new Date(b.created).getTime() - new Date(a.created).getTime()
-  )
+  const maxWeekOffset = getMaxWeekOffset(completedMeals)
+  const weeklyFoods = getFoodsForWeek(completedMeals, weekOffset)
+  const foodsByDay = getFoodsByDay(weeklyFoods)
+  const weekRangeLabel = getWeekRangeLabel(weekOffset)
 
-  const foodsByDay = sortedFoods.reduce(
-    (acc, food) => {
-      const dayLabel = getDayLabel(new Date(food.created))
+  const handlePreviousWeek = () => {
+    setSelectedFoodId(null)
+    setWeekOffset(current => getPreviousWeekOffset(current, maxWeekOffset))
+  }
 
-      if (!acc[dayLabel]) {
-        acc[dayLabel] = []
-      }
-
-      acc[dayLabel].push(food)
-      return acc
-    },
-    {} as Record<string, iFood[]>
-  )
+  const handleNextWeek = () => {
+    setSelectedFoodId(null)
+    setWeekOffset(current => getNextWeekOffset(current))
+  }
 
   return (
-    <div className='w-full'>
-      {Object.entries(foodsByDay).map(([dayLabel, dayFoods]) => {
-        const foodsByTimeOfDay = dayFoods.reduce(
-          (acc, food) => {
-            if (!acc[food.timeOfDay]) {
-              acc[food.timeOfDay] = []
-            }
-
-            ;(acc[food.timeOfDay] as iFood[]).push(food)
-            return acc
-          },
-          {} as Partial<Record<iFood['timeOfDay'], iFood[]>>
-        )
-
-        const orderedTimeOfDayGroups = Object.entries(foodsByTimeOfDay).sort(
-          ([timeA], [timeB]) =>
-            timeOfDayOrder[timeA as iFood['timeOfDay']] -
-            timeOfDayOrder[timeB as iFood['timeOfDay']]
-        )
-
-        return (
-          <div key={dayLabel} className='text-text mb-4'>
-            <h3 className='mb-4 text-sm font-semibold'>{dayLabel}</h3>
-
-            {orderedTimeOfDayGroups.map(([timeOfDay, timeFoods]) => (
-              <div key={`${dayLabel}-${timeOfDay}`}>
-                <h4 className='text-secondaryLight mb-2 text-xs font-semibold'>
-                  {timeOfDayLabel[timeOfDay as iFood['timeOfDay']]}
-                </h4>
-
-                <ul className='border-secondaryLighter inline-block flex-col gap-2 overflow-hidden rounded-xl border-1 px-2 py-1'>
-                  {timeFoods?.map(food => (
-                    <li key={food._id} className='text-sm'>
-                      <span>{food.name}</span>
-                      {food.qty !== undefined && (
-                        <span className='text-secondary'>
-                          {' '}
-                          - {food.qty}
-                          {food.unit ? ` ${food.unit}` : ''}
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+    <>
+      <div className='w-full' onClick={() => setSelectedFoodId(null)}>
+        {weeklyFoods.length === 0 ? (
+          <Emptylist
+            message={'No hay comidas registradas en esta semana.'}
+            secondary
+          />
+        ) : (
+          <>
+            {Object.entries(foodsByDay).map(([dayLabel, dayFoods]) => (
+              <FoodDay
+                key={dayLabel}
+                dayLabel={dayLabel}
+                dayFoods={dayFoods}
+                selectedFoodId={selectedFoodId}
+                onSelectFood={setSelectedFoodId}
+                onEditFood={handleEditCompletedMeal}
+                onDeleteFood={handleDeleteClick}
+              />
             ))}
-          </div>
-        )
-      })}
-    </div>
+          </>
+        )}
+        <hr className='border-secondaryLighter my-6 border-dashed' />
+        <WeekPagination
+          weekOffset={weekOffset}
+          maxWeekOffset={maxWeekOffset}
+          weekRangeLabel={weekRangeLabel}
+          onPreviousWeek={handlePreviousWeek}
+          onNextWeek={handleNextWeek}
+        />
+      </div>
+
+      <Dialog
+        buttonText=''
+        title='Editar comida completada'
+        description='Actualiza los datos de la comida completada'
+        image='food-bg'
+        child={
+          foodToEdit ? (
+            <CompletedMealFormContainer
+              setIsOpen={setIsEditOpen}
+              completedMealData={foodToEdit}
+              onSuccess={() => setSelectedFoodId(null)}
+            />
+          ) : null
+        }
+        isOpen={isEditOpen}
+        setIsOpen={setIsEditOpen}
+        hideTrigger
+      />
+
+      <AlertDialog
+        isOpen={isDeleteOpen}
+        onOpenChange={setIsDeleteOpen}
+        title='¿Quieres eliminar esta comida?'
+        description='Esta acción no se puede deshacer y se eliminará de tu historial.'
+        confirmText='Sí, eliminar comida'
+        onConfirm={handleRemoveCompletedMeal}
+        layout='compact'
+      />
+    </>
   )
 }
 

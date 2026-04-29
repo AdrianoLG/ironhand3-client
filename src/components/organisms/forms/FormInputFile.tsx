@@ -19,7 +19,7 @@ const FormInputFile = (props: iFileProps) => {
     sublabel,
     ...inputProps
   } = props
-  const [preview, setPreview] = useState<string>()
+  const [preview, setPreview] = useState<string | undefined>(img)
   const uploadButtonLabel = preview ? 'Cambiar imagen' : 'Subir imagen'
 
   const hiddenInputRef = useRef<HTMLInputElement | null>()
@@ -94,6 +94,14 @@ const FormInputFile = (props: iFileProps) => {
       <label htmlFor={label} className={`text-text mb-1 block w-full text-sm`}>
         {label} {required && <span className='text-warn'>*</span>}
       </label>
+      {preview || img ? (
+        <img src={preview || img} className='my-2 block w-28' alt='Preview' />
+      ) : (
+        error && <p className='text-warn text-xs'>{error}</p>
+      )}
+      {!error && sublabel && (
+        <p className='text-text mt-1 text-xs'>{sublabel}</p>
+      )}
       <Button text={uploadButtonLabel} xsmall outline onMouseClick={hideRef} />
       <input
         id={label}
@@ -106,14 +114,6 @@ const FormInputFile = (props: iFileProps) => {
         accept={acceptedTypes}
         multiple={multiple}
       />
-      {preview || img ? (
-        <img src={preview || img} className='mt-2 block w-full' alt='Preview' />
-      ) : (
-        error && <p className='text-warn text-xs'>{error}</p>
-      )}
-      {!error && sublabel && (
-        <p className='text-text mt-1 text-xs'>{sublabel}</p>
-      )}
     </div>
   )
 }

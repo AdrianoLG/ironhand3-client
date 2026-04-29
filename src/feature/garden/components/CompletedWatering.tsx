@@ -14,10 +14,6 @@ const CompletedWaterings = ({
   cropName: string
 }) => {
   /*
-   * GQL
-   */
-
-  /*
    * State
    */
   const [showDialog, setShowDialog] = useState(false)
