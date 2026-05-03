@@ -6,6 +6,12 @@ export interface iMultiSelect {
   selected: boolean
 }
 
+export interface iMultiSelectIcon {
+  value: string
+  name: string
+  icon: string
+}
+
 export interface iSelectOptions {
   value: string
   name: string
@@ -43,6 +49,15 @@ export interface iFormMultiSelect {
   onChange: (value: string[]) => void
   error?: string
   data?: string[]
+}
+
+export interface iFormMultiSelectIcon {
+  label: string
+  isRequired?: boolean
+  options: iMultiSelectIcon[]
+  onChange: (value: string) => void
+  error?: string
+  data?: string
 }
 
 export interface iFormSelect {
