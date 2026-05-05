@@ -32,13 +32,13 @@ const CatalogCard = ({
       role='button'
       tabIndex={0}
     >
-      <div className='flex'>
+      <div className='flex gap-4'>
         <div className='bg-primary/30 flex w-36 shrink-0 items-center justify-center'>
           {imageSrc ? (
             <img
               src={imageSrc}
               alt={imageAlt}
-              className='mr-4 h-full w-32 object-cover'
+              className='h-full w-36 object-cover'
             />
           ) : (
             <span className='px-3 text-center text-xs font-semibold'>
