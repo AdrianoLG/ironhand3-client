@@ -18,12 +18,14 @@ const SerieCard = ({ serie }: SerieCardProps) => {
       imageAlt={`Portada de ${serie.title}`}
       summary={
         <>
-          <p className='text-xs'>
+          <p className='mb-1 text-xs'>
             {serie.director && serie.director.length > 0
               ? renderPeopleWithTooltip(serie.director, 'directors')
               : null}
           </p>
-          <h3 className='mb-4 text-xl font-semibold'>{serie.title}</h3>
+          <h3 className='mb-4 text-xl leading-none font-semibold'>
+            {serie.title}
+          </h3>
           <div className='flex flex-col gap-1'>
             {serie.country && (
               <p className='flex items-center text-xs leading-none'>

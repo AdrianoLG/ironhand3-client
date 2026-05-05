@@ -4,7 +4,7 @@ import { getFullName } from '../utils/catalogPeople'
 
 type PersonTooltipProps = {
   person: iCatalogPerson
-  imgFolder: 'actors' | 'directors'
+  imgFolder: 'actors' | 'directors' | 'writers'
 }
 
 const PersonTooltip = ({ person, imgFolder }: PersonTooltipProps) => {
@@ -63,7 +63,7 @@ const PersonTooltip = ({ person, imgFolder }: PersonTooltipProps) => {
 
 export const renderPeopleWithTooltip = (
   people: iCatalogPerson[],
-  imgFolder: 'actors' | 'directors'
+  imgFolder: 'actors' | 'directors' | 'writers'
 ) =>
   people.map((person, index) => (
     <span key={person._id}>

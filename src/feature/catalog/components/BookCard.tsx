@@ -4,8 +4,8 @@ import {
   bookFormatLabels,
   coverMaterialLabels
 } from '../types/types'
-import { getFullNames } from '../utils/catalogPeople'
 import CatalogCard from './CatalogCard'
+import { renderPeopleWithTooltip } from './PersonTooltip'
 import RatingBar from './RatingBar'
 
 const renderSynopsis = (synopsis: string) => synopsis.replace(/\\n/g, '\n')
@@ -18,8 +18,14 @@ const BookCard = ({ book }: BookCardProps) => {
       imageAlt={`Portada de ${book.title}`}
       summary={
         <>
-          <p className='text-xs'>{getFullNames(book.author ?? [])}</p>
-          <h3 className='mb-4 text-xl font-semibold'>{book.title}</h3>
+          <p className='mb-1 text-xs'>
+            {book.author && book.author.length > 0
+              ? renderPeopleWithTooltip(book.author, 'writers')
+              : null}
+          </p>
+          <h3 className='mb-4 text-xl leading-none font-semibold'>
+            {book.title}
+          </h3>
           <div className='flex flex-col gap-1'>
             <p className='text-xs'>
               <span className='font-semibold'>Formato</span>:{' '}

@@ -14,12 +14,14 @@ const MovieCard = ({ movie }: MovieCardProps) => {
       imageAlt={`Portada de ${movie.title}`}
       summary={
         <>
-          <p className='text-xs'>
+          <p className='mb-1 text-xs'>
             {movie.director && movie.director.length > 0
               ? renderPeopleWithTooltip(movie.director, 'directors')
               : null}
           </p>
-          <h3 className='mb-4 text-xl font-semibold'>{movie.title}</h3>
+          <h3 className='mb-4 text-xl leading-none font-semibold'>
+            {movie.title}
+          </h3>
           <div className='flex flex-col gap-1'>
             {movie.duration && (
               <p className='text-xs'>

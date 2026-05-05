@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ErrorMessage from '../components/molecules/ErrorMessage'
 import Heading from '../components/molecules/Heading'
 import Spinner from '../components/molecules/Spinner'
 import { Dialog } from '../components/organisms/dialogs'
 import BookCard from '../feature/catalog/components/BookCard'
+import CatalogPagination from '../feature/catalog/components/CatalogPagination'
 import CatalogSectionHeader, {
   SortValue
 } from '../feature/catalog/components/CatalogSectionHeader'
@@ -31,6 +32,8 @@ const normalize = (str: string) =>
 
 const collectTags = (items: { tags?: string[] }[]) =>
   Array.from(new Set(items.flatMap(item => item.tags ?? []))).sort()
+
+const CATALOG_PAGE_SIZE = 12
 
 const applyBookSort = (books: iCatalogBook[], sort: SortValue) => {
   const sorted = [...books]
@@ -108,6 +111,26 @@ const Catalog = () => {
   const [serieFormOpen, setSerieFormOpen] = useState(false)
   const [movieFormOpen, setMovieFormOpen] = useState(false)
 
+  const [bookPage, setBookPage] = useState(0)
+  const [seriePage, setSeriePage] = useState(0)
+  const [moviePage, setMoviePage] = useState(0)
+
+  const allBooks = data?.books ?? []
+  const allSeries = data?.series ?? []
+  const allMovies = data?.movies ?? []
+
+  useEffect(() => {
+    setBookPage(0)
+  }, [bookSearch, bookSort, bookTag])
+
+  useEffect(() => {
+    setSeriePage(0)
+  }, [serieSearch, serieSort, serieTag])
+
+  useEffect(() => {
+    setMoviePage(0)
+  }, [movieSearch, movieSort, movieTag])
+
   if (loading)
     return (
       <Spinner classes='my-7 flex w-full justify-center px-8' widthInRem={2} />
@@ -125,10 +148,6 @@ const Catalog = () => {
   const bookTerm = normalize(bookSearch.trim())
   const serieTerm = normalize(serieSearch.trim())
   const movieTerm = normalize(movieSearch.trim())
-
-  const allBooks = data?.books ?? []
-  const allSeries = data?.series ?? []
-  const allMovies = data?.movies ?? []
 
   const filteredBooks = applyBookSort(
     allBooks.filter(book => {
@@ -176,6 +195,36 @@ const Catalog = () => {
     movieSort
   )
 
+  const bookTotalPages = Math.max(
+    1,
+    Math.ceil(filteredBooks.length / CATALOG_PAGE_SIZE)
+  )
+  const serieTotalPages = Math.max(
+    1,
+    Math.ceil(filteredSeries.length / CATALOG_PAGE_SIZE)
+  )
+  const movieTotalPages = Math.max(
+    1,
+    Math.ceil(filteredMovies.length / CATALOG_PAGE_SIZE)
+  )
+
+  const currentBookPage = Math.min(bookPage, bookTotalPages - 1)
+  const currentSeriePage = Math.min(seriePage, serieTotalPages - 1)
+  const currentMoviePage = Math.min(moviePage, movieTotalPages - 1)
+
+  const paginatedBooks = filteredBooks.slice(
+    currentBookPage * CATALOG_PAGE_SIZE,
+    (currentBookPage + 1) * CATALOG_PAGE_SIZE
+  )
+  const paginatedSeries = filteredSeries.slice(
+    currentSeriePage * CATALOG_PAGE_SIZE,
+    (currentSeriePage + 1) * CATALOG_PAGE_SIZE
+  )
+  const paginatedMovies = filteredMovies.slice(
+    currentMoviePage * CATALOG_PAGE_SIZE,
+    (currentMoviePage + 1) * CATALOG_PAGE_SIZE
+  )
+
   return (
     <>
       <Header isMain={false} headers={data?.headers} />
@@ -196,10 +245,19 @@ const Catalog = () => {
             onSearchChange={e => setBookSearch(e.target.value)}
           />
           <div className='flex flex-col gap-4'>
-            {filteredBooks.map(book => (
+            {paginatedBooks.map(book => (
               <BookCard book={book} key={book._id} />
             ))}
           </div>
+          <CatalogPagination
+            page={currentBookPage}
+            totalItems={filteredBooks.length}
+            pageSize={CATALOG_PAGE_SIZE}
+            onPrevious={() => setBookPage(page => Math.max(page - 1, 0))}
+            onNext={() =>
+              setBookPage(page => Math.min(page + 1, bookTotalPages - 1))
+            }
+          />
         </div>
         <div className='px-4'>
           <CatalogSectionHeader
@@ -216,10 +274,19 @@ const Catalog = () => {
             onSearchChange={e => setSerieSearch(e.target.value)}
           />
           <div className='flex flex-col gap-4'>
-            {filteredSeries.map(serie => (
+            {paginatedSeries.map(serie => (
               <SerieCard serie={serie} key={serie._id} />
             ))}
           </div>
+          <CatalogPagination
+            page={currentSeriePage}
+            totalItems={filteredSeries.length}
+            pageSize={CATALOG_PAGE_SIZE}
+            onPrevious={() => setSeriePage(page => Math.max(page - 1, 0))}
+            onNext={() =>
+              setSeriePage(page => Math.min(page + 1, serieTotalPages - 1))
+            }
+          />
         </div>
         <div className='px-4'>
           <CatalogSectionHeader
@@ -236,10 +303,19 @@ const Catalog = () => {
             onSearchChange={e => setMovieSearch(e.target.value)}
           />
           <div className='flex flex-col gap-4'>
-            {filteredMovies.map(movie => (
+            {paginatedMovies.map(movie => (
               <MovieCard movie={movie} key={movie._id} />
             ))}
           </div>
+          <CatalogPagination
+            page={currentMoviePage}
+            totalItems={filteredMovies.length}
+            pageSize={CATALOG_PAGE_SIZE}
+            onPrevious={() => setMoviePage(page => Math.max(page - 1, 0))}
+            onNext={() =>
+              setMoviePage(page => Math.min(page + 1, movieTotalPages - 1))
+            }
+          />
         </div>
       </ThirdsLayout>
 

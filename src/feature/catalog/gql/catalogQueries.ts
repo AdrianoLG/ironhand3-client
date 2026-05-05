@@ -41,6 +41,12 @@ export const CATALOG_INFO = gql`
         _id
         name
         lastName
+        img
+        birthCountry {
+          _id
+          name
+          flag
+        }
       }
       genres {
         _id

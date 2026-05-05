@@ -16,7 +16,7 @@ export const getFlagSrc = (flag?: string): string | undefined => {
 export const getPersonImageCandidates = (
   img: string | undefined,
   fullName: string,
-  imgFolder: 'actors' | 'directors'
+  imgFolder: 'actors' | 'directors' | 'writers'
 ): string[] => {
   const base = import.meta.env.VITE_UPLOAD_IMAGES_PATH
   const defaultImage = `${base}/catalog/${imgFolder}/no-image.avif`
