@@ -4,6 +4,7 @@ import { useReactiveVar } from '@apollo/client'
 
 import { mode } from './main'
 import Budget from './pages/Budget'
+import Catalog from './pages/Catalog'
 import Cleaning from './pages/Cleaning'
 import Exercise from './pages/Exercise'
 import Garden from './pages/Garden'
@@ -27,6 +28,7 @@ const App = () => {
             <Route path='/jardin' element={<Garden />} />
             <Route path='/comida' element={<Nutrition />} />
             <Route path='/presupuestos' element={<Budget />} />
+            <Route path='/catalogo' element={<Catalog />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -12,13 +12,13 @@ const FormInputSearch = ({
   onChange
 }: FormInputSearchProps) => {
   return (
-    <div className='relative mb-4'>
+    <div className='relative w-full'>
       <input
         type='text'
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className='focus:ring-secondary w-5/6 rounded-full border-1 px-4 py-2 pl-8 text-sm focus:ring-2 focus:outline-none'
+        className='focus:ring-secondary w-full rounded-full border-1 px-4 py-2 pl-8 text-sm focus:ring-2 focus:outline-none'
       />
       <img
         src={searchIcon}

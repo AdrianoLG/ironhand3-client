@@ -99,10 +99,8 @@ const FormInputFile = (props: iFileProps) => {
       ) : (
         error && <p className='text-warn text-xs'>{error}</p>
       )}
-      {!error && sublabel && (
-        <p className='text-text mt-1 text-xs'>{sublabel}</p>
-      )}
       <Button text={uploadButtonLabel} xsmall outline onMouseClick={hideRef} />
+      {sublabel && <p className='text-text mt-1 text-xs'>{sublabel}</p>}
       <input
         id={label}
         hidden

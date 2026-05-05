@@ -1,3 +1,5 @@
 export { default as Button } from './Button'
 export { default as Card } from './Card'
 export { default as Image } from './Image'
+export { default as ListButton } from './ListButton'
+export { default as RoundSmallButton } from './RoundSmallButton'

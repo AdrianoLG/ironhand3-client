@@ -51,6 +51,25 @@ export interface iFormMultiSelect {
   data?: string[]
 }
 
+export interface iFormInputAutocompleteMulti {
+  label: string
+  isRequired?: boolean
+  options: iSelectOptions[]
+  onChange: (value: string[]) => void
+  placeholder?: string
+  error?: string
+  data?: string[]
+}
+
+export interface iFormInputTagChips {
+  label: string
+  isRequired?: boolean
+  onChange: (value: string[]) => void
+  placeholder?: string
+  error?: string
+  data?: string[]
+}
+
 export interface iFormMultiSelectIcon {
   label: string
   isRequired?: boolean
