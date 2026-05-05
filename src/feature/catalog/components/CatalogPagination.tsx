@@ -22,7 +22,7 @@ const CatalogPagination = ({
   const currentPage = isEmpty ? 0 : Math.min(page, totalPages - 1)
 
   return (
-    <div className='mt-4 flex items-center justify-end gap-2'>
+    <div className='mt-6 flex items-center justify-center gap-2'>
       <IconButton
         img={prevIcon}
         isFit
