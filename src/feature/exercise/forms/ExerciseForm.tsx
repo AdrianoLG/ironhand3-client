@@ -23,7 +23,7 @@ const ExerciseForm = ({
   setError,
   setIsOpen
 }: iExerciseForm) => {
-  const [options, setOptions] = useState(exerciseBodyPartsOptions)
+  const [options] = useState(exerciseBodyPartsOptions)
 
   return (
     <form

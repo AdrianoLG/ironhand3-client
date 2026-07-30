@@ -1,21 +1,18 @@
-import '../../../styles.css'
+import '../../../styles.css';
 
-import { Label, Select } from 'radix-ui'
-import { forwardRef, useEffect } from 'react'
+import { Label, Select } from 'radix-ui';
+import { forwardRef, useEffect } from 'react';
 
-import { useReactiveVar } from '@apollo/client'
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon
-} from '@radix-ui/react-icons'
+import { useReactiveVar } from '@apollo/client';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 
-import { mode } from '../../../main'
-import { iFormSelect } from './types'
+import { mode } from '../../../main';
+import { iFormSelect } from './types';
 
 const FormSelect = ({
   selectName,
   placeholder,
+  value,
   options,
   isRequired,
   error,
@@ -45,6 +42,7 @@ const FormSelect = ({
       </Label.Root>
 
       <Select.Root
+        value={value && value.length > 0 ? value : undefined}
         defaultValue={defaultValue}
         name={tag}
         onValueChange={value => {

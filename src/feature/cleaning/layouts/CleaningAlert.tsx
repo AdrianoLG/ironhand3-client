@@ -1,7 +1,5 @@
 import { useMutation } from '@apollo/client'
 
-import IconWarn from '../../../assets/svgs/IconWarn'
-import { Button } from '../../../components/atoms'
 import { AlertDialog } from '../../../components/organisms/dialogs'
 import { REMOVE_CLEANING_TASK } from '../gql/cleaningTaskMutations'
 import {

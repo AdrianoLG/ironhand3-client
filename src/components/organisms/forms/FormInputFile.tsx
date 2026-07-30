@@ -1,11 +1,12 @@
-import { useRef, useState } from 'react'
+import { useRef, useState } from 'react';
 
-import Button from '../../atoms/Button'
-import { iFileProps } from './types'
+import Button from '../../atoms/Button';
+import { iFileProps } from './types';
 
 const FormInputFile = (props: iFileProps) => {
   const {
     label,
+    uploadButtonLabel,
     error,
     required,
     acceptedTypes,
@@ -16,11 +17,13 @@ const FormInputFile = (props: iFileProps) => {
     img,
     path,
     createThumbnail,
+    previewBelow,
     sublabel,
     ...inputProps
   } = props
   const [preview, setPreview] = useState<string | undefined>(img)
-  const uploadButtonLabel = preview ? 'Cambiar imagen' : 'Subir imagen'
+  const resolvedUploadButtonLabel =
+    uploadButtonLabel || (preview ? 'Cambiar imagen' : 'Subir imagen')
 
   const hiddenInputRef = useRef<HTMLInputElement | null>()
 
@@ -94,12 +97,24 @@ const FormInputFile = (props: iFileProps) => {
       <label htmlFor={label} className={`text-text mb-1 block w-full text-sm`}>
         {label} {required && <span className='text-warn'>*</span>}
       </label>
-      {preview || img ? (
+      {!previewBelow &&
+        (preview || img ? (
+          <img src={preview || img} className='my-2 block w-28' alt='Preview' />
+        ) : (
+          error && <p className='text-warn text-xs'>{error}</p>
+        ))}
+      <Button
+        text={resolvedUploadButtonLabel}
+        xsmall
+        outline
+        onMouseClick={hideRef}
+      />
+      {previewBelow && (preview || img) && (
         <img src={preview || img} className='my-2 block w-28' alt='Preview' />
-      ) : (
-        error && <p className='text-warn text-xs'>{error}</p>
       )}
-      <Button text={uploadButtonLabel} xsmall outline onMouseClick={hideRef} />
+      {previewBelow && !preview && !img && error && (
+        <p className='text-warn text-xs'>{error}</p>
+      )}
       {sublabel && <p className='text-text mt-1 text-xs'>{sublabel}</p>}
       <input
         id={label}

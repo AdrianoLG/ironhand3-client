@@ -1,21 +1,12 @@
 import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormClearErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetError,
-  UseFormSetValue
-} from 'react-hook-form'
+    FieldErrors, SubmitHandler, UseFormClearErrors, UseFormHandleSubmit, UseFormRegister,
+    UseFormSetError, UseFormSetValue
+} from 'react-hook-form';
 
-import { Button } from '../../../components/atoms'
-import {
-  FormInput,
-  FormInputFile,
-  FormSelect
-} from '../../../components/organisms/forms'
-import FormTextarea from '../../../components/organisms/forms/FormTextarea'
-import { iSpecie } from '../types/garden'
+import { Button } from '../../../components/atoms';
+import { FormInput, FormInputFile, FormSelect } from '../../../components/organisms/forms';
+import FormTextarea from '../../../components/organisms/forms/FormTextarea';
+import { iSpecie } from '../types/garden';
 
 type SpecieCategory = 'VEGETABLES' | 'FRUITS' | 'HERBS' | 'MEDICINAL'
 

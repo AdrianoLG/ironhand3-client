@@ -1,4 +1,4 @@
-import { HTMLProps } from 'react'
+import { HTMLProps } from 'react';
 
 export interface iMultiSelect {
   value: string
@@ -22,6 +22,7 @@ export interface iSelectOptions {
 export interface iFileProps extends HTMLProps<HTMLInputElement> {
   label: string
   sublabel?: string
+  uploadButtonLabel?: string
   error?: string
   acceptedTypes?: string
   multiple?: boolean
@@ -31,6 +32,7 @@ export interface iFileProps extends HTMLProps<HTMLInputElement> {
   onUpload: (value: string) => void
   img?: string
   path: string
+  previewBelow?: boolean
 }
 
 export interface iFormField {
@@ -82,6 +84,7 @@ export interface iFormMultiSelectIcon {
 export interface iFormSelect {
   selectName: string
   placeholder?: string
+  value?: string
   options: iSelectOptions[]
   isRequired?: boolean
   error?: string

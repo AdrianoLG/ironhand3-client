@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
 
 import HouseFigure from '../assets/svgs/HouseFigure'
-import { iCompletedCleaningTasks } from '../types/completedCleaningTasks'
+import { iCompletedCleaningTask } from '../types/cleaningTasks'
 import chosenColor from '../utils/chosenColor'
 
 const House = ({
@@ -9,7 +9,7 @@ const House = ({
   completedCleaningTasks
 }: {
   color: string
-  completedCleaningTasks: iCompletedCleaningTasks[]
+  completedCleaningTasks: iCompletedCleaningTask[]
 }) => {
   const [currentFillStairs, setCurrentFillStairs] = useState('current')
   const [currentFillLivingRoom, setCurrentFillLivingRoom] = useState('current')

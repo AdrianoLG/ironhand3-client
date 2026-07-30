@@ -40,3 +40,18 @@
   --transparent70: var(--transparentBlack70);
   --transparent70B: var(--transparentWhite70);
 }
+
+@keyframes notesPopupIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.notes-popup-enter {
+  animation: notesPopupIn 180ms ease-out;
+}
