@@ -1,26 +1,16 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue
-} from 'react-hook-form'
+    FieldErrors, SubmitHandler, UseFormHandleSubmit, UseFormRegister, UseFormSetValue
+} from 'react-hook-form';
 
 import {
-  FormInput,
-  FormInputFile,
-  FormInputTagChips,
-  FormMultiSelect
-} from '../../../components/organisms/forms'
-import {
-  iMultiSelect,
-  iSelectOptions
-} from '../../../components/organisms/forms/types'
-import { SerieFormInput } from '../types/catalogFormTypes'
-import CountryFieldWithDialog from './CountryFieldWithDialog'
-import FormActions from './FormActions'
-import PersonFieldWithDialog from './PersonFieldWithDialog'
+    FormInput, FormInputFile, FormInputTagChips, FormMultiSelect
+} from '../../../components/organisms/forms';
+import { iMultiSelect, iSelectOptions } from '../../../components/organisms/forms/types';
+import { SerieFormInput } from '../types/catalogFormTypes';
+import CountryFieldWithDialog from './CountryFieldWithDialog';
+import FormActions from './FormActions';
+import PersonFieldWithDialog from './PersonFieldWithDialog';
 
 export type { SerieFormInput }
 
@@ -34,7 +24,9 @@ const SerieForm = ({
   actorOptions,
   genreOptions,
   countryOptions,
-  setIsOpen
+  setIsOpen,
+  submitText,
+  initialValues
 }: {
   handleSubmit: UseFormHandleSubmit<SerieFormInput>
   onSubmit: SubmitHandler<SerieFormInput>
@@ -46,6 +38,8 @@ const SerieForm = ({
   genreOptions: iMultiSelect[]
   countryOptions: iSelectOptions[]
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  submitText?: string
+  initialValues?: SerieFormInput
 }) => {
   const [coverUploadError, setCoverUploadError] = useState<string>('')
 
@@ -86,6 +80,7 @@ const SerieForm = ({
         buttonText='Añadir director'
         role='DIRECTOR'
         dialogImage='serie-bg'
+        data={initialValues?.director}
       />
       <PersonFieldWithDialog
         label='Actores'
@@ -95,11 +90,13 @@ const SerieForm = ({
         buttonText='Añadir actor'
         role='ACTOR'
         dialogImage='serie-bg'
+        data={initialValues?.actors}
       />
       <CountryFieldWithDialog
         options={countryOptions}
         onChange={(value: string) => setValue('country', value)}
         dialogImage='serie-bg'
+        defaultValue={initialValues?.country}
       />
       <FormMultiSelect
         label='Géneros'
@@ -129,9 +126,10 @@ const SerieForm = ({
         placeholder='Escribe y separa por comas'
         onChange={(tags: string[]) => setValue('tags', tags)}
         error={errors.tags?.message as string}
+        data={initialValues?.tags}
       />
       <FormActions
-        submitText='Añadir serie'
+        submitText={submitText ?? 'Añadir serie'}
         onCancel={() => setIsOpen(false)}
       />
     </form>

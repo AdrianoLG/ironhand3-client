@@ -20,12 +20,12 @@ export const CATALOG_FORM_DATA = gql`
 `
 
 export const CATALOG_INFO = gql`
-  query {
+  query CatalogInfo($viewUserId: String) {
     headers {
       title
       url
     }
-    books {
+    books(viewUserId: $viewUserId) {
       _id
       title
       rating
@@ -54,7 +54,7 @@ export const CATALOG_INFO = gql`
         slug
       }
     }
-    series {
+    series(viewUserId: $viewUserId) {
       _id
       title
       rating
@@ -96,7 +96,7 @@ export const CATALOG_INFO = gql`
         slug
       }
     }
-    movies {
+    movies(viewUserId: $viewUserId) {
       _id
       title
       rating

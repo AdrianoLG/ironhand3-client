@@ -38,6 +38,11 @@ export const ADD_COMPLETED_CLEANING_TASK = gql`
       createCompletedCleaningTaskInput: $createCompletedCleaningTaskInput
     ) {
       _id
+      completedBy {
+        _id
+        name
+        email
+      }
     }
   }
 `

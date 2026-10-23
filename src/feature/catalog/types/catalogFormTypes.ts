@@ -1,16 +1,8 @@
 import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch
-} from 'react-hook-form'
+    FieldErrors, SubmitHandler, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, UseFormWatch
+} from 'react-hook-form';
 
-import {
-  iMultiSelect,
-  iSelectOptions
-} from '../../../components/organisms/forms/types'
+import { iMultiSelect, iSelectOptions } from '../../../components/organisms/forms/types';
 
 export type BookFormInput = {
   title: string
@@ -73,4 +65,6 @@ export interface BookFormProps {
   authorOptions: iSelectOptions[]
   genreOptions: iMultiSelect[]
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  submitText?: string
+  initialValues?: BookFormInput
 }

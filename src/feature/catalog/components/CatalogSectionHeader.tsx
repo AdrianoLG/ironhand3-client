@@ -19,6 +19,7 @@ interface CatalogSectionHeaderProps {
   searchPlaceholder: string
   searchValue: string
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  readOnly?: boolean
 }
 
 const CatalogSectionHeader = ({
@@ -32,7 +33,8 @@ const CatalogSectionHeader = ({
   onTagClick,
   searchPlaceholder,
   searchValue,
-  onSearchChange
+  onSearchChange,
+  readOnly
 }: CatalogSectionHeaderProps) => {
   return (
     <div className='mb-6'>
@@ -44,12 +46,14 @@ const CatalogSectionHeader = ({
           onChange={onSearchChange}
         />
         <div className='flex gap-2'>
-          <RoundSmallButton
-            title={`A\u00f1adir ${title.toLowerCase()}`}
-            onClick={onAdd}
-          >
-            <span className='text-secondary text-lg leading-none'>+</span>
-          </RoundSmallButton>
+          {!readOnly && (
+            <RoundSmallButton
+              title={`Añadir ${title.toLowerCase()}`}
+              onClick={onAdd}
+            >
+              <span className='text-secondary text-lg leading-none'>+</span>
+            </RoundSmallButton>
+          )}
           <SortDropdown
             sortValue={sortValue}
             onSortChange={onSortChange}

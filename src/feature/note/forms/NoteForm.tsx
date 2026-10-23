@@ -1,10 +1,13 @@
-import CloseButton from '../../../assets/svgs/CloseButton';
-import { Button } from '../../../components/atoms';
+import CloseButton from '../../../assets/svgs/CloseButton'
+import { Button } from '../../../components/atoms'
 import {
-    FormInput, FormInputFile, FormInputTagChips, FormSelect
-} from '../../../components/organisms/forms';
-import Wysiwyg from '../components/Wysiwyg';
-import { NOTE_FORM_TEXT, NOTE_FORM_VALIDATION } from '../utils/noteFormMessages';
+  FormInput,
+  FormInputFile,
+  FormInputTagChips,
+  FormSelect
+} from '../../../components/organisms/forms'
+import Wysiwyg from '../components/Wysiwyg'
+import { NOTE_FORM_TEXT, NOTE_FORM_VALIDATION } from '../utils/noteFormMessages'
 
 import type { ChangeEvent } from 'react'
 import type {
@@ -40,6 +43,8 @@ export interface NoteFormProps {
   onImageUploadError: (uploadError: string) => void
   onRemoveImage: (imageName: string) => void
   onContentChange: (value: string) => void
+  shared: boolean
+  onSharedChange: (value: boolean) => void
 }
 
 const NoteForm = ({
@@ -66,7 +71,9 @@ const NoteForm = ({
   onImageUpload,
   onImageUploadError,
   onRemoveImage,
-  onContentChange
+  onContentChange,
+  shared,
+  onSharedChange
 }: NoteFormProps) => {
   const getImageSrc = (image: string) => {
     if (image.startsWith('http://') || image.startsWith('https://')) {
@@ -162,6 +169,15 @@ const NoteForm = ({
         error={errors.tags?.message as string}
         data={tags}
       />
+
+      <label className='flex items-center gap-2 text-sm'>
+        <input
+          type='checkbox'
+          checked={shared}
+          onChange={event => onSharedChange(event.target.checked)}
+        />
+        {NOTE_FORM_TEXT.sharedLabel}
+      </label>
 
       <div className='flex flex-col gap-2'>
         <FormInputFile

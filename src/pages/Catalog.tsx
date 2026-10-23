@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 
+import { useQuery } from '@apollo/client'
+
 import ErrorMessage from '../components/molecules/ErrorMessage'
 import Heading from '../components/molecules/Heading'
 import Spinner from '../components/molecules/Spinner'
 import { Dialog } from '../components/organisms/dialogs'
+import { useAuth } from '../feature/auth/context/AuthContext'
+import { USERS } from '../feature/auth/gql/authQueries'
 import BookCard from '../feature/catalog/components/BookCard'
 import CatalogPagination from '../feature/catalog/components/CatalogPagination'
 import CatalogSectionHeader, {
@@ -84,7 +88,15 @@ const applyMovieSort = (movies: iCatalogMovie[], sort: SortValue) => {
 }
 
 const Catalog = () => {
-  const { data, loading, error } = useFilterCatalog()
+  const { user: currentUser } = useAuth()
+  const { data: usersData } = useQuery(USERS)
+  const [viewUserId, setViewUserId] = useState<string>('')
+  const { data, loading, error } = useFilterCatalog(viewUserId || undefined)
+  const isReadOnly = Boolean(viewUserId)
+
+  const otherUsers = (usersData?.users ?? []).filter(
+    (candidate: { _id: string }) => candidate._id !== currentUser?._id
+  )
 
   const [bookSearch, setBookSearch] = useState('')
   const [serieSearch, setSerieSearch] = useState('')
@@ -229,6 +241,28 @@ const Catalog = () => {
     <>
       <Header isMain={false} headers={data?.headers} />
       <Heading title='Catálogo' />
+      {otherUsers.length > 0 && (
+        <div className='mx-auto flex max-w-fit items-center gap-2 px-4 pb-4 text-sm'>
+          <label htmlFor='viewUserId' className='text-secondary'>
+            Ver catálogo de:
+          </label>
+          <select
+            id='viewUserId'
+            value={viewUserId}
+            onChange={e => setViewUserId(e.target.value)}
+            className='border-secondaryLighter bg-secondaryLightest text-secondaryLight rounded-md border-1 p-1 text-sm'
+          >
+            <option value=''>Mi catálogo</option>
+            {otherUsers.map(
+              (otherUser: { _id: string; name?: string; email: string }) => (
+                <option key={otherUser._id} value={otherUser._id}>
+                  {otherUser.name ?? otherUser.email}
+                </option>
+              )
+            )}
+          </select>
+        </div>
+      )}
       <ThirdsLayout>
         <div className='px-4'>
           <CatalogSectionHeader
@@ -243,10 +277,11 @@ const Catalog = () => {
             searchPlaceholder='Buscar por título o autor...'
             searchValue={bookSearch}
             onSearchChange={e => setBookSearch(e.target.value)}
+            readOnly={isReadOnly}
           />
           <div className='flex flex-col gap-4'>
             {paginatedBooks.map(book => (
-              <BookCard book={book} key={book._id} />
+              <BookCard book={book} key={book._id} readOnly={isReadOnly} />
             ))}
           </div>
           <CatalogPagination
@@ -272,10 +307,11 @@ const Catalog = () => {
             searchPlaceholder='Buscar por título, director o país...'
             searchValue={serieSearch}
             onSearchChange={e => setSerieSearch(e.target.value)}
+            readOnly={isReadOnly}
           />
           <div className='flex flex-col gap-4'>
             {paginatedSeries.map(serie => (
-              <SerieCard serie={serie} key={serie._id} />
+              <SerieCard serie={serie} key={serie._id} readOnly={isReadOnly} />
             ))}
           </div>
           <CatalogPagination
@@ -301,10 +337,11 @@ const Catalog = () => {
             searchPlaceholder='Buscar por título, director o país...'
             searchValue={movieSearch}
             onSearchChange={e => setMovieSearch(e.target.value)}
+            readOnly={isReadOnly}
           />
           <div className='flex flex-col gap-4'>
             {paginatedMovies.map(movie => (
-              <MovieCard movie={movie} key={movie._id} />
+              <MovieCard movie={movie} key={movie._id} readOnly={isReadOnly} />
             ))}
           </div>
           <CatalogPagination

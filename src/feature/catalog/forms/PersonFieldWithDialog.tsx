@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Button } from '../../../components/atoms'
-import { Dialog } from '../../../components/organisms/dialogs'
-import { FormInputAutocompleteMulti } from '../../../components/organisms/forms'
-import { iSelectOptions } from '../../../components/organisms/forms/types'
-import PersonQuickAddForm from './PersonQuickAddForm'
+import { Button } from '../../../components/atoms';
+import { Dialog } from '../../../components/organisms/dialogs';
+import { FormInputAutocompleteMulti } from '../../../components/organisms/forms';
+import { iSelectOptions } from '../../../components/organisms/forms/types';
+import PersonQuickAddForm from './PersonQuickAddForm';
 
 interface PersonFieldWithDialogProps {
   label: string
@@ -16,6 +16,7 @@ interface PersonFieldWithDialogProps {
   buttonText: string
   role: 'DIRECTOR' | 'ACTOR' | 'WRITER'
   dialogImage: string
+  data?: string[]
 }
 
 const PersonFieldWithDialog = ({
@@ -27,7 +28,8 @@ const PersonFieldWithDialog = ({
   error,
   buttonText,
   role,
-  dialogImage
+  dialogImage,
+  data
 }: PersonFieldWithDialogProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const personLabel = buttonText.replace('Añadir ', '').toLowerCase()
@@ -41,6 +43,7 @@ const PersonFieldWithDialog = ({
         placeholder={placeholder}
         onChange={onChange}
         error={error}
+        data={data}
       />
       <Button
         text={buttonText}

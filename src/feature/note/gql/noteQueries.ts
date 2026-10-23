@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const NOTE_INFO = gql`
   query {
@@ -14,6 +14,12 @@ export const NOTE_INFO = gql`
       tags
       images
       content
+      shared
+      owner {
+        _id
+        name
+        email
+      }
     }
   }
 `

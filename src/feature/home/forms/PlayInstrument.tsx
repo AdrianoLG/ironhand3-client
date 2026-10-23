@@ -1,15 +1,13 @@
-import Button from '../../../components/atoms/Button'
-import FormField from '../../../components/organisms/forms/FormField'
+import Button from '../../../components/atoms/Button';
+import FormField from '../../../components/organisms/forms/FormField';
 
 const PlayInstrument = ({
-  closeModal,
-  type
+  closeModal
 }: {
   closeModal: () => void
   type: string
 }) => (
   <form action=''>
-    <p>{type}</p>
     <div className='my-7 flex w-full gap-9 px-9'>
       <FormField tag='date' type='date' title='Fecha' isRequired />
       <FormField tag='instrument' type='text' title='Instrumento' />

@@ -1,21 +1,14 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 import {
-  FormInput,
-  FormInputFile,
-  FormInputTagChips,
-  FormMultiSelect,
-  FormSelect
-} from '../../../components/organisms/forms'
-import FormTextarea from '../../../components/organisms/forms/FormTextarea'
+    FormInput, FormInputFile, FormInputTagChips, FormMultiSelect, FormSelect
+} from '../../../components/organisms/forms';
+import FormTextarea from '../../../components/organisms/forms/FormTextarea';
 import {
-  BookFormInput,
-  BookFormProps,
-  coverMaterialOptions,
-  formatOptions
-} from '../types/catalogFormTypes'
-import FormActions from './FormActions'
-import PersonFieldWithDialog from './PersonFieldWithDialog'
+    BookFormInput, BookFormProps, coverMaterialOptions, formatOptions
+} from '../types/catalogFormTypes';
+import FormActions from './FormActions';
+import PersonFieldWithDialog from './PersonFieldWithDialog';
 
 export type { BookFormInput }
 
@@ -28,7 +21,9 @@ const BookForm = ({
   watch,
   authorOptions,
   genreOptions,
-  setIsOpen
+  setIsOpen,
+  submitText,
+  initialValues
 }: BookFormProps) => {
   const format = watch('format')
   const [coverUploadError, setCoverUploadError] = useState<string>('')
@@ -64,7 +59,7 @@ const BookForm = ({
         tag='format'
         selectName='Formato'
         placeholder='Selecciona formato'
-        defaultValue='PAPER'
+        defaultValue={initialValues?.format ?? 'PAPER'}
         options={formatOptions}
         isRequired
         onChange={(value: string) =>
@@ -91,6 +86,7 @@ const BookForm = ({
         buttonText='Añadir escritor'
         role='WRITER'
         dialogImage='book-bg'
+        data={initialValues?.author}
       />
       <FormMultiSelect
         label='Géneros'
@@ -103,6 +99,7 @@ const BookForm = ({
           selectName='Tapa'
           placeholder='Selecciona tapa'
           options={coverMaterialOptions}
+          defaultValue={initialValues?.coverMaterial}
           onChange={(value: string) =>
             setValue('coverMaterial', value as 'SOFT' | 'HARD')
           }
@@ -135,9 +132,10 @@ const BookForm = ({
         placeholder='Escribe y separa por comas'
         onChange={(tags: string[]) => setValue('tags', tags)}
         error={errors.tags?.message as string}
+        data={initialValues?.tags}
       />
       <FormActions
-        submitText='Añadir libro'
+        submitText={submitText ?? 'Añadir libro'}
         onCancel={() => setIsOpen(false)}
         small
       />

@@ -43,6 +43,11 @@ export const CLEANING_INFO = gql`
         slug
         image
       }
+      completedBy {
+        _id
+        name
+        email
+      }
     }
     cleaningTasks {
       _id

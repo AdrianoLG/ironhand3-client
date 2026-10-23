@@ -16,6 +16,7 @@ export const NOTE_FORM_TEXT = {
   newCategoryOption: '* Nueva categoría *',
   tagsLabel: 'Etiquetas',
   tagsPlaceholder: 'Escribe y separa por comas',
+  sharedLabel: 'Compartido con el otro usuario',
   imagesLabel: 'Imágenes',
   imagesSublabel: 'Sube una imagen y se añadirá al array images.',
   uploadImageButton: 'Subir imagen',

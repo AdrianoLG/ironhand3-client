@@ -39,17 +39,19 @@ const RecipeList = ({ recipes }: { recipes: iRecipe[] }) => {
 
   return (
     <>
-      <FormInputSearch
-        placeholder='Buscar receta...'
-        value={searchTerm}
-        onChange={event => setSearchTerm(event.target.value)}
-      />
+      <div className='w-5/6'>
+        <FormInputSearch
+          placeholder='Buscar receta...'
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+        />
+      </div>
       {normalizedSearchTerm.length >= 2 && filteredRecipes.length === 0 && (
         <p className='text-secondary mb-4 w-5/6 text-sm'>
           No hay recetas para esa búsqueda.
         </p>
       )}
-      <ul className='border-secondaryLighter flex w-5/6 flex-col gap-4'>
+      <ul className='border-secondaryLighter mt-6 flex w-5/6 flex-col gap-4'>
         {filteredRecipes.map(recipe => (
           <li
             key={recipe._id}

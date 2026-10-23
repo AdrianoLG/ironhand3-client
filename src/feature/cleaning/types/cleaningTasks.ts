@@ -1,14 +1,9 @@
 import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormClearErrors,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetError,
-  UseFormSetValue
-} from 'react-hook-form'
+    FieldErrors, SubmitHandler, UseFormClearErrors, UseFormHandleSubmit, UseFormRegister,
+    UseFormSetError, UseFormSetValue
+} from 'react-hook-form';
 
-import { iShortcut } from '../../../types/types'
+import { iShortcut } from '../../../types/types';
 
 export interface iRoom {
   _id: string
@@ -30,6 +25,7 @@ export interface iCompletedCleaningTask {
   completedAt: Date
   cleaningTask: iCleaningTask
   rooms: iRoom[]
+  completedBy?: { _id: string; name?: string; email: string } | null
 }
 
 export interface iCompleteCleaningTaskForm {

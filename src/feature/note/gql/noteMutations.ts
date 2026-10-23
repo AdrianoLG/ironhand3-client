@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const CREATE_NOTE = gql`
   mutation CreateNote($createNoteInput: CreateNoteInput!) {
@@ -6,6 +6,7 @@ export const CREATE_NOTE = gql`
       _id
       title
       category
+      shared
     }
   }
 `
@@ -19,6 +20,12 @@ export const UPDATE_NOTE = gql`
       tags
       images
       content
+      shared
+      owner {
+        _id
+        name
+        email
+      }
     }
   }
 `

@@ -1,21 +1,23 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Button } from '../../../components/atoms'
-import { Dialog } from '../../../components/organisms/dialogs'
-import { FormSelect } from '../../../components/organisms/forms'
-import { iSelectOptions } from '../../../components/organisms/forms/types'
-import CountryQuickAddForm from './CountryQuickAddForm'
+import { Button } from '../../../components/atoms';
+import { Dialog } from '../../../components/organisms/dialogs';
+import { FormSelect } from '../../../components/organisms/forms';
+import { iSelectOptions } from '../../../components/organisms/forms/types';
+import CountryQuickAddForm from './CountryQuickAddForm';
 
 interface CountryFieldWithDialogProps {
   options: iSelectOptions[]
   onChange: (value: string) => void
   dialogImage: string
+  defaultValue?: string
 }
 
 const CountryFieldWithDialog = ({
   options,
   onChange,
-  dialogImage
+  dialogImage,
+  defaultValue
 }: CountryFieldWithDialogProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -27,6 +29,7 @@ const CountryFieldWithDialog = ({
         placeholder='Selecciona un país'
         options={options}
         onChange={onChange}
+        defaultValue={defaultValue}
       />
       <Button
         text='Añadir país'

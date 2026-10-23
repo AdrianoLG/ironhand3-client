@@ -86,12 +86,15 @@ export interface iCatalogInfo {
 
 export type BookCardProps = {
   book: iCatalogBook
+  readOnly?: boolean
 }
 
 export type SerieCardProps = {
   serie: iCatalogSerie
+  readOnly?: boolean
 }
 
 export type MovieCardProps = {
   movie: iCatalogMovie
+  readOnly?: boolean
 }

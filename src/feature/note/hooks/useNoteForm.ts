@@ -15,7 +15,8 @@ const buildFormDefaults = (note?: NoteListItem | null): NoteFormInput => ({
   category: note?.category ?? '',
   tags: note?.tags ?? [],
   images: note?.images ?? [],
-  content: note?.content ?? ''
+  content: note?.content ?? '',
+  shared: note?.shared ?? false
 })
 
 interface UseNoteFormParams {
@@ -65,6 +66,7 @@ export const useNoteForm = ({
   const titleValue = watch('title')
   const categoryValue = watch('category')
   const contentValue = watch('content')
+  const sharedValue = watch('shared')
 
   const isSubmitDisabled =
     isSubmitting ||
@@ -172,6 +174,8 @@ export const useNoteForm = ({
     clearErrors('content')
   }
 
+  const onSharedChange = (value: boolean) => setValue('shared', value)
+
   return {
     handleSubmit,
     onSubmit,
@@ -200,6 +204,8 @@ export const useNoteForm = ({
     onImageUpload,
     onImageUploadError,
     onRemoveImage,
-    onContentChange
+    onContentChange,
+    shared: sharedValue,
+    onSharedChange
   }
 }

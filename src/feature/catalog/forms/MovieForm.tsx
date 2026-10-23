@@ -1,26 +1,16 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  UseFormSetValue
-} from 'react-hook-form'
+    FieldErrors, SubmitHandler, UseFormHandleSubmit, UseFormRegister, UseFormSetValue
+} from 'react-hook-form';
 
 import {
-  FormInput,
-  FormInputFile,
-  FormInputTagChips,
-  FormMultiSelect
-} from '../../../components/organisms/forms'
-import {
-  iMultiSelect,
-  iSelectOptions
-} from '../../../components/organisms/forms/types'
-import { MovieFormInput } from '../types/catalogFormTypes'
-import CountryFieldWithDialog from './CountryFieldWithDialog'
-import FormActions from './FormActions'
-import PersonFieldWithDialog from './PersonFieldWithDialog'
+    FormInput, FormInputFile, FormInputTagChips, FormMultiSelect
+} from '../../../components/organisms/forms';
+import { iMultiSelect, iSelectOptions } from '../../../components/organisms/forms/types';
+import { MovieFormInput } from '../types/catalogFormTypes';
+import CountryFieldWithDialog from './CountryFieldWithDialog';
+import FormActions from './FormActions';
+import PersonFieldWithDialog from './PersonFieldWithDialog';
 
 export type { MovieFormInput }
 
@@ -34,7 +24,9 @@ const MovieForm = ({
   actorOptions,
   genreOptions,
   countryOptions,
-  setIsOpen
+  setIsOpen,
+  submitText,
+  initialValues
 }: {
   handleSubmit: UseFormHandleSubmit<MovieFormInput>
   onSubmit: SubmitHandler<MovieFormInput>
@@ -46,6 +38,8 @@ const MovieForm = ({
   genreOptions: iMultiSelect[]
   countryOptions: iSelectOptions[]
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  submitText?: string
+  initialValues?: MovieFormInput
 }) => {
   const [coverUploadError, setCoverUploadError] = useState<string>('')
 
@@ -86,6 +80,7 @@ const MovieForm = ({
         buttonText='Añadir director'
         role='DIRECTOR'
         dialogImage='movie-bg'
+        data={initialValues?.director}
       />
       <PersonFieldWithDialog
         label='Actores'
@@ -95,12 +90,14 @@ const MovieForm = ({
         buttonText='Añadir actor'
         role='ACTOR'
         dialogImage='movie-bg'
+        data={initialValues?.actors}
       />
       <FormInputTagChips
         label='Etiquetas'
         placeholder='Escribe y separa por comas'
         onChange={(tags: string[]) => setValue('tags', tags)}
         error={errors.tags?.message as string}
+        data={initialValues?.tags}
       />
       <FormMultiSelect
         label='Géneros'
@@ -129,9 +126,10 @@ const MovieForm = ({
         options={countryOptions}
         onChange={(value: string) => setValue('country', value)}
         dialogImage='movie-bg'
+        defaultValue={initialValues?.country}
       />
       <FormActions
-        submitText='Añadir película'
+        submitText={submitText ?? 'Añadir película'}
         onCancel={() => setIsOpen(false)}
         small
       />

@@ -1,4 +1,4 @@
-import { iShortcut } from '../../../types/types'
+import { iShortcut } from '../../../types/types';
 
 const PopupLayout = ({
   activeCard,
@@ -11,10 +11,10 @@ const PopupLayout = ({
 }) => (
   <dialog
     ref={dialogRef}
-    className='w-[90vw] max-w-2xl overflow-visible rounded-lg bg-primary backdrop:bg-transparent70B'
+    className='bg-primary backdrop:bg-transparent70B m-auto w-[90vw] max-w-2xl overflow-visible rounded-lg'
   >
     {activeCard && (
-      <div className='max-h-[90vh] max-w-[90vw]'>
+      <div className='max-h-[90vh] max-w-[90vw] pb-7'>
         <div className='py-6'>
           <p className='px-9 text-3xl leading-none'>{activeCard.title}</p>
           {activeCard.subtitle && (
@@ -29,7 +29,6 @@ const PopupLayout = ({
           alt=''
         />
         {children}
-        <p className='px-4'>{activeCard.action}</p>
       </div>
     )}
   </dialog>

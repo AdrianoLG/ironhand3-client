@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 export const PROJECTS_INFO = gql`
   query {
@@ -12,6 +12,11 @@ export const PROJECTS_INFO = gql`
       description
       shared
       category
+      owner {
+        _id
+        name
+        email
+      }
       tasks {
         _id
         title

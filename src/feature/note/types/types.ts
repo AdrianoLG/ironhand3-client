@@ -14,6 +14,8 @@ export type NoteListItem = {
   tags?: string[]
   images?: string[]
   content: string
+  shared: boolean
+  owner?: { _id: string; name?: string; email: string }
 }
 
 export type NoteFormInput = {
@@ -22,6 +24,7 @@ export type NoteFormInput = {
   tags: string[]
   images: string[]
   content: string
+  shared: boolean
 }
 
 export type NoteCategoryOption = {

@@ -8,6 +8,10 @@ type CatalogCardProps = {
   imageAlt: string
   summary: ReactNode
   details?: ReactNode
+  readOnly?: boolean
+  onEdit?: () => void
+  onDelete?: () => void
+  isDeleting?: boolean
 }
 
 const CatalogCard = ({
@@ -15,7 +19,11 @@ const CatalogCard = ({
   imageSrc,
   imageAlt,
   summary,
-  details
+  details,
+  readOnly,
+  onEdit,
+  onDelete,
+  isDeleting
 }: CatalogCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -54,24 +62,33 @@ const CatalogCard = ({
         >
           <div className='border-secondaryLight bg-primary/40 mx-4 mb-4 space-y-2 pt-4'>
             {details}
-            <div className='mt-8 flex gap-2'>
-              <Button
-                text='Actualizar'
-                type='button'
-                xsmall
-                isFit
-                onMouseClick={event => event.stopPropagation()}
-              />
-              <Button
-                text='Borrar'
-                type='button'
-                xsmall
-                isFit
-                outline
-                secondary
-                onMouseClick={event => event.stopPropagation()}
-              />
-            </div>
+            {!readOnly && (
+              <div className='mt-8 flex gap-2'>
+                <Button
+                  text='Actualizar'
+                  type='button'
+                  xsmall
+                  isFit
+                  onMouseClick={event => {
+                    event.stopPropagation()
+                    onEdit?.()
+                  }}
+                />
+                <Button
+                  text={isDeleting ? 'Borrando...' : 'Borrar'}
+                  type='button'
+                  xsmall
+                  isFit
+                  outline
+                  secondary
+                  disabled={isDeleting}
+                  onMouseClick={event => {
+                    event.stopPropagation()
+                    onDelete?.()
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

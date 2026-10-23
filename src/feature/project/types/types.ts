@@ -13,6 +13,7 @@ export interface iProject {
   shared: boolean
   category: string
   tasks?: iTask[]
+  owner?: { _id: string; name?: string; email: string }
 }
 
 export type iTaskStatus = 'TODO' | 'DOING' | 'DONE'

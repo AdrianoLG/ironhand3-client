@@ -13,7 +13,7 @@ import App from './App.tsx'
 
 const uri = import.meta.env.VITE_GRAPHQL_URI as string
 const client = new ApolloClient({
-  link: new HttpLink({ uri }),
+  link: new HttpLink({ uri, credentials: 'include' }),
   cache: new InMemoryCache()
 })
 

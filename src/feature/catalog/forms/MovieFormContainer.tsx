@@ -1,12 +1,13 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client';
 
-import ErrorMessage from '../../../components/molecules/ErrorMessage'
-import Spinner from '../../../components/molecules/Spinner'
-import { CREATE_MOVIE } from '../gql/catalogMutations'
-import { CATALOG_FORM_DATA, CATALOG_INFO } from '../gql/catalogQueries'
-import MovieForm, { MovieFormInput } from './MovieForm'
+import ErrorMessage from '../../../components/molecules/ErrorMessage';
+import Spinner from '../../../components/molecules/Spinner';
+import { CREATE_MOVIE, UPDATE_MOVIE } from '../gql/catalogMutations';
+import { CATALOG_FORM_DATA, CATALOG_INFO } from '../gql/catalogQueries';
+import { iCatalogMovie } from '../types/types';
+import MovieForm, { MovieFormInput } from './MovieForm';
 
 interface iFormData {
   people: { _id: string; name: string; lastName?: string; role: string }[]
@@ -14,13 +15,31 @@ interface iFormData {
   countries: { _id: string; name: string }[]
 }
 
+const buildDefaultValues = (movie?: iCatalogMovie): MovieFormInput => ({
+  title: movie?.title ?? '',
+  director: movie?.director?.map(person => person._id) ?? [],
+  actors: movie?.actors?.map(person => person._id) ?? [],
+  country: movie?.country?._id,
+  cover: movie?.cover ?? '',
+  duration: movie?.duration,
+  rating: movie?.rating,
+  year: movie?.year,
+  genres: movie?.genres?.map(genre => genre._id) ?? [],
+  tags: movie?.tags ?? []
+})
+
 const MovieFormContainer = ({
-  setIsOpen
+  setIsOpen,
+  movie
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  movie?: iCatalogMovie
 }) => {
   const { data, loading, error } = useQuery<iFormData>(CATALOG_FORM_DATA)
   const [createMovie] = useMutation(CREATE_MOVIE, {
+    refetchQueries: [{ query: CATALOG_INFO }]
+  })
+  const [updateMovie] = useMutation(UPDATE_MOVIE, {
     refetchQueries: [{ query: CATALOG_INFO }]
   })
 
@@ -30,37 +49,35 @@ const MovieFormContainer = ({
     setValue,
     formState: { errors }
   } = useForm<MovieFormInput>({
-    defaultValues: {
-      title: '',
-      director: [],
-      actors: [],
-      genres: [],
-      tags: []
-    }
+    defaultValues: buildDefaultValues(movie)
   })
 
   const onSubmit: SubmitHandler<MovieFormInput> = async formData => {
     const tags = (formData.tags ?? []).filter(Boolean)
 
-    await createMovie({
-      variables: {
-        createMovieInput: {
-          title: formData.title,
-          director: formData.director,
-          cover: formData.cover || 'no-cover.avif',
-          ...(formData.actors?.length && { actors: formData.actors }),
-          ...(formData.country && { country: formData.country }),
-          ...(formData.duration && { duration: Number(formData.duration) }),
-          ...(formData.rating !== undefined &&
-            formData.rating !== null && {
-              rating: Number(formData.rating)
-            }),
-          ...(formData.year && { year: Number(formData.year) }),
-          ...(formData.genres.length && { genres: formData.genres }),
-          ...(tags.length && { tags })
-        }
-      }
-    })
+    const movieInput = {
+      title: formData.title,
+      director: formData.director,
+      cover: formData.cover || 'no-cover.avif',
+      ...(formData.actors?.length && { actors: formData.actors }),
+      ...(formData.country && { country: formData.country }),
+      ...(formData.duration && { duration: Number(formData.duration) }),
+      ...(formData.rating !== undefined &&
+        formData.rating !== null && {
+          rating: Number(formData.rating)
+        }),
+      ...(formData.year && { year: Number(formData.year) }),
+      ...(formData.genres.length && { genres: formData.genres }),
+      ...(tags.length && { tags })
+    }
+
+    if (movie) {
+      await updateMovie({
+        variables: { updateMovieInput: { _id: movie._id, ...movieInput } }
+      })
+    } else {
+      await createMovie({ variables: { createMovieInput: movieInput } })
+    }
     setIsOpen(false)
   }
 
@@ -94,7 +111,7 @@ const MovieFormContainer = ({
   const genreOptions = (data?.genres ?? []).map(g => ({
     value: g._id,
     name: g.name,
-    selected: false
+    selected: movie?.genres?.some(genre => genre._id === g._id) ?? false
   }))
   const countryOptions = (data?.countries ?? []).map(c => ({
     value: c._id,
@@ -113,6 +130,8 @@ const MovieFormContainer = ({
       genreOptions={genreOptions}
       countryOptions={countryOptions}
       setIsOpen={setIsOpen}
+      submitText={movie ? 'Guardar cambios' : undefined}
+      initialValues={movie ? buildDefaultValues(movie) : undefined}
     />
   )
 }

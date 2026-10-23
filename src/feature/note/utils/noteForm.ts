@@ -1,5 +1,5 @@
-import { NoteCategoryOption, NoteFormInput } from '../types/types';
-import { NOTE_FORM_TEXT } from './noteFormMessages';
+import { NoteCategoryOption, NoteFormInput } from '../types/types'
+import { NOTE_FORM_TEXT } from './noteFormMessages'
 
 export const NEW_CATEGORY_OPTION_VALUE = '__new_category__'
 
@@ -73,6 +73,7 @@ export const buildCreateNoteInput = (formData: NoteFormInput) => {
     title: formData.title.trim(),
     content: formData.content,
     category: formData.category.trim(),
+    shared: formData.shared,
     ...(tags.length > 0 && { tags }),
     ...(images.length > 0 && { images })
   }

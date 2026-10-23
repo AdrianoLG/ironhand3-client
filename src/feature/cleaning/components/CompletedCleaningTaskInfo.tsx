@@ -38,6 +38,13 @@ const CompletedCleaningTaskInfo = ({
           ))}
         </ul>
       )}
+      {completedCleaningTask.completedBy && (
+        <p className='text-secondary mt-2 text-center text-xs italic'>
+          Completado por{' '}
+          {completedCleaningTask.completedBy.name ??
+            completedCleaningTask.completedBy.email}
+        </p>
+      )}
     </div>
   </div>
 )
