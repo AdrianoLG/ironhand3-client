@@ -1,20 +1,20 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client';
 
-import { Button } from '../components/atoms'
-import ErrorMessage from '../components/molecules/ErrorMessage'
-import Heading from '../components/molecules/Heading'
-import Spinner from '../components/molecules/Spinner'
-import { FormSelect } from '../components/organisms/forms'
-import NotesGrid from '../feature/note/components/NotesGrid'
-import NotesHeaderButtons from '../feature/note/components/NotesHeaderButtons'
-import { CREATE_NOTE } from '../feature/note/gql/noteMutations'
-import { NOTE_INFO } from '../feature/note/gql/noteQueries'
-import useFilterNotes from '../feature/note/hooks/useFilterNotes'
-import { useNoteForm } from '../feature/note/hooks/useNoteForm'
-import { buildCreateNoteInput } from '../feature/note/utils/noteForm'
-import Header from '../layouts/header/Header'
+import { Button } from '../components/atoms';
+import ErrorMessage from '../components/molecules/ErrorMessage';
+import Heading from '../components/molecules/Heading';
+import Spinner from '../components/molecules/Spinner';
+import { FormSelect } from '../components/organisms/forms';
+import NotesGrid from '../feature/note/components/NotesGrid';
+import NotesHeaderButtons from '../feature/note/components/NotesHeaderButtons';
+import { CREATE_NOTE } from '../feature/note/gql/noteMutations';
+import { NOTE_INFO } from '../feature/note/gql/noteQueries';
+import useFilterNotes from '../feature/note/hooks/useFilterNotes';
+import { useNoteForm } from '../feature/note/hooks/useNoteForm';
+import { buildCreateNoteInput } from '../feature/note/utils/noteForm';
+import Header from '../layouts/header/Header';
 
 const Notes = () => {
   const [isCreateNoteOpen, setIsCreateNoteOpen] = useState(false)
@@ -97,7 +97,7 @@ const Notes = () => {
         isOpen={isCreateNoteOpen}
         setIsOpen={setIsCreateNoteOpen}
       />
-      <div className='xl:max-w-screen-content mx-auto mb-4 flex flex-wrap items-end gap-3 px-12'>
+      <div className='xl:max-w-screen-content mx-auto mb-4 flex flex-wrap items-end gap-3 px-4 sm:px-8 lg:px-12'>
         <div className='w-fit min-w-[220px]'>
           <FormSelect
             key={`category-filter-${selectedCategory || 'empty'}`}

@@ -1,10 +1,10 @@
-import { DateValueType } from 'react-tailwindcss-datepicker'
+import { DateValueType } from 'react-tailwindcss-datepicker';
 
-import Cardio from '../assets/svgs/Cardio'
-import Stretch from '../assets/svgs/Stretch'
-import Body from '../components/Body'
-import ExerciseFilterButtons from '../components/ExerciseFilterButtons'
-import { iExercisesInfo } from '../types/exercises'
+import Cardio from '../assets/svgs/Cardio';
+import Stretch from '../assets/svgs/Stretch';
+import Body from '../components/Body';
+import ExerciseFilterButtons from '../components/ExerciseFilterButtons';
+import { iExercisesInfo } from '../types/exercises';
 
 const ExerciseAside = ({
   data,
@@ -23,7 +23,7 @@ const ExerciseAside = ({
 }) => (
   <aside className='w-full pb-8 md:w-1/3'>
     {data?.completedExercises && (
-      <div className='border-secondaryLighter relative rounded-md border-1 px-12 py-4 shadow-md xl:px-24 xl:py-9'>
+      <div className='border-secondaryLighter relative rounded-md border-1 px-4 py-4 shadow-md sm:px-12 xl:px-24 xl:py-9'>
         <Body color='var(--value1)' completedExercises={completedExercises} />
         <div className='absolute right-0 bottom-0 flex gap-3 p-4'>
           <Stretch width='.7rem' completedExercises={completedExercises} />

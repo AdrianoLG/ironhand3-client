@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Dialog } from '../../../components/organisms/dialogs'
-import CleaningTaskFormContainer from '../forms/CleaningTaskFormContainer'
-import CompleteCleaningTaskFormContainer from '../forms/CompleteCleaningTaskFormContainer'
+import { Dialog } from '../../../components/organisms/dialogs';
+import CleaningTaskFormContainer from '../forms/CleaningTaskFormContainer';
+import CompleteCleaningTaskFormContainer from '../forms/CompleteCleaningTaskFormContainer';
 
 const CleaningHeaderButtons = () => {
   const [cleaningFormIsOpen, setCleaningFormIsOpen] = useState(false)
@@ -11,7 +11,7 @@ const CleaningHeaderButtons = () => {
 
   return (
     <>
-      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-12 pb-16'>
+      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-4 pb-16 sm:px-8 lg:px-12'>
         <div>
           <Dialog
             buttonText='Completar tarea'

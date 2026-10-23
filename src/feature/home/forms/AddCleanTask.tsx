@@ -8,11 +8,11 @@ const AddCleanTask = ({
   type: string
 }) => (
   <form action=''>
-    <div className='my-7 flex w-full gap-9 px-9'>
+    <div className='my-7 flex w-full flex-col gap-4 px-6 sm:flex-row sm:gap-9 sm:px-9'>
       <FormField tag='date' type='date' title='Fecha' isRequired />
       <FormField tag='area' type='text' title='Zona' />
     </div>
-    <div className='flex w-full justify-end gap-4 px-9'>
+    <div className='flex w-full justify-end gap-4 px-6 sm:px-9'>
       <Button
         text='Cancelar'
         onMouseClick={() => closeModal()}

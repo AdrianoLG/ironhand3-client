@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import IconLogo from '../../assets/svgs/IconLogo'
-import ModeButton from '../../components/atoms/ModeButton'
-import { iHeaders } from '../../types/types'
-import HeaderSecondaryDesktop from './HeaderSecondaryDesktop'
-import HeaderSecondaryMobile from './HeaderSecondaryMobile'
-import UserNav from './UserNav'
+import IconLogo from '../../assets/svgs/IconLogo';
+import ModeButton from '../../components/atoms/ModeButton';
+import { iHeaders } from '../../types/types';
+import HeaderSecondaryDesktop from './HeaderSecondaryDesktop';
+import HeaderSecondaryMobile from './HeaderSecondaryMobile';
+import UserNav from './UserNav';
 
 const MainHeader = () => {
   return (
@@ -35,7 +35,7 @@ const SecondaryHeader = ({ headers }: { headers: iHeaders[] }) => {
         onClick={() => setIsOpen(false)}
       ></div>
       <div className='bg-secondary relative z-30 shadow-md'>
-        <header className='xl:max-w-screen-content mx-auto flex items-center justify-between px-12 py-1 lg:py-3'>
+        <header className='xl:max-w-screen-content mx-auto flex items-center justify-between px-4 py-1 sm:px-8 lg:px-12 lg:py-3'>
           <NavLink
             to='/'
             className='flex items-center justify-start gap-1'

@@ -58,7 +58,7 @@ const DialogLayout = ({
         >
           {!hideHeader && (
             <>
-              <Dialog.Title className='px-8 text-3xl leading-none'>
+              <Dialog.Title className='px-8 text-2xl leading-none sm:text-3xl'>
                 {title}
               </Dialog.Title>
               <Dialog.Description className='mt-2 mb-4 px-8 text-lg leading-none'>

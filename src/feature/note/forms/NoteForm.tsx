@@ -1,13 +1,10 @@
-import CloseButton from '../../../assets/svgs/CloseButton'
-import { Button } from '../../../components/atoms'
+import CloseButton from '../../../assets/svgs/CloseButton';
+import { Button } from '../../../components/atoms';
 import {
-  FormInput,
-  FormInputFile,
-  FormInputTagChips,
-  FormSelect
-} from '../../../components/organisms/forms'
-import Wysiwyg from '../components/Wysiwyg'
-import { NOTE_FORM_TEXT, NOTE_FORM_VALIDATION } from '../utils/noteFormMessages'
+    FormInput, FormInputFile, FormInputTagChips, FormSelect
+} from '../../../components/organisms/forms';
+import Wysiwyg from '../components/Wysiwyg';
+import { NOTE_FORM_TEXT, NOTE_FORM_VALIDATION } from '../utils/noteFormMessages';
 
 import type { ChangeEvent } from 'react'
 import type {
@@ -85,7 +82,7 @@ const NoteForm = ({
 
   return (
     <form
-      className='xl:max-w-screen-content mx-auto my-7 flex w-full flex-col gap-4 px-12'
+      className='xl:max-w-screen-content mx-auto my-7 flex w-full flex-col gap-4 px-4 sm:px-8 lg:px-12'
       onSubmit={handleSubmit(onSubmit)}
     >
       <input

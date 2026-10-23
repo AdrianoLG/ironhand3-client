@@ -1,5 +1,5 @@
-import { Dialog } from '../../../components/organisms/dialogs'
-import NoteForm, { NoteFormProps } from '../forms/NoteForm'
+import { Dialog } from '../../../components/organisms/dialogs';
+import NoteForm, { NoteFormProps } from '../forms/NoteForm';
 
 interface NotesHeaderButtonsProps {
   noteFormProps: NoteFormProps
@@ -13,7 +13,7 @@ const NotesHeaderButtons = ({
   setIsOpen
 }: NotesHeaderButtonsProps) => {
   return (
-    <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-12 pb-8'>
+    <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-4 pb-8 sm:px-8 lg:px-12'>
       <Dialog
         buttonText='Añadir nota'
         title='Añadir nota'

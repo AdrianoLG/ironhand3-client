@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Dialog } from '../../../components/organisms/dialogs'
-import CropFormContainer from '../forms/CropFormContainer'
-import PlantFormContainer from '../forms/PlantFormContainer'
-import SpecieFormContainer from '../forms/SpecieFormContainer.tsx'
-import WateringFormContainer from '../forms/WateringFormContainer'
+import { Dialog } from '../../../components/organisms/dialogs';
+import CropFormContainer from '../forms/CropFormContainer';
+import PlantFormContainer from '../forms/PlantFormContainer';
+import SpecieFormContainer from '../forms/SpecieFormContainer.tsx';
+import WateringFormContainer from '../forms/WateringFormContainer';
 
 const GardenHeaderButtons = () => {
   const [completeWateringFormIsOpen, setWateringFormIsOpen] = useState(false)
@@ -14,7 +14,7 @@ const GardenHeaderButtons = () => {
 
   return (
     <>
-      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-12 pb-16'>
+      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-4 pb-16 sm:px-8 lg:px-12'>
         <div>
           <Dialog
             buttonText='Añadir riego'

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Button } from '../../../components/atoms'
-import IngredientAlert from '../layouts/IngredientAlert'
-import IngredientDialog from '../layouts/IngredientDialog'
-import { iIngredient } from '../types/nutrition'
+import { Button } from '../../../components/atoms';
+import IngredientAlert from '../layouts/IngredientAlert';
+import IngredientDialog from '../layouts/IngredientDialog';
+import { iIngredient } from '../types/nutrition';
 
 const IngredientList = ({ ingredients }: { ingredients: iIngredient[] }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
@@ -16,7 +16,7 @@ const IngredientList = ({ ingredients }: { ingredients: iIngredient[] }) => {
 
   return (
     <>
-      <div className='box-border grid grid-cols-3 gap-4'>
+      <div className='box-border grid grid-cols-2 gap-4 sm:grid-cols-3'>
         {ingredients.map(ingredient => (
           <div
             key={ingredient._id}

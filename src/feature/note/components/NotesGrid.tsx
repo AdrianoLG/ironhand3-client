@@ -1,14 +1,14 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react';
 
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client';
 
-import { REMOVE_NOTE, UPDATE_NOTE } from '../gql/noteMutations'
-import { NOTE_INFO } from '../gql/noteQueries'
-import { useNoteForm } from '../hooks/useNoteForm'
-import { buildCreateNoteInput } from '../utils/noteForm'
-import NoteCard from './NoteCard'
-import NoteDetailModal from './NoteDetailModal'
-import NoteEditModal from './NoteEditModal'
+import { REMOVE_NOTE, UPDATE_NOTE } from '../gql/noteMutations';
+import { NOTE_INFO } from '../gql/noteQueries';
+import { useNoteForm } from '../hooks/useNoteForm';
+import { buildCreateNoteInput } from '../utils/noteForm';
+import NoteCard from './NoteCard';
+import NoteDetailModal from './NoteDetailModal';
+import NoteEditModal from './NoteEditModal';
 
 import type { NoteListItem } from '../types/types'
 
@@ -102,14 +102,14 @@ const NotesGrid = ({ notes, noteCategories }: NotesGridProps) => {
 
   if (!notes.length) {
     return (
-      <section className='xl:max-w-screen-content mx-auto px-12 pb-8'>
+      <section className='xl:max-w-screen-content mx-auto px-4 pb-8 sm:px-8 lg:px-12'>
         <p className='text-secondaryLight text-sm'>No hay notas todavía.</p>
       </section>
     )
   }
 
   return (
-    <section className='xl:max-w-screen-content mx-auto px-12 pb-8'>
+    <section className='xl:max-w-screen-content mx-auto px-4 pb-8 sm:px-8 lg:px-12'>
       <div className='grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
         {notes.map(note => (
           <NoteCard

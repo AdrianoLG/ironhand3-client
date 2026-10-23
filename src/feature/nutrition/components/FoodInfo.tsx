@@ -1,9 +1,9 @@
-import { Button } from '../../../components/atoms'
-import carbsImg from '../assets/carbs.png'
-import fatImg from '../assets/fat.png'
-import proteinImg from '../assets/protein.png'
-import { iCompletedMeal } from '../types/nutrition'
-import { calculateTotalMacro, formatMacro } from '../utils/nutrition'
+import { Button } from '../../../components/atoms';
+import carbsImg from '../assets/carbs.png';
+import fatImg from '../assets/fat.png';
+import proteinImg from '../assets/protein.png';
+import { iCompletedMeal } from '../types/nutrition';
+import { calculateTotalMacro, formatMacro } from '../utils/nutrition';
 
 const FoodInfo = ({
   food,
@@ -16,7 +16,7 @@ const FoodInfo = ({
 }) => {
   return (
     <div
-      className='bg-primary border-secondaryLighter absolute top-full left-0 z-20 mt-2 w-72 rounded-md border-1 px-3 pt-3 pb-4 shadow-lg'
+      className='bg-primary border-secondaryLighter absolute top-full left-0 z-20 mt-2 w-72 max-w-[85vw] rounded-md border-1 px-3 pt-3 pb-4 shadow-lg'
       onClick={event => event.stopPropagation()}
     >
       {food.qty !== undefined && (

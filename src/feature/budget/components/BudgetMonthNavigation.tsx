@@ -1,6 +1,6 @@
-import IconButton from '../../../components/atoms/IconButton'
-import nextIcon from '../assets/next.svg'
-import prevIcon from '../assets/previous.svg'
+import IconButton from '../../../components/atoms/IconButton';
+import nextIcon from '../assets/next.svg';
+import prevIcon from '../assets/previous.svg';
 
 interface BudgetMonthNavigationProps {
   monthLabel: string
@@ -18,7 +18,7 @@ const BudgetMonthNavigation = ({
   onNextMonth
 }: BudgetMonthNavigationProps) => {
   return (
-    <div className='xl:max-w-screen-content mx-auto h-full grid-cols-1 justify-start gap-4 px-12 pb-16'>
+    <div className='xl:max-w-screen-content mx-auto h-full grid-cols-1 justify-start gap-4 px-4 pb-16 sm:px-8 lg:px-12'>
       <div className='mb-4 flex items-center gap-2'>
         <IconButton
           img={prevIcon}

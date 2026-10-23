@@ -1,13 +1,13 @@
-import Button from '../../../components/atoms/Button'
-import FormField from '../../../components/organisms/forms/FormField'
+import Button from '../../../components/atoms/Button';
+import FormField from '../../../components/organisms/forms/FormField';
 
 const AddRecipee = ({ closeModal }: { closeModal: () => void }) => (
   <form action=''>
-    <div className='my-7 flex w-full gap-9 px-9'>
+    <div className='my-7 flex w-full flex-col gap-4 px-6 sm:flex-row sm:gap-9 sm:px-9'>
       <FormField tag='name' type='number' title='Nombre' isRequired />
       <FormField tag='ingredients' type='text' title='Ingredientes' />
     </div>
-    <div className='flex w-full justify-end gap-4 px-9'>
+    <div className='flex w-full justify-end gap-4 px-6 sm:px-9'>
       <Button
         text='Cancelar'
         onMouseClick={() => closeModal()}

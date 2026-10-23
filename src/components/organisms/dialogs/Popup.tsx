@@ -16,9 +16,11 @@ const PopupLayout = ({
     {activeCard && (
       <div className='max-h-[90vh] max-w-[90vw] pb-7'>
         <div className='py-6'>
-          <p className='px-9 text-3xl leading-none'>{activeCard.title}</p>
+          <p className='px-6 text-2xl leading-none sm:px-9 sm:text-3xl'>
+            {activeCard.title}
+          </p>
           {activeCard.subtitle && (
-            <p className='mt-2 px-9 text-lg leading-none'>
+            <p className='mt-2 px-6 text-base leading-none sm:px-9 sm:text-lg'>
               {activeCard.subtitle}
             </p>
           )}

@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Dialog } from '../../../components/organisms/dialogs'
-import CompletedMealFormContainer from '../forms/CompletedMealFormContainer'
-import FoodFormContainer from '../forms/FoodFormContainer'
-import IngredientFormContainer from '../forms/IngredientFormContainer'
-import RecipeFormContainer from '../forms/RecipeFormContainer'
+import { Dialog } from '../../../components/organisms/dialogs';
+import CompletedMealFormContainer from '../forms/CompletedMealFormContainer';
+import FoodFormContainer from '../forms/FoodFormContainer';
+import IngredientFormContainer from '../forms/IngredientFormContainer';
+import RecipeFormContainer from '../forms/RecipeFormContainer';
 
 const NutritionHeaderButtons = () => {
   const [completeDietFormIsOpen, setCompleteDietFormIsOpen] = useState(false)
@@ -14,7 +14,7 @@ const NutritionHeaderButtons = () => {
 
   return (
     <>
-      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-12 pb-16'>
+      <nav className='xl:max-w-screen-content mx-auto flex flex-wrap justify-start gap-2 px-4 pb-16 sm:px-8 lg:px-12'>
         <div>
           <Dialog
             buttonText='Completar dieta'

@@ -1,8 +1,8 @@
-import { DateValueType } from 'react-tailwindcss-datepicker'
+import { DateValueType } from 'react-tailwindcss-datepicker';
 
-import CleaningFilterButtons from '../components/CleaningFilterButtons'
-import House from '../components/House'
-import { iCleaningInfo } from '../types/cleaningTasks'
+import CleaningFilterButtons from '../components/CleaningFilterButtons';
+import House from '../components/House';
+import { iCleaningInfo } from '../types/cleaningTasks';
 
 const CleaningAside = ({
   data,
@@ -21,7 +21,7 @@ const CleaningAside = ({
 }) => (
   <aside className='w-full pb-8 md:w-1/3'>
     {data?.completedCleaningTasks && (
-      <div className='border-secondaryLighter relative rounded-md border-1 px-12 py-4 shadow-md xl:px-24 xl:py-9'>
+      <div className='border-secondaryLighter relative rounded-md border-1 px-4 py-4 shadow-md sm:px-12 xl:px-24 xl:py-9'>
         <House
           color='var(--value1)'
           completedCleaningTasks={completedCleaningTasks}

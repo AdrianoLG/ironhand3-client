@@ -1,6 +1,6 @@
-import { Button } from '../../../components/atoms'
-import { iPlant } from '../types/garden'
-import SpecieInfo from './SpecieInfo'
+import { Button } from '../../../components/atoms';
+import { iPlant } from '../types/garden';
+import SpecieInfo from './SpecieInfo';
 
 const PlantHoverCard = ({
   showHoverCard,
@@ -17,7 +17,7 @@ const PlantHoverCard = ({
 }) => {
   return (
     <div
-      className={`${showHoverCard ? 'absolute' : 'hidden'} text-secondary top-1/2 left-1/2 z-10 w-96 -translate-1/2 pt-1 transition-all duration-200 ease-out`}
+      className={`${showHoverCard ? 'absolute' : 'hidden'} text-secondary top-1/2 left-1/2 z-10 w-96 max-w-[90vw] -translate-1/2 pt-1 transition-all duration-200 ease-out`}
     >
       <div className='border-r-secondaryLight absolute top-1/2 -left-1 z-20 h-0 w-0 -translate-y-1/2 border-t-4 border-r-4 border-b-4 border-t-transparent border-b-transparent'></div>
       <div className='bg-primary border-secondaryLight overflow-clip rounded-md border-1 px-4 shadow-md'>
